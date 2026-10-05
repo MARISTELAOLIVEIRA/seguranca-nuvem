@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- EDITE AQUI: número e tema da aula -->
+  <title>Aula 8: Avaliação do 1º bimestre · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 8 de Segurança em Nuvem: avaliação bimestral objetiva sobre as Unidades 1 e 2.">
+
+  <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script src="../assets/js/placa.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@100..125,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../assets/css/estilo.css">
+  <link rel="stylesheet" href="../assets/css/disciplina.css">
+  <link rel="stylesheet" href="../assets/css/aula.css">
+  <link rel="stylesheet" href="../assets/css/neon.css">
+</head>
+<body>
+
+  <!-- ===================== BARRA DO TOPO (igual em todos os sites) ===================== -->
+  <header class="barra">
+    <div class="envolve">
+      <div class="marcas">
+        <a class="marca" href="/" title="Portal da Stela">
+          <img src="../assets/img/estrela.webp" alt="" width="26" height="24">
+          <span class="marca-texto">Stela</span>
+        </a>
+        <a class="marca-disc" href="../" title="Página inicial da disciplina">Nuvem</a>
+      </div>
+      <button type="button" class="btn-menu" id="btn-menu" aria-expanded="false" aria-controls="menu">Menu</button>
+      <nav class="nav" id="menu" aria-label="Partes da aula">
+        <a href="../#aulas">← Todas as aulas</a>
+        <a href="#roteiro">Roteiro</a>
+        <a href="#caso">Caso</a>
+        <a href="#atividade">Atividade</a>
+        <a href="#materiais">Materiais</a>
+        <a href="#entrega">Entrega</a>
+      </nav>
+      <div class="ajustes">
+        <button type="button" id="btn-tema" aria-label="Mudar para o tema claro">
+          <svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg>
+        </button>
+        <button type="button" id="btn-fonte" aria-label="Aumentar o tamanho do texto">A+</button>
+        <button type="button" id="btn-movimento" aria-pressed="false">
+          <svg class="pausar" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="tocar" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>
+          <span class="rotulo">Pausar animações</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <!-- ===================== CABEÇALHO DA AULA ===================== -->
+    <section class="aula-cab">
+      <canvas class="chuva-matrix" aria-hidden="true"></canvas>
+      <div class="envolve">
+        <p class="trilha-migalhas">
+          <a href="/">Stela</a> <span aria-hidden="true">/</span>
+          <a href="../">Segurança em Nuvem</a> <span aria-hidden="true">/</span>
+          <a href="../#aulas">Aulas</a> <span aria-hidden="true">/</span>
+          <span>Aula 8</span>
+        </p>
+
+        <!-- EDITE AQUI: número, tipo de aula, unidade, título e datas -->
+        <div class="aula-etiquetas">
+          <span class="etiqueta ouro">Aula 8</span>
+          <span class="etiqueta">Avaliação</span>
+          <span class="etiqueta">Unidades 1 e 2</span>
+        </div>
+        <h1>Dia de avaliação. Respira.</h1>
+        <p class="subtitulo">Prova objetiva das Unidades 1 e 2: fundamentos, acesso e infraestrutura.</p>
+
+        <div class="datas">
+          <span class="data">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>
+            <strong>Manhã</strong> quarta, 30/09
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== RESUMO ===================== -->
+    <section class="bloco faixa alt" aria-label="Resumo da aula">
+      <div class="envolve">
+        <div class="resumo">
+          <div class="cartao">
+            <span class="olho">Objetivo do dia</span>
+            <p>Mostrar o que você aprendeu nas Unidades 1 e 2.</p>
+          </div>
+          <div class="cartao">
+            <span class="olho">Antes da aula</span>
+            <p>Estudar os conteúdos e os módulos do Cloud Security Foundations.</p>
+          </div>
+          <div class="cartao">
+            <span class="olho">Como conta ponto</span>
+            <p>Prova objetiva individual (6,0 pontos).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="bloco">
+      <div class="envolve aula-corpo">
+
+        <!-- ===================== ROTEIRO DO ENCONTRO ===================== -->
+        <section class="parte" id="roteiro">
+          <div class="cab">
+            <span class="olho">R1 · roteiro</span>
+            <h2>Como foi o encontro</h2>
+          </div>
+          <ol class="log">
+          <li class="commit"><div class="commit-linha"><h3>Revisão rápida</h3><span class="hash">R1</span></div><p>As últimas dúvidas.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Prova objetiva</h3><span class="hash">R2</span></div><p>Individual. Vale 6,0 pontos.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Depois da prova</h3><span class="hash">R3</span></div><p>Continuar o curso Cloud Security Foundations.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Autoavaliação</h3><span class="hash">R4</span></div><p>O que eu já domino e o que preciso reforçar no próximo bimestre.</p></li>
+          </ol>
+        </section>
+
+        <!-- ===================== ESTUDO DE CASO ===================== -->
+        <section class="parte" id="caso">
+          <div class="cab">
+            <span class="olho">EC1 · estudo de caso</span>
+            <h2>Revisão relâmpago: a farmácia</h2>
+          </div>
+          <div class="cartao caso">
+            <p>A Farmácia Dose Certa (fictícia) usa SaaS para o e-mail, um banco gerenciado para as receitas e uma máquina virtual para o site. Todos os funcionários usam a mesma conta, sem MFA.</p>
+            <h3>Para discutir em grupo</h3>
+            <ol>
+              <li>Em cada serviço, o que é responsabilidade da farmácia?</li>
+              <li>Quais dois controles você aplicaria primeiro?</li>
+            </ol>
+            <p class="fonte">Caso fictício, criado para a aula.</p>
+          </div>
+        </section>
+
+        <!-- ===================== ATIVIDADE ===================== -->
+        <section class="parte" id="atividade">
+          <div class="cab">
+            <span class="olho">A1 · atividade</span>
+            <h2>Checklist de estudo</h2>
+            <p>Para usar antes da avaliação. O que você marcar fica salvo neste navegador.</p>
+          </div>
+
+          <div class="cartao">
+            <div class="progresso-atividade" data-progresso="passos-aula-08">
+              <span class="contagem">0 de 8</span>
+              <span class="barra-progresso"><span></span></span>
+            </div>
+            <ol class="checklist" id="passos-aula-08">
+              <li><label><input type="checkbox"><span>IaaS, PaaS e SaaS, e os modelos de implantação.</span></label></li>
+              <li><label><input type="checkbox"><span>Regiões e zonas de disponibilidade.</span></label></li>
+              <li><label><input type="checkbox"><span>Responsabilidade compartilhada: da nuvem e na nuvem.</span></label></li>
+              <li><label><input type="checkbox"><span>Os pilares e os princípios (menor privilégio, rastreabilidade, camadas).</span></label></li>
+              <li><label><input type="checkbox"><span>Usuários, grupos, funções e políticas.</span></label></li>
+              <li><label><input type="checkbox"><span>MFA e credenciais temporárias.</span></label></li>
+              <li><label><input type="checkbox"><span>VPC, sub-redes, grupos de segurança e ACLs.</span></label></li>
+              <li><label><input type="checkbox"><span>Fiz o quiz de segurança na AWS.</span></label></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ===================== MATERIAIS ===================== -->
+        <section class="parte" id="materiais">
+          <div class="cab">
+            <span class="olho">J1 · materiais</span>
+            <h2>Para estudar e praticar</h2>
+          </div>
+          <div class="repos">
+            <a class="repo luz" href="../quiz/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>seguranca-nuvem/quiz</span>
+              <h4>Quiz: segurança na AWS</h4>
+              <p>20 questões embaralhadas para revisar.</p>
+              <span class="repo-pe"><span class="ling" style="--cor:#ecc874"><i></i>Quiz</span><span class="etiqueta">revisão</span></span>
+            </a>
+            <a class="repo luz" href="/CLOUDQUEST/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>CLOUDQUEST</span>
+              <h4>Cloud Quest</h4>
+              <p>Quiz de fundamentos de nuvem.</p>
+              <span class="repo-pe"><span class="ling" style="--cor:#ecc874"><i></i>Quiz</span><span class="etiqueta">revisão</span></span>
+            </a>
+            <a class="repo luz" href="https://www.awsacademy.com/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Academy</span>
+              <h4>Cloud Security Foundations</h4>
+              <p>A trilha a distância da disciplina (10h), com laboratórios na nuvem de verdade.</p>
+              <span class="repo-pe"><span class="ling" style="--cor:#1ba0d7"><i></i>Plataforma</span><span class="etiqueta">trilha</span></span>
+            </a>
+          </div>
+        </section>
+
+        <!-- ===================== ENTREGA ===================== -->
+        <section class="parte" id="entrega">
+          <div class="cartao entrega">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <div>
+              <span class="olho">E1 · entrega</span>
+              <h3>A avaliação, no fim do encontro</h3>
+              <p>Na próxima aula tem correção comentada, e a proteção de infraestrutura continua.</p>
+            </div>
+          </div>
+        </section>
+
+        <nav class="nav-aulas" aria-label="Outras aulas">
+          <!-- EDITE AQUI: use <a href="aula-NN.html"> quando a página da aula vizinha for liberada; <span> enquanto não for -->
+          <a class="anterior" href="aula-07.html">
+            <span class="olho">← aula anterior</span>
+            <strong>Aula 7: Revisão e atividade avaliativa prática</strong>
+          </a>
+          <span class="proxima">
+            <span class="olho">próxima aula →</span>
+            <strong>Aula 9: Servidores e borda</strong>
+          </span>
+        </nav>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="envolve">
+      <div class="rodape-fim" style="margin-top:0; padding-top:0; border-top:0">
+        <span><a href="../">Segurança em Nuvem</a> · Feito com ♥ e sucata eletrônica.</span>
+        <span>aws iam get-user --user-name filhotes</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ícone de repositório (Octicons, licença MIT) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="ic-repo" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/></symbol>
+  </svg>
+
+  <script src="../assets/js/aulas.js"></script>
+  <script src="../assets/js/matrix.js"></script>
+</body>
+</html>

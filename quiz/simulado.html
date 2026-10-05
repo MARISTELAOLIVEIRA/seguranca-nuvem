@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulado AWS Certified Security – Specialty (SCS-C02)</title>
+  <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root{
+      --bg:#050816;
+      --panel:#0b1023;
+      --panel-2:#111833;
+      --border:#2ef2ff44;
+      --cyan:#2ef2ff;
+      --pink:#ff2fd1;
+      --green:#27f59a;
+      --yellow:#ffd166;
+      --red:#ff4d6d;
+      --text:#e8f7ff;
+      --muted:#9fc8d8;
+      --shadow:0 0 20px rgba(46,242,255,.15), 0 0 40px rgba(255,47,209,.08);
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(46,242,255,.10), transparent 25%),
+        radial-gradient(circle at top right, rgba(255,47,209,.08), transparent 25%),
+        linear-gradient(135deg, #030612, #08101f 50%, #030612);
+      overflow-x:hidden;
+      position:relative;
+      padding:24px;
+    }
+
+    #particles{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .container{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .title-box, .card, .result-box{
+      background:linear-gradient(180deg, rgba(17,24,51,.9), rgba(8,14,30,.92));
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+
+    .title-box{
+      margin-bottom:18px;
+    }
+
+    h1{
+      color:var(--cyan);
+      font-size:2rem;
+      margin-bottom:8px;
+      text-shadow:0 0 12px rgba(46,242,255,.35);
+      letter-spacing:.5px;
+    }
+
+    h2{
+      color:var(--green);
+      margin-bottom:14px;
+      text-shadow:0 0 12px rgba(39,245,154,.25);
+    }
+
+    .subtitle{
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .meta-list{
+      margin-top:12px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .grid{
+      display:grid;
+      gap:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      color:var(--cyan);
+      margin-bottom:10px;
+      letter-spacing:.3px;
+    }
+
+    input[type="text"]{
+      width:100%;
+      background:#030816;
+      color:var(--text);
+      border:1px solid #2ef2ff55;
+      border-radius:12px;
+      padding:14px 14px;
+      font-size:15px;
+      outline:none;
+      margin-bottom:16px;
+      box-shadow:inset 0 0 10px rgba(46,242,255,.08);
+    }
+
+    input[type="text"]:focus{
+      border-color:var(--cyan);
+      box-shadow:0 0 0 3px rgba(46,242,255,.12), inset 0 0 10px rgba(46,242,255,.08);
+    }
+
+    button{
+      border:none;
+      border-radius:12px;
+      padding:12px 18px;
+      cursor:pointer;
+      font-size:15px;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .btn-primary{
+      background:linear-gradient(90deg, var(--cyan), #26b7ff);
+      color:#03111a;
+      box-shadow:0 0 16px rgba(46,242,255,.35);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px) scale(1.01);
+      box-shadow:0 0 24px rgba(46,242,255,.45);
+    }
+
+    .btn-secondary{
+      background:linear-gradient(90deg, var(--pink), #ff7ac8);
+      color:#1b0720;
+      box-shadow:0 0 16px rgba(255,47,209,.25);
+    }
+
+    .btn-next{
+      background:linear-gradient(90deg, var(--green), #7dffbf);
+      color:#052014;
+      box-shadow:0 0 14px rgba(39,245,154,.25);
+    }
+
+    .btn-next:disabled{
+      background:#324457;
+      color:#9db2c0;
+      box-shadow:none;
+      cursor:not-allowed;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg, rgba(17,24,51,.88), rgba(7,12,26,.92));
+      border:1px solid #2ef2ff33;
+      border-radius:14px;
+      padding:12px;
+      color:var(--text);
+      font-size:14px;
+      text-align:center;
+    }
+
+    .badge strong{
+      color:var(--cyan);
+      display:block;
+      margin-bottom:4px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+    }
+
+    .progress-bar{
+      width:100%;
+      height:14px;
+      border-radius:999px;
+      overflow:hidden;
+      background:#08111f;
+      border:1px solid #2ef2ff33;
+      margin-bottom:18px;
+    }
+
+    .progress{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--cyan), var(--pink), var(--green));
+      box-shadow:0 0 16px rgba(46,242,255,.45);
+      transition:width .35s ease;
+    }
+
+    .question-type{
+      display:inline-block;
+      margin-bottom:12px;
+      font-size:12px;
+      font-weight:bold;
+      color:#04141a;
+      background:linear-gradient(90deg, var(--yellow), #ffe8a3);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    .question-text{
+      font-size:1.18rem;
+      line-height:1.5;
+      margin-bottom:18px;
+      color:#f6fdff;
+    }
+
+    .options{
+      display:grid;
+      gap:12px;
+    }
+
+    .option-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(17,24,51,.88), rgba(9,14,31,.95));
+      border:1px solid #385275;
+      color:var(--text);
+      padding:15px;
+      border-radius:14px;
+      transition:.2s ease;
+      cursor:pointer;
+    }
+
+    .option-item:hover{
+      border-color:var(--cyan);
+      box-shadow:0 0 18px rgba(46,242,255,.12);
+      transform:translateY(-1px);
+    }
+
+    .option-item.correct{
+      background:linear-gradient(180deg, rgba(12,64,43,.95), rgba(6,36,25,.98));
+      border-color:var(--green);
+    }
+
+    .option-item.wrong{
+      background:linear-gradient(180deg, rgba(78,17,31,.95), rgba(48,10,19,.98));
+      border-color:var(--red);
+    }
+
+    .option-item.missed{
+      background:linear-gradient(180deg, rgba(89,70,9,.95), rgba(58,44,5,.98));
+      border-color:var(--yellow);
+    }
+
+    .option-input{
+      margin-top:3px;
+      transform:scale(1.15);
+      accent-color: var(--cyan);
+      cursor:pointer;
+    }
+
+    .option-label{
+      flex:1;
+      line-height:1.45;
+      font-size:15px;
+      cursor:pointer;
+    }
+
+    .feedback{
+      margin-top:16px;
+      min-height:60px;
+      border-radius:12px;
+      padding:14px;
+      font-size:15px;
+      line-height:1.5;
+      border:1px solid #2ef2ff22;
+      background:rgba(8,16,33,.7);
+      color:var(--muted);
+    }
+
+    .feedback.ok{
+      border-color:#27f59a55;
+      color:#ccffe9;
+      background:rgba(6,36,25,.55);
+    }
+
+    .feedback.no{
+      border-color:#ff4d6d55;
+      color:#ffe2e8;
+      background:rgba(48,10,19,.5);
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    .small{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .cyber-line{
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin:16px 0;
+      opacity:.7;
+    }
+
+    .analysis-list{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .analysis-item{
+      background:rgba(7,15,29,.7);
+      border:1px solid #2ef2ff22;
+      border-radius:12px;
+      padding:12px;
+      color:var(--muted);
+    }
+
+    .ranking-box{
+      margin-top:18px;
+      background:rgba(8,14,30,.75);
+      border:1px solid #2ef2ff22;
+      border-radius:16px;
+      padding:16px;
+    }
+
+    .ranking-box h3{
+      color:var(--cyan);
+      margin-bottom:10px;
+    }
+
+    .ranking-box ol{
+      margin-left:20px;
+      line-height:1.7;
+      color:var(--text);
+    }
+
+    .footer-cyber{
+      text-align:center;
+      margin-top:28px;
+      padding:14px;
+      font-size:13px;
+      color:#2ef2ff;
+      border-top:1px solid rgba(46,242,255,0.3);
+      background:rgba(5,8,22,0.35);
+      backdrop-filter:blur(6px);
+      text-shadow:0 0 8px rgba(46,242,255,0.5);
+      border-radius:12px;
+    }
+
+    .footer-cyber .divider{
+      margin:0 8px;
+      color:#ff2fd1;
+    }
+
+    @media (max-width: 640px){
+      body{ padding:14px; }
+      h1{ font-size:1.55rem; }
+      .question-text{ font-size:1.05rem; }
+      .title-box, .card, .result-box{ padding:16px; }
+    }
+.top-link{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: linear-gradient(90deg, var(--pink), #ff7ac8);
+  color: #1b0720;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(255,47,209,.25);
+  transition: .2s ease;
+  font-size: 14px;
+}
+
+.top-link:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(255,47,209,.35);
+} 
+
+/* link de volta para a página da disciplina (canto esquerdo, no mesmo estilo do botão do simulado) */
+.back-link{
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--cyan), #8ef8ff);
+  color: #04121a;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(46,242,255,.25);
+  font-size: 14px;
+}
+.back-link .curto{ display: none; }
+@media (max-width: 520px){
+  .back-link .longo{ display: none; }
+  .back-link .curto{ display: inline; }
+  .back-link, .top-link{ font-size: 12px; padding: 8px 10px; }
+}
+  </style>
+</head>
+<body>
+  <a class="back-link" href="../"><span class="longo">← Segurança em Nuvem</span><span class="curto">← Nuvem</span></a>
+    <a class="top-link" href="index.html"> ⚡ Quiz — Segurança na AWS</a>
+    <br>
+    <br>
+    <br>
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <div class="title-box">
+      <h1>🛡️ Simulado — AWS Certified Security – Specialty (SCS-C02)</h1>
+      <p class="subtitle">
+        Simulado inspirado no estilo da certificação AWS Certified Security – Specialty. Inclui questões de múltipla escolha e múltipla resposta, com análise automática ao final.
+      </p>
+      <div class="meta-list">
+        • Total de questões: 30<br>
+        • Estilo: cenário e tomada de decisão em segurança AWS<br>
+        • Tipos: resposta única e múltiplas respostas<br>
+        • Objetivo: treino para certificação e revisão avançada
+      </div>
+    </div>
+
+    <div id="start-screen" class="grid">
+      <div class="card">
+        <label for="studentName">Nome completo do aluno</label>
+        <input type="text" id="studentName" placeholder="Digite seu nome completo" />
+        <button id="startBtn" class="btn-primary">Iniciar Simulado</button>
+      </div>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+      <div class="stats">
+        <div class="badge"><strong>Aluno</strong><span id="studentBadge">-</span></div>
+        <div class="badge"><strong>Questão</strong><span id="questionCounter">1 de 20</span></div>
+        <div class="badge"><strong>Acertos</strong><span id="scoreCounter">0</span></div>
+        <div class="badge"><strong>Tempo</strong><span id="timer">00:00</span></div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="card">
+        <div class="question-type" id="questionType"></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+        <div class="feedback" id="feedback">Selecione sua resposta e clique em “Confirmar resposta”.</div>
+
+        <div class="row">
+          <div class="small">Em questões de múltipla resposta, selecione todas as alternativas corretas.</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="submitBtn" class="btn-primary">Confirmar resposta</button>
+            <button id="nextBtn" class="btn-next" disabled>Próxima</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="result-screen" class="hidden">
+      <div class="result-box" id="captureArea">
+        <h2>✅ Simulado Finalizado</h2>
+        <div class="cyber-line"></div>
+        <p><strong>Aluno:</strong> <span id="resultName"></span></p>
+        <p><strong>Pontuação:</strong> <span id="resultScore"></span></p>
+        <p><strong>Aproveitamento:</strong> <span id="resultPercent"></span></p>
+        <p><strong>Tempo total:</strong> <span id="resultTime"></span></p>
+        <p><strong>Data/Hora:</strong> <span id="resultDateTime"></span></p>
+        <p><strong>Nível:</strong> <span id="resultLevel"></span></p>
+
+        <div class="analysis-list" id="analysisList"></div>
+
+        <div class="ranking-box">
+          <h3>🏆 Ranking local</h3>
+          <ol id="rankingList"></ol>
+        </div>
+
+        <div class="cyber-line"></div>
+        <p style="color: var(--muted);">Você pode salvar um print desta tela e compartilhar o resultado.</p>
+
+        <div class="row" style="margin-top:18px;">
+          <div class="small">Prof.ª Maristela acompanha o desempenho para orientar o treino.</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <button id="captureBtn" class="btn-primary">Salvar imagem do resultado</button>
+            <button onclick="location.reload()" class="btn-secondary">Refazer Simulado</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer-cyber">
+      👩🏻‍💻 Prof.ª Maristela <span class="divider">|</span> maristela33781197@edu.df.senac.br
+    </footer>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        type: "single",
+        domain: "IAM",
+        question: "Uma empresa deseja aplicar o princípio do menor privilégio para desenvolvedores que acessam apenas logs e métricas. Qual é a melhor abordagem?",
+        options: [
+          "Conceder AdministratorAccess temporariamente",
+          "Criar políticas específicas por função com apenas permissões necessárias",
+          "Compartilhar a conta root para atividades pontuais",
+          "Usar um único usuário genérico para toda a equipe"
+        ],
+        correct: [1],
+        explanation: "A prática correta é criar políticas específicas e limitadas por função, seguindo o princípio do menor privilégio."
+      },
+      {
+        type: "multiple",
+        domain: "IAM",
+        question: "Uma conta AWS precisa ser protegida contra comprometimento de credenciais. Quais ações ajudam diretamente?",
+        options: [
+          "Habilitar MFA",
+          "Rotacionar chaves e credenciais",
+          "Abrir porta 22 para 0.0.0.0/0",
+          "Usar credenciais permanentes em scripts públicos"
+        ],
+        correct: [0,1],
+        explanation: "MFA e rotação de credenciais reduzem muito o risco de uso indevido de credenciais comprometidas."
+      },
+      {
+        type: "single",
+        domain: "Detection and Monitoring",
+        question: "Qual serviço da AWS registra chamadas de API e eventos administrativos para auditoria?",
+        options: ["CloudWatch", "CloudTrail", "GuardDuty", "Inspector"],
+        correct: [1],
+        explanation: "CloudTrail registra chamadas de API e eventos da conta, sendo essencial para auditoria."
+      },
+      {
+        type: "single",
+        domain: "Detection and Monitoring",
+        question: "Uma equipe quer detectar comportamento suspeito, como logins incomuns e chamadas anômalas. Qual serviço é mais adequado?",
+        options: ["IAM", "GuardDuty", "S3 Inventory", "AWS Budgets"],
+        correct: [1],
+        explanation: "O GuardDuty analisa eventos e identifica ameaças e padrões suspeitos automaticamente."
+      },
+      {
+        type: "single",
+        domain: "Data Protection",
+        question: "Uma empresa precisa gerenciar chaves de criptografia para dados armazenados em vários serviços AWS. Qual serviço usar?",
+        options: ["IAM", "KMS", "Inspector", "Shield"],
+        correct: [1],
+        explanation: "O AWS KMS é o serviço principal para gerenciamento de chaves criptográficas."
+      },
+      {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Um bucket S3 foi configurado como público sem necessidade. Qual é o principal risco?",
+        options: [
+          "Melhora automática de performance",
+          "Vazamento de dados",
+          "Redução do custo de armazenamento",
+          "Maior tolerância a falhas"
+        ],
+        correct: [1],
+        explanation: "Buckets públicos podem expor dados sensíveis e causar incidentes graves de confidencialidade."
+      },
+      {
+        type: "multiple",
+        domain: "Detection and Monitoring",
+        question: "Quais serviços ajudam na detecção e centralização de alertas de segurança na AWS?",
+        options: [
+          "GuardDuty",
+          "Security Hub",
+          "Route 53",
+          "S3 Glacier"
+        ],
+        correct: [0,1],
+        explanation: "GuardDuty detecta ameaças e Security Hub centraliza e organiza descobertas de segurança."
+      },
+      {
+        type: "single",
+        domain: "Shared Responsibility",
+        question: "No modelo de responsabilidade compartilhada, quem protege o data center físico da AWS?",
+        options: ["Cliente", "AWS", "Administrador IAM", "Equipe de desenvolvimento"],
+        correct: [1],
+        explanation: "A AWS é responsável pela segurança da infraestrutura física e da nuvem."
+      },
+      {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Qual recurso da AWS é usado como firewall virtual em nível de instância EC2?",
+        options: ["IAM Policies", "Security Groups", "KMS", "Lambda Layers"],
+        correct: [1],
+        explanation: "Security Groups controlam tráfego permitido para instâncias EC2."
+      },
+      {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Abrir a porta 22 para 0.0.0.0/0 em um Security Group significa:",
+        options: [
+          "Restringir SSH a um IP corporativo",
+          "Permitir SSH a partir de qualquer origem na internet",
+          "Ativar criptografia automática",
+          "Desabilitar acesso remoto"
+        ],
+        correct: [1],
+        explanation: "Isso expõe SSH ao mundo inteiro e aumenta o risco de força bruta e comprometimento."
+      },
+      {
+        type: "single",
+        domain: "Data Protection",
+        question: "Qual serviço ajuda a identificar dados sensíveis armazenados em buckets S3?",
+        options: ["Macie", "Shield", "Athena", "SNS"],
+        correct: [0],
+        explanation: "Amazon Macie identifica e classifica dados sensíveis no S3."
+      },
+      {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Qual serviço é usado para análise de vulnerabilidades em workloads e instâncias?",
+        options: ["GuardDuty", "Inspector", "S3", "CloudFront"],
+        correct: [1],
+        explanation: "Amazon Inspector ajuda a detectar vulnerabilidades e exposições."
+      },
+      {
+        type: "single",
+        domain: "Detection and Monitoring",
+        question: "Qual serviço monitora métricas e logs de aplicações e infraestrutura na AWS?",
+        options: ["CloudWatch", "IAM", "Shield", "Macie"],
+        correct: [0],
+        explanation: "CloudWatch monitora métricas, alarmes e logs."
+      },
+      {
+        type: "single",
+        domain: "IAM",
+        question: "Qual prática reduz significativamente o risco de uso indevido de contas administrativas?",
+        options: ["MFA", "Criar buckets públicos", "Desativar logs", "Compartilhar acessos"],
+        correct: [0],
+        explanation: "MFA adiciona uma camada extra de autenticação para contas privilegiadas."
+      },
+      {
+        type: "multiple",
+        domain: "Best Practices",
+        question: "Quais das seguintes são boas práticas de segurança na AWS?",
+        options: [
+          "Aplicar Least Privilege",
+          "Habilitar MFA",
+          "Permitir acesso amplo por padrão",
+          "Monitorar e revisar logs continuamente"
+        ],
+        correct: [0,1,3],
+        explanation: "Least Privilege, MFA e monitoramento contínuo são práticas essenciais de segurança."
+      },
+      {
+        type: "single",
+        domain: "Cloud Models",
+        question: "Qual modelo de serviço fornece infraestrutura virtual, como servidores e redes?",
+        options: ["SaaS", "IaaS", "PaaS", "FaaS"],
+        correct: [1],
+        explanation: "IaaS fornece infraestrutura básica como máquinas virtuais e redes."
+      },
+      {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Qual serviço da AWS ajuda a proteger aplicações web contra ataques como SQL Injection e XSS?",
+        options: ["WAF", "IAM", "EC2", "RDS"],
+        correct: [0],
+        explanation: "AWS WAF protege aplicações web filtrando ataques comuns."
+      },
+      {
+        type: "single",
+        domain: "Data Protection",
+        question: "Qual serviço é mais adequado para armazenar segredos e credenciais com rotação automática?",
+        options: ["Secrets Manager", "S3", "Lambda", "Route 53"],
+        correct: [0],
+        explanation: "AWS Secrets Manager foi criado para armazenar e rotacionar segredos."
+      },
+      {
+        type: "single",
+        domain: "Fundamentals",
+        question: "Qual princípio da segurança garante que dados não sejam alterados sem autorização?",
+        options: ["Integridade", "Disponibilidade", "Confidencialidade", "Escalabilidade"],
+        correct: [0],
+        explanation: "Integridade protege dados contra modificação indevida."
+      },
+      {
+        type: "single",
+        domain: "Architecture",
+        question: "O princípio Zero Trust aplicado à nuvem significa:",
+        options: [
+          "Confiar automaticamente em qualquer acesso interno",
+          "Não confiar automaticamente em nenhum acesso",
+          "Desabilitar monitoramento para reduzir custo",
+          "Permitir acesso amplo para facilitar operação"
+        ],
+        correct: [1],
+        explanation: "Zero Trust exige verificação contínua e não presume confiança implícita."
+      },
+      {
+        type: "single",
+        domain: "IAM",
+        question: "Uma empresa deseja permitir que aplicações em instâncias EC2 acessem recursos AWS sem armazenar chaves de acesso no código. Qual é a melhor solução?",
+        options: [
+            "Criar um usuário IAM e salvar Access Keys no servidor",
+            "Usar uma IAM Role associada à instância EC2",
+            "Compartilhar a conta root entre as aplicações",
+            "Salvar credenciais em um bucket S3 público"
+        ],
+        correct: [1],
+        explanation: "A prática correta é usar IAM Role associada à instância, evitando credenciais fixas no código."
+        },
+        {
+        type: "multiple",
+        domain: "Data Protection",
+        question: "Uma empresa quer proteger dados sensíveis armazenados no S3. Quais medidas são apropriadas?",
+        options: [
+            "Habilitar criptografia no bucket",
+            "Bloquear acesso público",
+            "Desativar versionamento para reduzir custo",
+            "Usar políticas IAM restritivas"
+        ],
+        correct: [0,1,3],
+        explanation: "Criptografia, bloqueio de acesso público e permissões restritivas são medidas corretas para proteger dados no S3."
+        },
+        {
+        type: "single",
+        domain: "Detection and Monitoring",
+        question: "Qual serviço da AWS permite criar alarmes com base em métricas e eventos monitorados?",
+        options: [
+            "CloudWatch",
+            "IAM",
+            "KMS",
+            "Macie"
+        ],
+        correct: [0],
+        explanation: "O CloudWatch permite monitorar métricas e configurar alarmes para eventos e comportamentos anômalos."
+        },
+        {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Qual recurso de rede da AWS atua em nível de subnet e pode permitir ou negar tráfego de entrada e saída?",
+        options: [
+            "Network ACL",
+            "IAM Policy",
+            "Route Table",
+            "KMS Key"
+        ],
+        correct: [0],
+        explanation: "Network ACL atua em nível de subnet, enquanto Security Group atua em nível de instância."
+        },
+        {
+        type: "multiple",
+        domain: "Incident Response",
+        question: "Durante uma investigação de incidente, quais ações ajudam a preservar evidências e apoiar análise forense?",
+        options: [
+            "Registrar eventos com CloudTrail",
+            "Manter logs centralizados e protegidos",
+            "Apagar instâncias comprometidas imediatamente sem coleta",
+            "Capturar informações relevantes antes da remediação"
+        ],
+        correct: [0,1,3],
+        explanation: "CloudTrail, centralização de logs e coleta adequada de evidências ajudam na investigação. Apagar tudo imediatamente pode destruir evidências."
+        },
+        {
+        type: "single",
+        domain: "Data Protection",
+        question: "Qual é o principal benefício do versionamento em um bucket S3 do ponto de vista de segurança e recuperação?",
+        options: [
+            "Permitir recuperação de versões anteriores de objetos",
+            "Substituir totalmente a criptografia",
+            "Eliminar a necessidade de backup",
+            "Tornar o bucket automaticamente privado"
+        ],
+        correct: [0],
+        explanation: "O versionamento permite recuperar versões anteriores e ajuda em cenários de exclusão acidental ou alteração indevida."
+        },
+        {
+        type: "single",
+        domain: "IAM",
+        question: "Uma organização quer impor regras centralizadas para várias contas AWS e aplicar governança de segurança. Qual serviço é mais apropriado?",
+        options: [
+            "AWS Organizations",
+            "Amazon S3",
+            "AWS Shield",
+            "Amazon Inspector"
+        ],
+        correct: [0],
+        explanation: "AWS Organizations ajuda a centralizar governança e controle em ambientes com múltiplas contas."
+        },
+        {
+        type: "multiple",
+        domain: "Detection and Monitoring",
+        question: "Quais serviços podem contribuir para visão consolidada de postura de segurança na AWS?",
+        options: [
+            "Security Hub",
+            "AWS Config",
+            "GuardDuty",
+            "Amazon Route 53"
+        ],
+        correct: [0,1,2],
+        explanation: "Security Hub centraliza descobertas, AWS Config monitora conformidade e GuardDuty detecta ameaças."
+        },
+        {
+        type: "single",
+        domain: "Infrastructure Security",
+        question: "Uma aplicação web pública precisa de proteção contra ataques de camada 7, como SQL Injection e XSS. Qual combinação é mais adequada?",
+        options: [
+            "AWS WAF na frente da aplicação",
+            "Apenas IAM Users",
+            "Somente KMS",
+            "Apenas Secrets Manager"
+        ],
+        correct: [0],
+        explanation: "AWS WAF é o serviço apropriado para proteção de aplicações web contra ataques comuns de camada 7."
+        },
+        {
+        type: "single",
+        domain: "Shared Responsibility",
+        question: "Em um ambiente Amazon RDS gerenciado pela AWS, qual responsabilidade continua tipicamente com o cliente?",
+        options: [
+            "Configurar controles de acesso e proteger os dados",
+            "Trocar discos físicos do data center",
+            "Manter a segurança física do hardware",
+            "Gerenciar o sistema de refrigeração do data center"
+        ],
+        correct: [0],
+        explanation: "Mesmo em serviços gerenciados, o cliente continua responsável por identidade, permissões, configuração e proteção dos próprios dados."
+        }
+
+    ];
+
+    const startScreen = document.getElementById("start-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultScreen = document.getElementById("result-screen");
+
+    const studentNameInput = document.getElementById("studentName");
+    const startBtn = document.getElementById("startBtn");
+    const studentBadge = document.getElementById("studentBadge");
+    const questionCounter = document.getElementById("questionCounter");
+    const scoreCounter = document.getElementById("scoreCounter");
+    const timerEl = document.getElementById("timer");
+    const progressEl = document.getElementById("progress");
+    const questionType = document.getElementById("questionType");
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const feedbackEl = document.getElementById("feedback");
+    const submitBtn = document.getElementById("submitBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    const resultName = document.getElementById("resultName");
+    const resultScore = document.getElementById("resultScore");
+    const resultPercent = document.getElementById("resultPercent");
+    const resultTime = document.getElementById("resultTime");
+    const resultDateTime = document.getElementById("resultDateTime");
+    const resultLevel = document.getElementById("resultLevel");
+    const analysisList = document.getElementById("analysisList");
+    const rankingList = document.getElementById("rankingList");
+    const captureBtn = document.getElementById("captureBtn");
+
+    let shuffledQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let currentSelections = [];
+    let answered = false;
+    let startTime = null;
+    let timerInterval = null;
+    let studentName = "";
+    const domainStats = {};
+
+    function shuffleArray(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function formatTime(totalSeconds) {
+      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+      const seconds = String(totalSeconds % 60).padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTime(elapsedSeconds);
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      return Math.floor((Date.now() - startTime) / 1000);
+    }
+
+    function arraysEqualAsSets(a, b) {
+      if (a.length !== b.length) return false;
+      const setA = [...a].sort((x,y)=>x-y);
+      const setB = [...b].sort((x,y)=>x-y);
+      return setA.every((v, i) => v === setB[i]);
+    }
+
+    function startQuiz() {
+      studentName = studentNameInput.value.trim();
+      if (!studentName) {
+        alert("Digite o nome completo do aluno.");
+        return;
+      }
+
+      shuffledQuestions = shuffleArray(questions).map(q => {
+        const indexedOptions = q.options.map((text, originalIndex) => ({ text, originalIndex }));
+        const shuffledOptions = shuffleArray(indexedOptions);
+
+        const newCorrect = shuffledOptions
+          .map((opt, newIndex) => q.correct.includes(opt.originalIndex) ? newIndex : null)
+          .filter(v => v !== null);
+
+        return {
+          ...q,
+          options: shuffledOptions.map(opt => opt.text),
+          correct: newCorrect
+        };
+      });
+
+      currentQuestionIndex = 0;
+      score = 0;
+      answered = false;
+      currentSelections = [];
+
+      Object.keys(domainStats).forEach(k => delete domainStats[k]);
+      questions.forEach(q => {
+        if (!domainStats[q.domain]) {
+          domainStats[q.domain] = { total: 0, correct: 0 };
+        }
+      });
+
+      studentBadge.textContent = studentName;
+      scoreCounter.textContent = score;
+
+      startScreen.classList.add("hidden");
+      resultScreen.classList.add("hidden");
+      quizScreen.classList.remove("hidden");
+
+      startTimer();
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      answered = false;
+      currentSelections = [];
+      nextBtn.disabled = true;
+      submitBtn.disabled = false;
+      feedbackEl.className = "feedback";
+      feedbackEl.textContent = "Selecione sua resposta e clique em “Confirmar resposta”.";
+
+      const currentQuestion = shuffledQuestions[currentQuestionIndex];
+      questionText.textContent = currentQuestion.question;
+      questionCounter.textContent = `${currentQuestionIndex + 1} de ${shuffledQuestions.length}`;
+      questionType.textContent = currentQuestion.type === "multiple" ? "Múltiplas respostas" : "Resposta única";
+
+      const progressPercent = (currentQuestionIndex / shuffledQuestions.length) * 100;
+      progressEl.style.width = `${progressPercent}%`;
+
+      optionsContainer.innerHTML = "";
+
+      currentQuestion.options.forEach((option, index) => {
+        const wrapper = document.createElement("label");
+        wrapper.className = "option-item";
+
+        const input = document.createElement("input");
+        input.className = "option-input";
+        input.type = currentQuestion.type === "multiple" ? "checkbox" : "radio";
+        input.name = "question-option";
+        input.value = index;
+
+        input.addEventListener("change", () => {
+          if (answered) return;
+          if (currentQuestion.type === "multiple") {
+            currentSelections = [...document.querySelectorAll(".option-input:checked")].map(el => Number(el.value));
+          } else {
+            currentSelections = [Number(input.value)];
+          }
+        });
+
+        const span = document.createElement("span");
+        span.className = "option-label";
+        span.textContent = option;
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(span);
+        optionsContainer.appendChild(wrapper);
+      });
+    }
+
+    function submitAnswer() {
+      if (answered) return;
+
+      const currentQuestion = shuffledQuestions[currentQuestionIndex];
+
+      if (currentSelections.length === 0) {
+        alert("Selecione pelo menos uma alternativa.");
+        return;
+      }
+
+      answered = true;
+      submitBtn.disabled = true;
+      nextBtn.disabled = false;
+
+      const isCorrect = arraysEqualAsSets(currentSelections, currentQuestion.correct);
+      const domain = currentQuestion.domain;
+      domainStats[domain].total += 1;
+
+      if (isCorrect) {
+        score++;
+        domainStats[domain].correct += 1;
+        scoreCounter.textContent = score;
+        feedbackEl.className = "feedback ok";
+        feedbackEl.innerHTML = `<strong>✔ Resposta correta.</strong><br>${currentQuestion.explanation}`;
+      } else {
+        feedbackEl.className = "feedback no";
+        feedbackEl.innerHTML = `<strong>✘ Resposta incorreta.</strong><br>${currentQuestion.explanation}`;
+      }
+
+      const optionWrappers = document.querySelectorAll(".option-item");
+      optionWrappers.forEach((wrapper, idx) => {
+        const input = wrapper.querySelector(".option-input");
+        input.disabled = true;
+
+        const selected = currentSelections.includes(idx);
+        const correct = currentQuestion.correct.includes(idx);
+
+        if (correct && selected) {
+          wrapper.classList.add("correct");
+        } else if (correct && !selected) {
+          wrapper.classList.add("missed");
+        } else if (!correct && selected) {
+          wrapper.classList.add("wrong");
+        }
+      });
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < shuffledQuestions.length) {
+        renderQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function getLevel(percent) {
+      if (percent <= 50) return "🔴 Iniciante";
+      if (percent <= 75) return "🟡 Intermediário";
+      if (percent <= 90) return "🟢 Avançado";
+      return "🏆 Nível Certificação AWS";
+    }
+
+    function buildAnalysis(percent) {
+      const items = [];
+
+      items.push({
+        title: "Classificação geral",
+        text: `Seu aproveitamento foi de ${percent}%. ${getLevel(percent)}.`
+      });
+
+      const weakDomains = Object.entries(domainStats)
+        .filter(([_, stats]) => stats.total > 0)
+        .map(([domain, stats]) => ({
+          domain,
+          percent: Math.round((stats.correct / stats.total) * 100)
+        }))
+        .sort((a,b) => a.percent - b.percent);
+
+      if (weakDomains.length) {
+        const weakest = weakDomains.slice(0, 3).map(d => `${d.domain} (${d.percent}%)`);
+        items.push({
+          title: "Pontos para reforço",
+          text: `Recomenda-se revisar: ${weakest.join(", ")}.`
+        });
+      }
+
+      const strongDomains = Object.entries(domainStats)
+        .filter(([_, stats]) => stats.total > 0)
+        .map(([domain, stats]) => ({
+          domain,
+          percent: Math.round((stats.correct / stats.total) * 100)
+        }))
+        .sort((a,b) => b.percent - a.percent);
+
+      if (strongDomains.length) {
+        const strongest = strongDomains.slice(0, 3).map(d => `${d.domain} (${d.percent}%)`);
+        items.push({
+          title: "Pontos fortes",
+          text: `Você demonstrou melhor desempenho em: ${strongest.join(", ")}.`
+        });
+      }
+
+      if (percent >= 80) {
+        items.push({
+          title: "Próximo passo",
+          text: "Você já está em um bom nível para avançar em simulados mais próximos da certificação oficial, incluindo questões com múltiplas respostas."
+        });
+      } else {
+        items.push({
+          title: "Próximo passo",
+          text: "Faça novamente o simulado após revisar IAM, monitoramento, proteção de dados e responsabilidade compartilhada."
+        });
+      }
+
+      return items;
+    }
+
+    function saveRanking(name, score, percent, totalSeconds) {
+      const key = "ranking_aws_security_specialty";
+      const ranking = JSON.parse(localStorage.getItem(key) || "[]");
+      ranking.push({
+        name,
+        score,
+        percent,
+        time: totalSeconds,
+        date: new Date().toLocaleString("pt-BR")
+      });
+
+      ranking.sort((a,b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.time - b.time;
+      });
+
+      localStorage.setItem(key, JSON.stringify(ranking.slice(0, 10)));
+      return ranking.slice(0, 10);
+    }
+
+    function renderRanking(ranking) {
+      rankingList.innerHTML = "";
+      ranking.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} — ${item.score}/20 — ${item.percent}% — ${formatTime(item.time)}`;
+        rankingList.appendChild(li);
+      });
+    }
+
+    function finishQuiz() {
+      const totalSeconds = stopTimer();
+      progressEl.style.width = "100%";
+
+      quizScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+
+      const percent = Number(((score / shuffledQuestions.length) * 100).toFixed(0));
+
+      resultName.textContent = studentName;
+      resultScore.textContent = `${score} / ${shuffledQuestions.length}`;
+      resultPercent.textContent = `${percent}%`;
+      resultTime.textContent = formatTime(totalSeconds);
+      resultDateTime.textContent = new Date().toLocaleString("pt-BR");
+      resultLevel.textContent = getLevel(percent);
+
+      const analysis = buildAnalysis(percent);
+      analysisList.innerHTML = "";
+      analysis.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "analysis-item";
+        div.innerHTML = `<strong>${item.title}:</strong> ${item.text}`;
+        analysisList.appendChild(div);
+      });
+
+      const ranking = saveRanking(studentName, score, percent, totalSeconds);
+      renderRanking(ranking);
+    }
+
+    function captureResult() {
+      const target = document.getElementById("captureArea");
+      html2canvas(target, {
+        backgroundColor: "#0b1023",
+        scale: 2
+      }).then(canvas => {
+        const link = document.createElement("a");
+        const safeName = studentName.replace(/\s+/g, "_");
+        link.download = `simulado_aws_security_specialty_${safeName}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+
+    startBtn.addEventListener("click", startQuiz);
+    submitBtn.addEventListener("click", submitAnswer);
+    nextBtn.addEventListener("click", nextQuestion);
+    captureBtn.addEventListener("click", captureResult);
+
+    // Partículas
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.min(120, Math.floor(window.innerWidth / 12));
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 2.2 + 0.4,
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: (Math.random() - 0.5) * 0.5,
+          hue: Math.random() > 0.5 ? 190 : 315
+        });
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.hue}, 100%, 65%, 0.9)`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = `hsla(${p.hue}, 100%, 65%, 0.8)`;
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dist = Math.hypot(p.x - q.x, p.y - q.y);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(46,242,255,${1 - dist / 110})`;
+            ctx.lineWidth = 0.5;
+            ctx.shadowBlur = 0;
+            ctx.stroke();
+          }
+        }
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createParticles();
+    });
+
+    resizeCanvas();
+    createParticles();
+    drawParticles();
+  </script>
+</body>
+</html>

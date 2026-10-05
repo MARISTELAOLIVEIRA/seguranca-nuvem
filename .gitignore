@@ -1,0 +1,8 @@
+# arquivos do Mac e do editor
+.DS_Store
+.vscode/
+
+# notas pessoais e configurações locais do Claude Code
+leia.txt
+CLAUDE.md
+.claude/
