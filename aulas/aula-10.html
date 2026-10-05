@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 9: Servidores e borda · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 9 de Segurança em Nuvem: proteção de instâncias, acesso administrativo seguro, WAF e proteção contra DDoS.">
+  <title>Aula 10: Criptografia e chaves · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 10 de Segurança em Nuvem: classificação de dados, criptografia em repouso e em trânsito e gerenciamento de chaves.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -66,17 +66,17 @@
           <a href="/">Stela</a> <span aria-hidden="true">/</span>
           <a href="../">Segurança em Nuvem</a> <span aria-hidden="true">/</span>
           <a href="../#aulas">Aulas</a> <span aria-hidden="true">/</span>
-          <span>Aula 9</span>
+          <span>Aula 10</span>
         </p>
 
         <!-- EDITE AQUI: número, tipo de aula, unidade, título e datas -->
         <div class="aula-etiquetas">
-          <span class="etiqueta ouro">Aula 9</span>
+          <span class="etiqueta ouro">Aula 10</span>
           <span class="etiqueta">Laboratório de práticas</span>
-          <span class="etiqueta">Unidade 2</span>
+          <span class="etiqueta">Unidade 3</span>
         </div>
-        <h1>Servidor blindado, borda protegida</h1>
-        <p class="subtitulo">Instâncias atualizadas, acesso administrativo sem porta aberta, WAF e DDoS.</p>
+        <h1>Dado embaralhado, chave guardada</h1>
+        <p class="subtitulo">Classificação de dados, criptografia em repouso e em trânsito e quem guarda as chaves.</p>
       </div>
     </section>
 
@@ -86,11 +86,11 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Proteger servidores e o acesso administrativo e conhecer as proteções de borda.</p>
+            <p>Classificar dados e aplicar criptografia com gerenciamento de chaves.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Estudar o módulo de proteção de infraestrutura do Cloud Security Foundations.</p>
+            <p>Estudar o módulo de proteção de dados do Cloud Security Foundations.</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
@@ -107,15 +107,16 @@
         <section class="parte" id="conceitos">
           <div class="cab">
             <span class="olho">C1–C3 · conceitos</span>
-            <h2>Do servidor até a borda</h2>
+            <h2>Proteger o que importa</h2>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr">
             <div class="texto">
               <span class="olho">C1</span>
-              <h3>Protegendo a instância</h3>
-              <p>Sistema atualizado, só as portas necessárias abertas e nada instalado "por via das dúvidas".</p>
-              <p>Acesso administrativo sem expor a porta 22 (SSH) ou 3389 (RDP) para a internet: use um serviço de sessão gerenciada, como o Session Manager, que não precisa de porta aberta.</p>
+              <h3>Classificação de dados</h3>
+              <p>Nem todo dado precisa do mesmo cuidado. Uma classificação simples: <strong>público</strong>, <strong>interno</strong>, <strong>confidencial</strong> e <strong>restrito</strong>.</p>
+              <p>Classificar primeiro diz onde gastar a proteção mais forte.</p>
+              <div class="tabela-rola"><table class="metodos"><thead><tr><th>Nível</th><th>Exemplo</th></tr></thead><tbody><tr><td><code>público</code></td><td>cardápio do site</td></tr><tr><td><code>interno</code></td><td>escala de trabalho</td></tr><tr><td><code>confidencial</code></td><td>salários</td></tr><tr><td><code>restrito</code></td><td>dados de saúde, senhas</td></tr></tbody></table></div>
             </div>
             
           </div>
@@ -123,21 +124,21 @@
           <div class="conceito" style="grid-template-columns:1fr">
             <div class="texto">
               <span class="olho">C2</span>
-              <h3>WAF: o filtro da aplicação</h3>
-              <p>O <strong>firewall de aplicação web</strong> olha o conteúdo das requisições e barra ataques conhecidos, como injeção de SQL e scripts maliciosos, antes de chegarem ao site.</p>
+              <h3>Em repouso e em trânsito</h3>
+              <p><strong>Em repouso</strong>: o dado guardado no disco ou no bucket, criptografado. <strong>Em trânsito</strong>: o dado viajando pela rede, protegido por TLS (o cadeado do HTTPS).</p>
+              <p>Os dois juntos: quem roubar o disco ou espiar a rede só vê embaralhado.</p>
             </div>
             
           </div>
 
-          <div class="conceito" style="grid-template-columns:1fr">
+          <div class="conceito">
             <div class="texto">
               <span class="olho">C3</span>
-              <h3>DDoS: quando o problema é a multidão</h3>
-              <p>No <strong>ataque de negação de serviço distribuído</strong>, milhares de máquinas mandam tráfego ao mesmo tempo até o serviço parar.</p>
-              <p>Na nuvem, a defesa usa a escala do provedor: o tráfego ruim é absorvido e filtrado na borda.</p>
-              <p class="dica"><strong>Dica:</strong> no Azure, os nomes são Azure Firewall, WAF e Azure DDoS Protection.</p>
+              <h3>Gerenciamento de chaves</h3>
+              <p>A criptografia é tão forte quanto o cuidado com a chave. Um serviço de chaves (como o AWS KMS ou o Azure Key Vault) guarda, gira e registra cada uso.</p>
+              <p>Quem pode usar a chave também é uma política de acesso.</p>
             </div>
-            
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span>{</span><span class="linha"><span class="num">2</span>  <span class="str">&quot;Effect&quot;</span>: <span class="str">&quot;Deny&quot;</span>,</span><span class="linha"><span class="num">3</span>  <span class="str">&quot;Principal&quot;</span>: <span class="str">&quot;*&quot;</span>,</span><span class="linha"><span class="num">4</span>  <span class="str">&quot;Action&quot;</span>: <span class="str">&quot;s3:*&quot;</span>,</span><span class="linha"><span class="num">5</span>  <span class="str">&quot;Resource&quot;</span>: <span class="str">&quot;arn:aws:s3:::fichas/*&quot;</span>,</span><span class="linha"><span class="num">6</span>  <span class="str">&quot;Condition&quot;</span>: {</span><span class="linha"><span class="num">7</span>    <span class="str">&quot;Bool&quot;</span>: { <span class="str">&quot;aws:SecureTransport&quot;</span>: <span class="str">&quot;false&quot;</span> }</span><span class="linha"><span class="num">8</span>  }</span><span class="linha"><span class="num">9</span>}</span></code></pre>
           </div>
         </section>
 
@@ -145,18 +146,18 @@
         <section class="parte" id="caso">
           <div class="cab">
             <span class="olho">EC1 · estudo de caso</span>
-            <h2>2,3 terabits por segundo</h2>
+            <h2>O cofre estava trancado. A chave estava em casa.</h2>
           </div>
           <div class="cartao caso">
-            <p>Em fevereiro de 2020, a AWS informou ter barrado um ataque DDoS de 2,3 Tbps contra um cliente, o maior registrado até então. O ataque durou três dias e usou uma técnica de reflexão que multiplica o tráfego.</p>
-            <p>O cliente não teve o serviço derrubado: o tráfego foi absorvido pela proteção na borda.</p>
+            <p>Em 2022, o gerenciador de senhas LastPass teve backups de clientes copiados da nuvem. Os dados estavam criptografados.</p>
+            <p>O atacante invadiu o computador de casa de um engenheiro, instalou um programa que registrava o que ele digitava e conseguiu as chaves que davam acesso aos backups no armazenamento em nuvem.</p>
             <h3>Para discutir em grupo</h3>
             <ol>
-              <li>Por que um servidor sozinho, fora da nuvem, não aguentaria esse volume?</li>
-              <li>O que é responsabilidade do provedor e o que é do cliente num ataque desses?</li>
-              <li>Que outras proteções de borda você colocaria num site de vendas?</li>
+              <li>A criptografia falhou? Ou foi a proteção das chaves?</li>
+              <li>Por que uma chave tão importante estava acessível a partir de um computador pessoal?</li>
+              <li>Que controles das aulas anteriores (acesso, MFA, funções) ajudariam aqui?</li>
             </ol>
-            <p class="fonte">Fonte: <a href="https://www.techzine.eu/news/security/47498/aws-mitigates-largest-ddos-attack-ever-at-2-3-tbps/">Techzine, junho de 2020</a>, a partir do relatório AWS Shield Threat Landscape do 1º trimestre de 2020.</p>
+            <p class="fonte">Fonte: <a href="https://www.securityweek.com/lastpass-says-devops-engineer-home-computer-hacked/">SecurityWeek, março de 2023</a>.</p>
           </div>
         </section>
 
@@ -164,21 +165,21 @@
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Protegendo uma instância</h2>
-            <p>Correção comentada da prova e laboratório. O que você marcar fica salvo neste navegador.</p>
+            <h2>Criptografia no laboratório</h2>
+            <p>No laboratório e no Loop. O que você marcar fica salvo neste navegador.</p>
           </div>
 
           <div class="cartao">
-            <div class="progresso-atividade" data-progresso="passos-aula-09">
+            <div class="progresso-atividade" data-progresso="passos-aula-10">
               <span class="contagem">0 de 6</span>
               <span class="barra-progresso"><span></span></span>
             </div>
-            <ol class="checklist" id="passos-aula-09">
-              <li><label><input type="checkbox"><span>Acompanhei a correção comentada da prova.</span></label></li>
-              <li><label><input type="checkbox"><span>Revisei as portas abertas da minha instância e fechei o que não precisa.</span></label></li>
-              <li><label><input type="checkbox"><span>Conferi as atualizações do sistema.</span></label></li>
-              <li><label><input type="checkbox"><span>Acessei a instância sem porta administrativa aberta (sessão gerenciada).</span></label></li>
-              <li><label><input type="checkbox"><span>Conheci as regras gerenciadas do WAF.</span></label></li>
+            <ol class="checklist" id="passos-aula-10">
+              <li><label><input type="checkbox"><span>Criei uma chave no serviço de gerenciamento de chaves.</span></label></li>
+              <li><label><input type="checkbox"><span>Criptografei um volume de disco.</span></label></li>
+              <li><label><input type="checkbox"><span>Criptografei objetos num bucket com a minha chave.</span></label></li>
+              <li><label><input type="checkbox"><span>Testei: um usuário sem permissão na chave não consegue ler o objeto.</span></label></li>
+              <li><label><input type="checkbox"><span>Montei com o grupo a matriz de classificação de dados de um cliente fictício no Loop.</span></label></li>
               <li><label><input type="checkbox"><span>Entreguei o roteiro de laboratório.</span></label></li>
             </ol>
           </div>
@@ -188,18 +189,18 @@
         <section class="parte" id="steam">
           <div class="cab">
             <span class="olho">S1 · conexão STEAM</span>
-            <h2>Ondas fora da tela</h2>
+            <h2>Segredos fora da tela</h2>
           </div>
           <div class="steam">
             <div class="cartao">
               <span class="letra">M</span>
               <h3>Matemática</h3>
-              <p>2,3 Tbps é cerca de 2,3 trilhões de bits por segundo: o equivalente a milhares de conexões de fibra doméstica ao mesmo tempo.</p>
+              <p>Criptografia é matemática pura: uma chave de 256 bits tem 2²⁵⁶ possibilidades, um número com 78 dígitos. Testar todas não cabe na idade do universo.</p>
             </div>
             <div class="cartao">
-              <span class="letra">E</span>
-              <h3>Engenharia</h3>
-              <p>Proteção de borda é como o quebra-mar de um porto: a onda gigante quebra longe dos barcos.</p>
+              <span class="letra">A</span>
+              <h3>Artes</h3>
+              <p>Antes dos computadores, cifras eram arte: discos de papel, tabelas e tintas invisíveis guardaram segredos por séculos.</p>
             </div>
           </div>
         </section>
@@ -211,23 +212,23 @@
             <h2>Para estudar e praticar</h2>
           </div>
           <div class="repos">
-            <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/waf/latest/developerguide/what-is-aws-waf.html">
+            <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/kms/latest/developerguide/overview.html">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Docs</span>
-              <h4>AWS WAF</h4>
-              <p>O firewall de aplicação web da AWS.</p>
+              <h4>AWS KMS</h4>
+              <p>Como o serviço de chaves funciona.</p>
               <span class="repo-pe"><span class="ling" style="--cor:#9fd0b7"><i></i>Documentação</span><span class="etiqueta">consulta</span></span>
-            </a>
-            <a class="repo luz" href="../materiais/apis/">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>seguranca-nuvem/materiais</span>
-              <h4>Segurança de APIs e serviços em nuvem</h4>
-              <p>Atividade extra: o que fica atrás do WAF também precisa de proteção.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#8b949e"><i></i>Atividade</span><span class="etiqueta">material extra</span></span>
             </a>
             <a class="repo luz" href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
               <h4>SC-900: segurança, conformidade e identidade</h4>
               <p>O jeito do Azure em cada pilar, de graça e em português.</p>
               <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">como é no Azure</span></span>
+            </a>
+            <a class="repo luz" href="https://www.awsacademy.com/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Academy</span>
+              <h4>Cloud Security Foundations</h4>
+              <p>A trilha a distância da disciplina (10h), com laboratórios na nuvem de verdade.</p>
+              <span class="repo-pe"><span class="ling" style="--cor:#1ba0d7"><i></i>Plataforma</span><span class="etiqueta">trilha</span></span>
             </a>
           </div>
         </section>
@@ -238,22 +239,22 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <div>
               <span class="olho">E1 · entrega</span>
-              <h3>Roteiro de laboratório no Moodle</h3>
-              <p>Na próxima aula, a Unidade 3: proteger os dados com criptografia e chaves.</p>
+              <h3>Roteiro de laboratório e matriz no Loop</h3>
+              <p>Na próxima aula: buckets que não vazam, segredos fora do código e a LGPD.</p>
             </div>
           </div>
         </section>
 
         <nav class="nav-aulas" aria-label="Outras aulas">
           <!-- EDITE AQUI: use <a href="aula-NN.html"> quando a página da aula vizinha for liberada; <span> enquanto não for -->
-          <a class="anterior" href="aula-08.html">
+          <span class="anterior">
             <span class="olho">← aula anterior</span>
-            <strong>Aula 8: Avaliação do 1º bimestre</strong>
-          </a>
-          <a class="proxima" href="aula-10.html">
+            <strong>Aula 9: Servidores e borda</strong>
+          </span>
+          <span class="proxima">
             <span class="olho">próxima aula →</span>
-            <strong>Aula 10: Criptografia e chaves</strong>
-          </a>
+            <strong>Aula 11: Armazenamento, segredos e LGPD</strong>
+          </span>
         </nav>
 
       </div>
