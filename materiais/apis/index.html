@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Segurança de APIs e Serviços em Nuvem · Stela</title>
+  <link rel="icon" href="../../assets/img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../../assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="wrap title">
+      <div>
+        <a class="voltar" href="../../">← Segurança em Nuvem</a>
+        <span class="badge">Material extra • Segurança em Nuvem</span>
+        <h1>Segurança de APIs e Serviços em Nuvem</h1>
+        <p>Atividade interativa com teoria, exemplos práticos, incidentes reais, estudo de caso e análise de arquitetura.</p>
+      </div>
+      <div class="card" style="padding:14px 18px; min-width:240px;">
+        <div class="mini">Progresso da atividade</div>
+        <div class="score" id="progressText">0 / 4 etapas concluídas</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section grid grid-3">
+      <article class="card">
+        <h2>Objetivos</h2>
+        <ul>
+          <li>Compreender o papel das APIs em aplicações cloud.</li>
+          <li>Identificar riscos ligados a autenticação, tokens, segredos e endpoints expostos.</li>
+          <li>Analisar uma arquitetura em nuvem sob a ótica de segurança.</li>
+          <li>Aplicar boas práticas em um estudo de caso.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Conteúdos da Aula</h2>
+        <div class="pill">Conceito de APIs</div>
+        <div class="pill">Autenticação</div>
+        <div class="pill">Tokens e chaves</div>
+        <div class="pill">Segredos</div>
+        <div class="pill">Exposição de endpoints</div>
+        <div class="pill">Arquitetura cloud</div>
+      </article>
+      <article class="card">
+        <h2>Como usar</h2>
+        <p>Explore as abas, responda ao quiz, investigue o estudo de caso e finalize com a atividade prática. Ao final, gere um resumo da turma ou use como tarefa avaliativa.</p>
+      </article>
+    </section>
+
+    <section class="section card">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="teoria">1. Teoria Guiada</button>
+        <button class="tab-btn" data-tab="incidentes">2. Incidentes Reais</button>
+        <button class="tab-btn" data-tab="caso">3. Estudo de Caso</button>
+        <button class="tab-btn" data-tab="pratica">4. Atividade Prática</button>
+      </div>
+
+      <div class="tab-content active" id="teoria">
+        <div class="grid grid-2">
+          <article class="card">
+            <h2>Conceito de APIs</h2>
+            <p>API é uma interface que permite a comunicação entre sistemas. Em nuvem, APIs conectam frontend, backend, banco de dados, autenticação, filas, storage e serviços externos.</p>
+            <div class="case-box">
+              <strong>Exemplo simples:</strong>
+              <p>Um aplicativo de delivery consulta a API de login, a API de catálogo, a API de pagamentos e a API de rastreamento.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2>Autenticação de APIs</h2>
+            <ul>
+              <li><strong>API Key:</strong> identifica a aplicação consumidora.</li>
+              <li><strong>Bearer Token / JWT:</strong> representa uma sessão ou autorização temporária.</li>
+              <li><strong>OAuth 2.0:</strong> delega acesso sem expor senha do usuário.</li>
+              <li><strong>mTLS:</strong> autenticação forte entre serviços.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Tokens, chaves e segredos</h2>
+            <p><strong>Tokens</strong> normalmente têm validade curta. <strong>Chaves</strong> identificam ou autorizam aplicações. <strong>Segredos</strong> incluem senhas, strings de conexão e credenciais de serviço.</p>
+            <ul>
+              <li>Nunca hardcode em código-fonte.</li>
+              <li>Use cofres de segredos.</li>
+              <li>Faça rotação periódica.</li>
+              <li>Registre auditoria de uso.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Riscos de endpoints expostos</h2>
+            <ul>
+              <li>Enumeração de recursos e usuários.</li>
+              <li>Vazamento de dados por falta de autorização.</li>
+              <li>Abuso de APIs sem rate limiting.</li>
+              <li>Exposição de painéis admin e rotas internas.</li>
+              <li>Erros detalhados revelando estrutura interna.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="question" data-step="1">
+          <h3>Checkpoint rápido</h3>
+          <div class="options">
+            <label><input type="radio" name="q1" value="c"> Tokens e chaves devem ficar visíveis no JavaScript do frontend para facilitar integração.</label>
+            <label><input type="radio" name="q1" value="a"> Tokens, chaves e segredos devem ser protegidos, rotacionados e armazenados de forma segura.</label>
+            <label><input type="radio" name="q1" value="b"> Expor endpoints administrativos na internet é uma boa prática para manutenção.</label>
+          </div>
+          <button class="primary" onclick="checkQ1()">Verificar resposta</button>
+          <div id="fb1" class="feedback"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="incidentes">
+        <h2>Exemplos reais para debate</h2>
+        <p>Os casos abaixo podem ser usados para discussão em grupo sobre falhas de autenticação, autorização, exposição indevida e gestão fraca de APIs/serviços.</p>
+
+        <div class="grid grid-3">
+          <div class="incident">
+            <h3>Facebook / Cambridge Analytica</h3>
+            <p>A coleta massiva de dados por meio de integrações em plataforma mostrou como APIs permissivas e governança fraca podem ampliar o impacto de terceiros.</p>
+            <p class="mini"><strong>Debate:</strong> qual a diferença entre autenticar um app e limitar exatamente quais dados ele pode acessar?</p>
+          </div>
+          <div class="incident">
+            <h3>Twitter 2022 - API e enumeração</h3>
+            <p>Uma falha permitiu correlacionar informações de usuários por meio de abuso de funcionalidade da API, revelando o risco de endpoints que retornam metadados sensíveis.</p>
+            <p class="mini"><strong>Debate:</strong> onde entra rate limiting, validação e monitoramento?</p>
+          </div>
+          <div class="incident">
+            <h3>Optus 2022 - endpoint exposto</h3>
+            <p>Um endpoint acessível sem controles adequados foi associado ao vazamento de dados, reforçando a importância de autenticação, autorização e testes de exposição externa.</p>
+            <p class="mini"><strong>Debate:</strong> como uma revisão de arquitetura poderia reduzir esse risco?</p>
+          </div>
+        </div>
+
+        <div class="question" data-step="2">
+          <h3>Escolha a melhor interpretação</h3>
+          <div class="options">
+            <label><input type="radio" name="q2" value="b"> O maior risco em APIs está apenas no banco de dados; a camada de API é irrelevante.</label>
+            <label><input type="radio" name="q2" value="a"> APIs mal configuradas podem ampliar o impacto de falhas de autenticação, autorização e exposição indevida de dados.</label>
+            <label><input type="radio" name="q2" value="c"> Se a aplicação estiver na nuvem, o provedor elimina automaticamente todos os riscos de API.</label>
+          </div>
+          <button class="primary" onclick="checkQ2()">Verificar resposta</button>
+          <div id="fb2" class="feedback"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="caso">
+        <h2>Estudo de Caso: FinCloud Market</h2>
+        <div class="grid grid-2">
+          <article class="card">
+            <h3>Cenário</h3>
+            <p>A <strong>FinCloud Market</strong> é uma plataforma SaaS em nuvem que oferece carteira digital, pagamentos e painel administrativo. A aplicação possui frontend web, API Gateway, microsserviços, banco gerenciado e integração com serviço externo de notificações.</p>
+            <ul>
+              <li>Frontend em domínio público</li>
+              <li>API Gateway exposto na internet</li>
+              <li>Serviço <code>/admin/export</code> sem restrição por IP</li>
+              <li>JWT com expiração longa</li>
+              <li>Chave de integração armazenada no repositório</li>
+              <li>Logs retornando mensagens detalhadas de erro</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Análise de Arquitetura</h3>
+            <p>Observe os componentes e identifique quais pontos merecem maior atenção.</p>
+            <div class="architecture">
+              <div class="node">Usuário Web</div>
+              <div class="node">Frontend SPA</div>
+              <div class="node">API Gateway</div>
+              <div class="node risk">Endpoint /admin/export</div>
+              <div class="node">Serviço de Pedidos</div>
+              <div class="node">Banco Gerenciado</div>
+              <div class="node risk">Segredo no Repositório</div>
+              <div class="node risk">JWT muito longo</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="question" data-step="3">
+          <h3>Desafio do estudo de caso</h3>
+          <p>Selecione os <strong>três problemas mais graves</strong> do cenário:</p>
+          <div class="options">
+            <label><input type="checkbox" name="case" value="endpoint"> Endpoint administrativo exposto sem restrições adequadas</label>
+            <label><input type="checkbox" name="case" value="jwt"> Token JWT com expiração longa</label>
+            <label><input type="checkbox" name="case" value="repo"> Chave armazenada no repositório</label>
+            <label><input type="checkbox" name="case" value="cloud"> Uso de banco de dados gerenciado na nuvem</label>
+            <label><input type="checkbox" name="case" value="frontend"> Existência de frontend web público</label>
+          </div>
+          <button class="primary" onclick="checkCase()">Avaliar seleção</button>
+          <div id="fb3" class="feedback"></div>
+        </div>
+
+        <div class="card">
+          <h3>Perguntas para discussão em sala</h3>
+          <ol>
+            <li>Quais controles de autenticação e autorização você aplicaria?</li>
+            <li>Como proteger segredos e chaves de integração?</li>
+            <li>Que estratégia de monitoramento e rate limiting deveria existir?</li>
+            <li>Quais rotas não deveriam estar acessíveis publicamente?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="tab-content" id="pratica">
+        <h2>Atividade prática</h2>
+        <div class="grid grid-2">
+          <article class="card">
+            <h3>Tarefa 1 - Corrigir a arquitetura</h3>
+            <p>Escreva <strong>4 ações</strong> para reduzir os riscos do estudo de caso. Pense em:</p>
+            <ul>
+              <li>autenticação e autorização</li>
+              <li>gestão de segredos</li>
+              <li>proteção de endpoints</li>
+              <li>observabilidade e resposta</li>
+            </ul>
+            <textarea id="answer1" placeholder="Ex.: mover chaves para um cofre de segredos, reduzir validade do JWT...\n"></textarea>
+          </article>
+
+          <article class="card">
+            <h3>Tarefa 2 - Resposta a incidente</h3>
+            <p>Um desenvolvedor publicou acidentalmente uma chave de API em um repositório público. Descreva os primeiros passos da equipe.</p>
+            <textarea id="answer2" placeholder="Ex.: revogar a chave, rotacionar credenciais, investigar logs, avaliar impacto...\n"></textarea>
+          </article>
+        </div>
+
+        <div class="footer-actions">
+          <button class="primary" onclick="evaluatePractice()">Avaliar atividade prática</button>
+          <button class="secondary" onclick="downloadReport()">Baixar resumo em .txt</button>
+          <button class="secondary" onclick="resetAll()">Reiniciar atividade</button>
+        </div>
+
+        <div id="practiceResult" class="feedback"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const completed = { step1: false, step2: false, step3: false, step4: false };
+
+    function updateProgress() {
+      const count = Object.values(completed).filter(Boolean).length;
+      document.getElementById('progressText').textContent = `${count} / 4 etapas concluídas`;
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    function setFeedback(id, type, text) {
+      const box = document.getElementById(id);
+      box.className = 'feedback ' + type;
+      box.textContent = text;
+    }
+
+    function checkQ1() {
+      const value = document.querySelector('input[name="q1"]:checked');
+      if (!value) return setFeedback('fb1', 'warn', 'Selecione uma alternativa antes de verificar.');
+      if (value.value === 'a') {
+        completed.step1 = true;
+        setFeedback('fb1', 'ok', 'Correto! Segredos e credenciais devem ser protegidos, rotacionados e armazenados com segurança.');
+      } else {
+        setFeedback('fb1', 'bad', 'Ainda não. Reveja a diferença entre facilidade de integração e exposição indevida de credenciais.');
+      }
+      updateProgress();
+    }
+
+    function checkQ2() {
+      const value = document.querySelector('input[name="q2"]:checked');
+      if (!value) return setFeedback('fb2', 'warn', 'Selecione uma alternativa antes de verificar.');
+      if (value.value === 'a') {
+        completed.step2 = true;
+        setFeedback('fb2', 'ok', 'Perfeito! A camada de API é um alvo central de autenticação, autorização e exposição de dados.');
+      } else {
+        setFeedback('fb2', 'bad', 'Não é isso. Em nuvem, a segurança de APIs continua sendo responsabilidade da arquitetura da aplicação.');
+      }
+      updateProgress();
+    }
+
+    function checkCase() {
+      const checked = [...document.querySelectorAll('input[name="case"]:checked')].map(i => i.value);
+      const required = ['endpoint', 'jwt', 'repo'];
+      const ok = required.every(r => checked.includes(r)) && checked.length === 3;
+      if (ok) {
+        completed.step3 = true;
+        setFeedback('fb3', 'ok', 'Excelente! Endpoint administrativo exposto, JWT de longa duração e segredo no repositório são falhas críticas.');
+      } else {
+        setFeedback('fb3', 'bad', 'Revise o cenário: o foco está nas fragilidades de autenticação, exposição e gestão de segredos.');
+      }
+      updateProgress();
+    }
+
+    function evaluatePractice() {
+      const a1 = document.getElementById('answer1').value.trim().toLowerCase();
+      const a2 = document.getElementById('answer2').value.trim().toLowerCase();
+
+      let score = 0;
+      const keywords1 = ['mfa', 'jwt', 'token', 'segredo', 'cofre', 'vault', 'rate', 'waf', 'ip', 'autoriz'];
+      const keywords2 = ['revog', 'rotac', 'logs', 'impacto', 'incidente', 'monitor', 'chave', 'segredo'];
+
+      score += keywords1.filter(k => a1.includes(k)).length;
+      score += keywords2.filter(k => a2.includes(k)).length;
+
+      const result = document.getElementById('practiceResult');
+      if (a1.length < 40 || a2.length < 40) {
+        result.className = 'feedback warn';
+        result.textContent = 'Desenvolva um pouco mais as respostas para receber uma avaliação melhor.';
+        return;
+      }
+
+      completed.step4 = true;
+      updateProgress();
+
+      if (score >= 6) {
+        result.className = 'feedback ok';
+        result.textContent = 'Ótimo trabalho! Sua resposta aborda controles técnicos e resposta a incidente de forma consistente.';
+      } else {
+        result.className = 'feedback warn';
+        result.textContent = 'Boa resposta. Você pode melhorar incluindo revogação/rotação de chaves, proteção de endpoints e monitoramento.';
+      }
+    }
+
+    function downloadReport() {
+      const report = `Segurança de APIs e Serviços em Nuvem\n\n` +
+        `Progresso: ${document.getElementById('progressText').textContent}\n\n` +
+        `Resposta 1:\n${document.getElementById('answer1').value || '(sem resposta)'}\n\n` +
+        `Resposta 2:\n${document.getElementById('answer2').value || '(sem resposta)'}\n\n` +
+        `Resumo sugerido para o aluno:\n` +
+        `- Proteger tokens, chaves e segredos\n` +
+        `- Restringir endpoints sensíveis\n` +
+        `- Aplicar autenticação e autorização adequadas\n` +
+        `- Monitorar abuso, erros e acessos suspeitos\n`;
+
+      const blob = new Blob([report], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'resumo_aula7_api_cloud.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetAll() {
+      document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+      document.getElementById('answer1').value = '';
+      document.getElementById('answer2').value = '';
+      ['fb1', 'fb2', 'fb3', 'practiceResult'].forEach(id => {
+        const el = document.getElementById(id);
+        el.className = 'feedback';
+        el.textContent = '';
+      });
+      completed.step1 = false;
+      completed.step2 = false;
+      completed.step3 = false;
+      completed.step4 = false;
+      updateProgress();
+      document.querySelector('[data-tab="teoria"]').click();
+    }
+
+    updateProgress();
+  </script>
+</body>
+</html>
