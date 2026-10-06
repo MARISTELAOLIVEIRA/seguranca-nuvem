@@ -1,0 +1,249 @@
+/*
+  ilustracoes.css: ilustrações para leigos nas páginas de aula (ex.: WAF e DDoS na aula 9).
+  versão 1 · 2026-10-06
+
+  Carregue depois do aula.css e do neon.css. Cores: as do estilo.css, mais --perigo (só aqui).
+*/
+
+:root {
+  --perigo: #ff5c7a;
+}
+
+[data-tema="claro"] {
+  --perigo: #c22450;
+}
+
+.il-figura {
+  display: grid;
+  gap: 1.2rem;
+  margin: 0 0 1.6rem;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--superficie);
+}
+
+.il-titulo {
+  font-family: var(--f-titulo);
+  font-size: 1.1rem;
+  color: var(--texto);
+}
+
+.il-subtitulo {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--texto-2);
+}
+
+/* uma cena: quadros lado a lado, com setas entre eles */
+.il-cena {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: .8rem;
+}
+
+.il-cena + .il-cena {
+  padding-top: 1.2rem;
+  border-top: 1px dashed var(--borda);
+}
+
+.il-bloco {
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: .4rem;
+  padding: 1rem .9rem;
+  text-align: center;
+  border-top: 3px solid var(--cor);
+  border-radius: var(--raio-p);
+  background: var(--superficie-2);
+}
+
+.il-fila {
+  flex-grow: 1.6;
+}
+
+.il-bloco > svg {
+  width: 4rem;
+  height: 4rem;
+  fill: none;
+  stroke: var(--cor);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.il-papel {
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--cor);
+}
+
+.il-bloco strong {
+  font-family: var(--f-titulo);
+  color: var(--texto);
+}
+
+.il-texto {
+  font-size: .9rem;
+  color: var(--texto-2);
+}
+
+.il-seta {
+  flex: none;
+  align-self: center;
+  font-size: 1.5rem;
+  color: var(--texto-3);
+}
+
+.il-figura figcaption {
+  text-align: center;
+  color: var(--texto-2);
+}
+
+/* WAF: a fila de pedidos, cada um com o seu bilhete */
+.il-fila ul {
+  display: grid;
+  gap: .5rem;
+  width: 100%;
+  margin: .3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.il-pedido {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "icone quem veredito"
+    "icone bilhete veredito";
+  column-gap: .6rem;
+  align-items: center;
+  padding: .5rem .7rem;
+  text-align: left;
+  border: 1px solid var(--borda);
+  border-left: 3px solid var(--tom);
+  border-radius: var(--raio-p);
+}
+
+.il-ok {
+  --tom: var(--menta);
+}
+
+.il-mau {
+  --tom: var(--perigo);
+}
+
+.il-mini {
+  grid-area: icone;
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: none;
+  stroke: var(--tom);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.il-quem {
+  grid-area: quem;
+  font-size: .78rem;
+  color: var(--texto-3);
+}
+
+.il-pedido code {
+  grid-area: bilhete;
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+
+.il-veredito {
+  grid-area: veredito;
+  padding: .15rem .5rem;
+  font-family: var(--f-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  color: var(--tom);
+  border: 1px solid var(--tom);
+  border-radius: 999px;
+}
+
+.il-mau code {
+  text-decoration: line-through;
+  text-decoration-color: var(--perigo);
+}
+
+/* DDoS: a multidão de robôs (cinza) com um cliente de verdade (verde) */
+.il-bloco > svg.il-multidao {
+  width: 100%;
+  max-width: 13rem;
+  height: auto;
+  stroke-width: 1.4;
+}
+
+.il-robo {
+  stroke: var(--texto-3);
+}
+
+.il-cliente {
+  stroke: var(--menta);
+  stroke-width: 2;
+}
+
+/* a multidão "empurra"; para com a pausa e com o reduzir movimento */
+.il-multidao {
+  animation: il-empurra 1.2s ease-in-out infinite;
+}
+
+@keyframes il-empurra {
+  50% {
+    translate: 4px 0;
+  }
+}
+
+.pausado .il-multidao {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .il-multidao {
+    animation: none;
+  }
+}
+
+.il-caiu .il-x {
+  stroke: var(--perigo);
+  stroke-width: 3.5;
+}
+
+/* tela estreita: um quadro embaixo do outro, seta para baixo */
+@media (max-width: 760px) {
+  .il-cena {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .il-subtitulo,
+  .il-bloco {
+    flex: none;
+  }
+
+  .il-seta {
+    rotate: 90deg;
+  }
+
+  .il-multidao {
+    animation-name: il-empurra-baixo;
+  }
+
+  @keyframes il-empurra-baixo {
+    50% {
+      translate: 0 3px;
+    }
+  }
+}

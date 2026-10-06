@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../assets/css/disciplina.css">
   <link rel="stylesheet" href="../assets/css/aula.css">
   <link rel="stylesheet" href="../assets/css/neon.css">
+  <link rel="stylesheet" href="../assets/css/ilustracoes.css?v=2">
 </head>
 <body>
 
@@ -129,6 +130,57 @@
             
           </div>
 
+          <figure class="il-figura il-waf" id="ilustra-waf">
+            <p class="il-titulo">Na porta da loja, um segurança que lê o bilhete de cada visitante</p>
+            <div class="il-cena">
+              <div class="il-bloco il-fila" style="--cor: var(--texto-2)">
+                <span class="il-papel">quem chega</span>
+                <strong>Os pedidos</strong>
+                <ul>
+                <li class="il-pedido il-ok">
+                  <svg class="il-mini" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="18" r="9"/><path d="M14 56c0-11 8-19 18-19s18 8 18 19"/></svg>
+                  <span class="il-quem">Cliente</span>
+                  <code>quero ver o produto 42</code>
+                  <span class="il-veredito">entra</span>
+                </li>
+                <li class="il-pedido il-ok">
+                  <svg class="il-mini" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="18" r="9"/><path d="M14 56c0-11 8-19 18-19s18 8 18 19"/></svg>
+                  <span class="il-quem">Cliente</span>
+                  <code>quero entrar com meu login</code>
+                  <span class="il-veredito">entra</span>
+                </li>
+                <li class="il-pedido il-mau">
+                  <svg class="il-mini" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="18" r="9"/><path d="M14 56c0-11 8-19 18-19s18 8 18 19"/></svg>
+                  <span class="il-quem">Espertinho</span>
+                  <code>produto 42' OR '1'='1</code>
+                  <span class="il-veredito">barrado</span>
+                </li>
+                <li class="il-pedido il-mau">
+                  <svg class="il-mini" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="18" r="9"/><path d="M14 56c0-11 8-19 18-19s18 8 18 19"/></svg>
+                  <span class="il-quem">Espertinho</span>
+                  <code>&lt;script&gt;roubar()&lt;/script&gt;</code>
+                  <span class="il-veredito">barrado</span>
+                </li>
+                </ul>
+              </div>
+              <span class="il-seta" aria-hidden="true">→</span>
+              <div class="il-bloco" style="--cor: var(--ouro)">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M32 5l22 8v16c0 15-10 25-22 30C20 54 10 44 10 29V13z"/><circle cx="29" cy="29" r="8"/><path d="M35 35l7 7"/></svg>
+                <span class="il-papel">WAF</span>
+                <strong>O segurança da porta</strong>
+                <span class="il-texto">Lê cada pedido. Conhece os truques famosos (injeção de SQL, script escondido) e barra quem tenta.</span>
+              </div>
+              <span class="il-seta" aria-hidden="true">→</span>
+              <div class="il-bloco" style="--cor: var(--menta)">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 26l5-16h38l5 16"/><path d="M8 26h48"/><path d="M8 26c0 4 3 7 6.5 7S21 30 21 26c0 4 3 7 5.5 7S32 30 32 26c0 4 3 7 5.5 7S43 30 43 26c0 4 3 7 6.5 7S56 30 56 26"/><path d="M12 33v24h40V33"/><path d="M27 57V43h10v14"/></svg>
+                <span class="il-papel">aplicação</span>
+                <strong>A loja (o site)</strong>
+                <span class="il-texto">Só recebe quem passou pelo segurança.</span>
+              </div>
+            </div>
+            <figcaption>O firewall comum confere <strong>de onde</strong> o visitante vem e por qual porta. O WAF lê <strong>o que</strong> ele está pedindo.</figcaption>
+          </figure>
+
           <div class="conceito" style="grid-template-columns:1fr">
             <div class="texto">
               <span class="olho">C3</span>
@@ -139,6 +191,50 @@
             </div>
             
           </div>
+
+          <figure class="il-figura il-ddos" id="ilustra-ddos">
+            <p class="il-titulo">Uma multidão de robôs na porta da loja</p>
+            <div class="il-cena">
+              <h4 class="il-subtitulo">Sem proteção</h4>
+              <div class="il-bloco" style="--cor: var(--texto-2)">
+                <svg class="il-multidao" viewBox="0 0 170 100" aria-hidden="true" focusable="false"><g class="il-robo"><rect x="1.9" y="5.5" width="12" height="10" rx="2"/><circle cx="5.4" cy="10.5" r="1.3"/><circle cx="10.4" cy="10.5" r="1.3"/><path d="M7.9 5.5v-3"/></g><g class="il-robo"><rect x="22.6" y="7.5" width="12" height="10" rx="2"/><circle cx="26.1" cy="12.5" r="1.3"/><circle cx="31.1" cy="12.5" r="1.3"/><path d="M28.6 7.5v-3"/></g><g class="il-robo"><rect x="44.0" y="6.0" width="12" height="10" rx="2"/><circle cx="47.5" cy="11.0" r="1.3"/><circle cx="52.5" cy="11.0" r="1.3"/><path d="M50.0 6.0v-3"/></g><g class="il-robo"><rect x="69.6" y="4.3" width="12" height="10" rx="2"/><circle cx="73.1" cy="9.3" r="1.3"/><circle cx="78.1" cy="9.3" r="1.3"/><path d="M75.6 4.3v-3"/></g><g class="il-robo"><rect x="90.2" y="6.5" width="12" height="10" rx="2"/><circle cx="93.7" cy="11.5" r="1.3"/><circle cx="98.7" cy="11.5" r="1.3"/><path d="M96.2 6.5v-3"/></g><g class="il-robo"><rect x="110.2" y="5.5" width="12" height="10" rx="2"/><circle cx="113.7" cy="10.5" r="1.3"/><circle cx="118.7" cy="10.5" r="1.3"/><path d="M116.2 5.5v-3"/></g><g class="il-robo"><rect x="134.8" y="5.8" width="12" height="10" rx="2"/><circle cx="138.3" cy="10.8" r="1.3"/><circle cx="143.3" cy="10.8" r="1.3"/><path d="M140.8 5.8v-3"/></g><g class="il-robo"><rect x="13.9" y="23.6" width="12" height="10" rx="2"/><circle cx="17.4" cy="28.6" r="1.3"/><circle cx="22.4" cy="28.6" r="1.3"/><path d="M19.9 23.6v-3"/></g><g class="il-robo"><rect x="34.0" y="23.4" width="12" height="10" rx="2"/><circle cx="37.5" cy="28.4" r="1.3"/><circle cx="42.5" cy="28.4" r="1.3"/><path d="M40.0 23.4v-3"/></g><g class="il-robo"><rect x="57.0" y="26.7" width="12" height="10" rx="2"/><circle cx="60.5" cy="31.7" r="1.3"/><circle cx="65.5" cy="31.7" r="1.3"/><path d="M63.0 26.7v-3"/></g><g class="il-robo"><rect x="79.4" y="26.1" width="12" height="10" rx="2"/><circle cx="82.9" cy="31.1" r="1.3"/><circle cx="87.9" cy="31.1" r="1.3"/><path d="M85.4 26.1v-3"/></g><g class="il-robo"><rect x="100.5" y="26.0" width="12" height="10" rx="2"/><circle cx="104.0" cy="31.0" r="1.3"/><circle cx="109.0" cy="31.0" r="1.3"/><path d="M106.5 26.0v-3"/></g><g class="il-robo"><rect x="121.4" y="24.2" width="12" height="10" rx="2"/><circle cx="124.9" cy="29.2" r="1.3"/><circle cx="129.9" cy="29.2" r="1.3"/><path d="M127.4 24.2v-3"/></g><g class="il-robo"><rect x="145.7" y="25.9" width="12" height="10" rx="2"/><circle cx="149.2" cy="30.9" r="1.3"/><circle cx="154.2" cy="30.9" r="1.3"/><path d="M151.7 25.9v-3"/></g><g class="il-robo"><rect x="1.7" y="42.4" width="12" height="10" rx="2"/><circle cx="5.2" cy="47.4" r="1.3"/><circle cx="10.2" cy="47.4" r="1.3"/><path d="M7.7 42.4v-3"/></g><g class="il-robo"><rect x="23.1" y="42.8" width="12" height="10" rx="2"/><circle cx="26.6" cy="47.8" r="1.3"/><circle cx="31.6" cy="47.8" r="1.3"/><path d="M29.1 42.8v-3"/></g><g class="il-robo"><rect x="45.1" y="45.2" width="12" height="10" rx="2"/><circle cx="48.6" cy="50.2" r="1.3"/><circle cx="53.6" cy="50.2" r="1.3"/><path d="M51.1 45.2v-3"/></g><g class="il-cliente"><circle cx="72.8" cy="46.5" r="3.6"/><path d="M66.8 58.5c0-4.5 2.7-7 6-7s6 2.5 6 7"/></g><g class="il-robo"><rect x="91.5" y="42.2" width="12" height="10" rx="2"/><circle cx="95.0" cy="47.2" r="1.3"/><circle cx="100.0" cy="47.2" r="1.3"/><path d="M97.5 42.2v-3"/></g><g class="il-robo"><rect x="111.5" y="44.0" width="12" height="10" rx="2"/><circle cx="115.0" cy="49.0" r="1.3"/><circle cx="120.0" cy="49.0" r="1.3"/><path d="M117.5 44.0v-3"/></g><g class="il-robo"><rect x="132.1" y="43.7" width="12" height="10" rx="2"/><circle cx="135.6" cy="48.7" r="1.3"/><circle cx="140.6" cy="48.7" r="1.3"/><path d="M138.1 43.7v-3"/></g><g class="il-robo"><rect x="14.6" y="61.4" width="12" height="10" rx="2"/><circle cx="18.1" cy="66.4" r="1.3"/><circle cx="23.1" cy="66.4" r="1.3"/><path d="M20.6 61.4v-3"/></g><g class="il-robo"><rect x="35.4" y="61.5" width="12" height="10" rx="2"/><circle cx="38.9" cy="66.5" r="1.3"/><circle cx="43.9" cy="66.5" r="1.3"/><path d="M41.4 61.5v-3"/></g><g class="il-robo"><rect x="57.3" y="64.6" width="12" height="10" rx="2"/><circle cx="60.8" cy="69.6" r="1.3"/><circle cx="65.8" cy="69.6" r="1.3"/><path d="M63.3 64.6v-3"/></g><g class="il-robo"><rect x="77.8" y="61.0" width="12" height="10" rx="2"/><circle cx="81.3" cy="66.0" r="1.3"/><circle cx="86.3" cy="66.0" r="1.3"/><path d="M83.8 61.0v-3"/></g><g class="il-robo"><rect x="99.3" y="63.2" width="12" height="10" rx="2"/><circle cx="102.8" cy="68.2" r="1.3"/><circle cx="107.8" cy="68.2" r="1.3"/><path d="M105.3 63.2v-3"/></g><g class="il-robo"><rect x="121.1" y="61.3" width="12" height="10" rx="2"/><circle cx="124.6" cy="66.3" r="1.3"/><circle cx="129.6" cy="66.3" r="1.3"/><path d="M127.1 61.3v-3"/></g><g class="il-robo"><rect x="145.0" y="64.7" width="12" height="10" rx="2"/><circle cx="148.5" cy="69.7" r="1.3"/><circle cx="153.5" cy="69.7" r="1.3"/><path d="M151.0 64.7v-3"/></g><g class="il-robo"><rect x="1.7" y="81.6" width="12" height="10" rx="2"/><circle cx="5.2" cy="86.6" r="1.3"/><circle cx="10.2" cy="86.6" r="1.3"/><path d="M7.7 81.6v-3"/></g><g class="il-robo"><rect x="24.6" y="80.4" width="12" height="10" rx="2"/><circle cx="28.1" cy="85.4" r="1.3"/><circle cx="33.1" cy="85.4" r="1.3"/><path d="M30.6 80.4v-3"/></g><g class="il-robo"><rect x="46.3" y="80.7" width="12" height="10" rx="2"/><circle cx="49.8" cy="85.7" r="1.3"/><circle cx="54.8" cy="85.7" r="1.3"/><path d="M52.3 80.7v-3"/></g><g class="il-robo"><rect x="68.4" y="83.8" width="12" height="10" rx="2"/><circle cx="71.9" cy="88.8" r="1.3"/><circle cx="76.9" cy="88.8" r="1.3"/><path d="M74.4 83.8v-3"/></g><g class="il-robo"><rect x="88.2" y="82.2" width="12" height="10" rx="2"/><circle cx="91.7" cy="87.2" r="1.3"/><circle cx="96.7" cy="87.2" r="1.3"/><path d="M94.2 82.2v-3"/></g><g class="il-robo"><rect x="112.4" y="80.6" width="12" height="10" rx="2"/><circle cx="115.9" cy="85.6" r="1.3"/><circle cx="120.9" cy="85.6" r="1.3"/><path d="M118.4 80.6v-3"/></g><g class="il-robo"><rect x="133.1" y="84.0" width="12" height="10" rx="2"/><circle cx="136.6" cy="89.0" r="1.3"/><circle cx="141.6" cy="89.0" r="1.3"/><path d="M139.1 84.0v-3"/></g></svg>
+                <span class="il-papel">milhares de máquinas</span>
+                <strong>A multidão de mentira</strong>
+                <span class="il-texto">Robôs espalhados pelo mundo (a <em>botnet</em>) pedindo a mesma página ao mesmo tempo. No meio, um cliente de verdade.</span>
+              </div>
+              <span class="il-seta" aria-hidden="true">→</span>
+              <div class="il-bloco il-caiu" style="--cor: var(--perigo)">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 26l5-16h38l5 16"/><path d="M8 26h48"/><path d="M8 26c0 4 3 7 6.5 7S21 30 21 26c0 4 3 7 5.5 7S32 30 32 26c0 4 3 7 5.5 7S43 30 43 26c0 4 3 7 6.5 7S56 30 56 26"/><path d="M12 33v24h40V33"/><path d="M27 57V43h10v14"/><path class="il-x" d="M40 38l10 10"/><path class="il-x" d="M50 38L40 48"/></svg>
+                <span class="il-papel">fora do ar</span>
+                <strong>A loja entupida</strong>
+                <span class="il-texto">A porta é pequena: ninguém mais entra, nem o cliente de verdade. O site parou.</span>
+              </div>
+            </div>
+            <div class="il-cena il-cena-3">
+              <h4 class="il-subtitulo">Com proteção na borda da nuvem</h4>
+              <div class="il-bloco" style="--cor: var(--texto-2)">
+                <svg class="il-multidao" viewBox="0 0 170 100" aria-hidden="true" focusable="false"><g class="il-robo"><rect x="1.9" y="5.5" width="12" height="10" rx="2"/><circle cx="5.4" cy="10.5" r="1.3"/><circle cx="10.4" cy="10.5" r="1.3"/><path d="M7.9 5.5v-3"/></g><g class="il-robo"><rect x="22.6" y="7.5" width="12" height="10" rx="2"/><circle cx="26.1" cy="12.5" r="1.3"/><circle cx="31.1" cy="12.5" r="1.3"/><path d="M28.6 7.5v-3"/></g><g class="il-robo"><rect x="44.0" y="6.0" width="12" height="10" rx="2"/><circle cx="47.5" cy="11.0" r="1.3"/><circle cx="52.5" cy="11.0" r="1.3"/><path d="M50.0 6.0v-3"/></g><g class="il-robo"><rect x="69.6" y="4.3" width="12" height="10" rx="2"/><circle cx="73.1" cy="9.3" r="1.3"/><circle cx="78.1" cy="9.3" r="1.3"/><path d="M75.6 4.3v-3"/></g><g class="il-robo"><rect x="90.2" y="6.5" width="12" height="10" rx="2"/><circle cx="93.7" cy="11.5" r="1.3"/><circle cx="98.7" cy="11.5" r="1.3"/><path d="M96.2 6.5v-3"/></g><g class="il-robo"><rect x="110.2" y="5.5" width="12" height="10" rx="2"/><circle cx="113.7" cy="10.5" r="1.3"/><circle cx="118.7" cy="10.5" r="1.3"/><path d="M116.2 5.5v-3"/></g><g class="il-robo"><rect x="134.8" y="5.8" width="12" height="10" rx="2"/><circle cx="138.3" cy="10.8" r="1.3"/><circle cx="143.3" cy="10.8" r="1.3"/><path d="M140.8 5.8v-3"/></g><g class="il-robo"><rect x="13.9" y="23.6" width="12" height="10" rx="2"/><circle cx="17.4" cy="28.6" r="1.3"/><circle cx="22.4" cy="28.6" r="1.3"/><path d="M19.9 23.6v-3"/></g><g class="il-robo"><rect x="34.0" y="23.4" width="12" height="10" rx="2"/><circle cx="37.5" cy="28.4" r="1.3"/><circle cx="42.5" cy="28.4" r="1.3"/><path d="M40.0 23.4v-3"/></g><g class="il-robo"><rect x="57.0" y="26.7" width="12" height="10" rx="2"/><circle cx="60.5" cy="31.7" r="1.3"/><circle cx="65.5" cy="31.7" r="1.3"/><path d="M63.0 26.7v-3"/></g><g class="il-robo"><rect x="79.4" y="26.1" width="12" height="10" rx="2"/><circle cx="82.9" cy="31.1" r="1.3"/><circle cx="87.9" cy="31.1" r="1.3"/><path d="M85.4 26.1v-3"/></g><g class="il-robo"><rect x="100.5" y="26.0" width="12" height="10" rx="2"/><circle cx="104.0" cy="31.0" r="1.3"/><circle cx="109.0" cy="31.0" r="1.3"/><path d="M106.5 26.0v-3"/></g><g class="il-robo"><rect x="121.4" y="24.2" width="12" height="10" rx="2"/><circle cx="124.9" cy="29.2" r="1.3"/><circle cx="129.9" cy="29.2" r="1.3"/><path d="M127.4 24.2v-3"/></g><g class="il-robo"><rect x="145.7" y="25.9" width="12" height="10" rx="2"/><circle cx="149.2" cy="30.9" r="1.3"/><circle cx="154.2" cy="30.9" r="1.3"/><path d="M151.7 25.9v-3"/></g><g class="il-robo"><rect x="1.7" y="42.4" width="12" height="10" rx="2"/><circle cx="5.2" cy="47.4" r="1.3"/><circle cx="10.2" cy="47.4" r="1.3"/><path d="M7.7 42.4v-3"/></g><g class="il-robo"><rect x="23.1" y="42.8" width="12" height="10" rx="2"/><circle cx="26.6" cy="47.8" r="1.3"/><circle cx="31.6" cy="47.8" r="1.3"/><path d="M29.1 42.8v-3"/></g><g class="il-robo"><rect x="45.1" y="45.2" width="12" height="10" rx="2"/><circle cx="48.6" cy="50.2" r="1.3"/><circle cx="53.6" cy="50.2" r="1.3"/><path d="M51.1 45.2v-3"/></g><g class="il-cliente"><circle cx="72.8" cy="46.5" r="3.6"/><path d="M66.8 58.5c0-4.5 2.7-7 6-7s6 2.5 6 7"/></g><g class="il-robo"><rect x="91.5" y="42.2" width="12" height="10" rx="2"/><circle cx="95.0" cy="47.2" r="1.3"/><circle cx="100.0" cy="47.2" r="1.3"/><path d="M97.5 42.2v-3"/></g><g class="il-robo"><rect x="111.5" y="44.0" width="12" height="10" rx="2"/><circle cx="115.0" cy="49.0" r="1.3"/><circle cx="120.0" cy="49.0" r="1.3"/><path d="M117.5 44.0v-3"/></g><g class="il-robo"><rect x="132.1" y="43.7" width="12" height="10" rx="2"/><circle cx="135.6" cy="48.7" r="1.3"/><circle cx="140.6" cy="48.7" r="1.3"/><path d="M138.1 43.7v-3"/></g><g class="il-robo"><rect x="14.6" y="61.4" width="12" height="10" rx="2"/><circle cx="18.1" cy="66.4" r="1.3"/><circle cx="23.1" cy="66.4" r="1.3"/><path d="M20.6 61.4v-3"/></g><g class="il-robo"><rect x="35.4" y="61.5" width="12" height="10" rx="2"/><circle cx="38.9" cy="66.5" r="1.3"/><circle cx="43.9" cy="66.5" r="1.3"/><path d="M41.4 61.5v-3"/></g><g class="il-robo"><rect x="57.3" y="64.6" width="12" height="10" rx="2"/><circle cx="60.8" cy="69.6" r="1.3"/><circle cx="65.8" cy="69.6" r="1.3"/><path d="M63.3 64.6v-3"/></g><g class="il-robo"><rect x="77.8" y="61.0" width="12" height="10" rx="2"/><circle cx="81.3" cy="66.0" r="1.3"/><circle cx="86.3" cy="66.0" r="1.3"/><path d="M83.8 61.0v-3"/></g><g class="il-robo"><rect x="99.3" y="63.2" width="12" height="10" rx="2"/><circle cx="102.8" cy="68.2" r="1.3"/><circle cx="107.8" cy="68.2" r="1.3"/><path d="M105.3 63.2v-3"/></g><g class="il-robo"><rect x="121.1" y="61.3" width="12" height="10" rx="2"/><circle cx="124.6" cy="66.3" r="1.3"/><circle cx="129.6" cy="66.3" r="1.3"/><path d="M127.1 61.3v-3"/></g><g class="il-robo"><rect x="145.0" y="64.7" width="12" height="10" rx="2"/><circle cx="148.5" cy="69.7" r="1.3"/><circle cx="153.5" cy="69.7" r="1.3"/><path d="M151.0 64.7v-3"/></g><g class="il-robo"><rect x="1.7" y="81.6" width="12" height="10" rx="2"/><circle cx="5.2" cy="86.6" r="1.3"/><circle cx="10.2" cy="86.6" r="1.3"/><path d="M7.7 81.6v-3"/></g><g class="il-robo"><rect x="24.6" y="80.4" width="12" height="10" rx="2"/><circle cx="28.1" cy="85.4" r="1.3"/><circle cx="33.1" cy="85.4" r="1.3"/><path d="M30.6 80.4v-3"/></g><g class="il-robo"><rect x="46.3" y="80.7" width="12" height="10" rx="2"/><circle cx="49.8" cy="85.7" r="1.3"/><circle cx="54.8" cy="85.7" r="1.3"/><path d="M52.3 80.7v-3"/></g><g class="il-robo"><rect x="68.4" y="83.8" width="12" height="10" rx="2"/><circle cx="71.9" cy="88.8" r="1.3"/><circle cx="76.9" cy="88.8" r="1.3"/><path d="M74.4 83.8v-3"/></g><g class="il-robo"><rect x="88.2" y="82.2" width="12" height="10" rx="2"/><circle cx="91.7" cy="87.2" r="1.3"/><circle cx="96.7" cy="87.2" r="1.3"/><path d="M94.2 82.2v-3"/></g><g class="il-robo"><rect x="112.4" y="80.6" width="12" height="10" rx="2"/><circle cx="115.9" cy="85.6" r="1.3"/><circle cx="120.9" cy="85.6" r="1.3"/><path d="M118.4 80.6v-3"/></g><g class="il-robo"><rect x="133.1" y="84.0" width="12" height="10" rx="2"/><circle cx="136.6" cy="89.0" r="1.3"/><circle cx="141.6" cy="89.0" r="1.3"/><path d="M139.1 84.0v-3"/></g></svg>
+                <span class="il-papel">a mesma multidão</span>
+                <strong>Os mesmos robôs</strong>
+                <span class="il-texto">O ataque é igual. O que muda é quem recebe primeiro.</span>
+              </div>
+              <span class="il-seta" aria-hidden="true">→</span>
+              <div class="il-bloco" style="--cor: var(--ouro)">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M4 18h56v40H4z"/><path d="M4 31h56"/><path d="M4 44h56"/><path d="M18 18v13"/><path d="M36 18v13"/><path d="M50 18v13"/><path d="M10 31v13"/><path d="M27 31v13"/><path d="M44 31v13"/><path d="M18 44v14"/><path d="M36 44v14"/><path d="M50 44v14"/><path d="M4 18V9h9v9"/><path d="M22 18V9h9v9"/><path d="M40 18V9h9v9"/><path d="M51 18V9h9v9"/></svg>
+                <span class="il-papel">borda do provedor</span>
+                <strong>O quebra-mar</strong>
+                <span class="il-texto">A nuvem tem porta do tamanho de um estádio, espalhada pelo mundo: absorve a multidão e separa os robôs dos clientes.</span>
+              </div>
+              <span class="il-seta" aria-hidden="true">→</span>
+              <div class="il-bloco" style="--cor: var(--menta)">
+                <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 26l5-16h38l5 16"/><path d="M8 26h48"/><path d="M8 26c0 4 3 7 6.5 7S21 30 21 26c0 4 3 7 5.5 7S32 30 32 26c0 4 3 7 5.5 7S43 30 43 26c0 4 3 7 6.5 7S56 30 56 26"/><path d="M12 33v24h40V33"/><path d="M27 57V43h10v14"/></svg>
+                <span class="il-papel">no ar</span>
+                <strong>A loja aberta</strong>
+                <span class="il-texto">Só o cliente de verdade chega. Para ele, o dia foi normal.</span>
+              </div>
+            </div>
+            <figcaption>DDoS não invade nada: ele entope a porta. Por isso a defesa não é uma fechadura, é tamanho: a escala do provedor (na AWS, o Shield; no Azure, o DDoS Protection).</figcaption>
+          </figure>
         </section>
 
         <!-- ===================== ESTUDO DE CASO ===================== -->
