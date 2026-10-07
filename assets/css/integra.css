@@ -1,0 +1,40 @@
+/*
+  integra.css: encaixa a barra do topo comum (estilo.css) nas páginas com visual próprio
+  (quiz, simulado e materiais). versão 1 · 2026-10-07
+
+  Carregue por último, depois do CSS da própria página.
+*/
+
+/* a barra fica acima das partículas e do conteúdo, e ocupa a largura toda
+   (o body do quiz tem um recuo nas laterais) */
+.pagina-solta {
+  --recuo: 24px;
+  padding-top: 0;
+}
+
+.pagina-solta > .barra {
+  z-index: 50;
+  margin: 0 calc(-1 * var(--recuo)) var(--recuo);
+}
+
+/* no material de APIs o body não tem recuo, e o cabeçalho dele deixa de grudar no topo */
+body.pagina-solta:has(> .cabecalho) {
+  --recuo: 0px;
+}
+
+.pagina-solta > .cabecalho {
+  position: static;
+}
+
+@media (max-width: 640px) {
+  .pagina-solta {
+    --recuo: 14px;
+  }
+}
+
+/* o link da disciplina e o menu usam as letras do site, não as da página */
+.pagina-solta .barra {
+  font-family: var(--f-texto);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
