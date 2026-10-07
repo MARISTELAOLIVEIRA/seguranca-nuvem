@@ -1,3 +1,6 @@
+/* títulos seguem as cores desta página, e não as do site (estilo.css), nos dois temas */
+h1, h2, h3, h4 { color: inherit; }
+
     :root {
       --bg: #07111a;
       --panel: #0d1b26;
@@ -23,7 +26,7 @@
       line-height: 1.5;
     }
 
-    header {
+    .cabecalho {
       padding: 32px 20px;
       border-bottom: 1px solid var(--border);
       background: radial-gradient(circle at top right, rgba(40,209,124,.15), transparent 30%), #08141d;
@@ -239,7 +242,7 @@
     @media (max-width: 700px) {
       h1 { font-size: 1.6rem; }
       .wrap { padding: 0 14px 28px; }
-      header { padding: 24px 14px; }
+      .cabecalho { padding: 24px 14px; }
     }
 /* link de volta para a página da disciplina */
 .voltar { display: inline-block; margin-bottom: 10px; color: inherit; font-weight: 700; text-decoration: none; opacity: .85; }
