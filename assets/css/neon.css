@@ -1,18 +1,25 @@
 /*
-  neon.css: o toque hacker do site de Python (chuva de 0 e 1 e brilho verde neon, como no PyQuiz).
-  versão 1 · 2026-10-05
+  neon.css: o toque hacker do site de Python (chuva de 0 e 1 e brilho neon, como no PyQuiz).
+  versão 2 · 2026-10-07 · NESTE SITE (Segurança em Nuvem) o neon é o laranja da AWS nos destaques, com
+  toques do azul do Azure (a chuva alterna as duas: multinuvem). O link da disciplina na barra é o símbolo
+  da disciplina, a nuvem com escudo (assets/img/nuvem-escudo.svg). Não copie esta versão para os outros sites. Não copie esta versão para os outros sites.
 
   Carregue depois do estilo.css e do disciplina.css.
 */
 
 :root {
-  --neon: #39ff14;
-  --neon-brilho: rgba(57, 255, 20, .45);
+  --neon: #ff9900;
+  --neon-brilho: rgba(255, 153, 0, .45);
+  --neon-2: #3ea8ff;
+  --neon-2-brilho: rgba(62, 168, 255, .4);
 }
 
+/* no claro, laranja e azul mais fechados, para dar leitura no fundo branco */
 [data-tema="claro"] {
-  --neon: #0a8f4d;
-  --neon-brilho: rgba(10, 143, 77, .2);
+  --neon: #b35c00;
+  --neon-brilho: rgba(179, 92, 0, .2);
+  --neon-2: #0062ad;
+  --neon-2-brilho: rgba(0, 98, 173, .2);
 }
 
 
@@ -55,8 +62,45 @@
     0 0 40px -4px var(--neon-brilho);
 }
 
-/* o prompt e as etiquetas verdes da página também brilham de leve */
+/* o prompt e as etiquetas verdes da página também brilham de leve, em azul */
 .prompt b,
 .etiqueta.verde {
-  text-shadow: 0 0 10px var(--neon-brilho);
+  text-shadow: 0 0 10px var(--neon-2-brilho);
 }
+
+
+/* letra grossa e fechada, como a do logo do JS, nas palavras em neon e no link da barra */
+.neon,
+.marcas .marca-disc {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-stretch: 100%;
+  letter-spacing: -.01em;
+}
+
+/* o logo do JS como botão da página inicial, na barra do topo */
+.marcas .marca-disc.marca-logo {
+  display: inline-flex;
+  padding: 0;
+  text-shadow: none;
+}
+
+.marca-logo img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 0 10px var(--neon-brilho);
+  transition: box-shadow .2s, transform .2s;
+}
+
+.marca-logo:hover img,
+.marca-logo:focus-visible img {
+  box-shadow: 0 0 18px var(--neon-2-brilho), 0 0 4px var(--neon-2);
+  transform: scale(1.06);
+}
+
+.pausado .marca-logo img {
+  transition: none;
+}
+
