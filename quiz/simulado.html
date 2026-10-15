@@ -442,6 +442,7 @@
 }
   </style>
   <link rel="stylesheet" href="../assets/css/integra.css?v=1">
+  <link rel="stylesheet" href="../assets/css/conta.css?v=3">
 </head>
 <body class="pagina-solta">
   <!-- ===================== BARRA DO TOPO (igual em todos os sites) ===================== -->
@@ -491,7 +492,7 @@
       </div>
     </div>
 
-    <div id="start-screen" class="grid">
+    <div id="start-screen" class="grid" data-exige-login>
       <div class="card">
         <label for="studentName">Nome completo do aluno</label>
         <input type="text" id="studentName" placeholder="Digite seu nome completo" />
@@ -536,6 +537,7 @@
         <p><strong>Aproveitamento:</strong> <span id="resultPercent"></span></p>
         <p><strong>Tempo total:</strong> <span id="resultTime"></span></p>
         <p><strong>Data/Hora:</strong> <span id="resultDateTime"></span></p>
+        <p><strong>Código de verificação:</strong> <span id="resultCodigo">-</span></p>
         <p><strong>Nível:</strong> <span id="resultLevel"></span></p>
 
         <div class="analysis-list" id="analysisList"></div>
@@ -563,6 +565,9 @@
     </footer>
   </div>
 
+  <!-- login dos alunos (e-mail da faculdade) e registro dos resultados para a professora -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="../assets/js/conta.js?v=3" data-disciplina="seguranca-nuvem"></script>
   <script>
     const questions = [
       {
@@ -967,7 +972,8 @@
     }
 
     function startQuiz() {
-      studentName = studentNameInput.value.trim();
+      // nome com a primeira letra maiúscula (conta.js)
+      studentName = window.CONTA ? CONTA.formatarNome(studentNameInput.value) : studentNameInput.value.trim();
       if (!studentName) {
         alert("Digite o nome completo do aluno.");
         return;
@@ -1219,6 +1225,7 @@
       resultPercent.textContent = `${percent}%`;
       resultTime.textContent = formatTime(totalSeconds);
       resultDateTime.textContent = new Date().toLocaleString("pt-BR");
+      registrarResultado(totalSeconds, Number(percent));
       resultLevel.textContent = getLevel(percent);
 
       const analysis = buildAnalysis(percent);
@@ -1245,6 +1252,34 @@
         link.download = `simulado_aws_security_specialty_${safeName}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
+      });
+    }
+
+    // ---------- registro para a professora (assets/js/conta.js) ----------
+    // O quiz só começa com o login da faculdade (data-exige-login na tela inicial). No fim, o resultado
+    // vai para o Placa-Mãe da professora, e o código de verificação entra na imagem do resultado.
+    async function registrarResultado(totalSeconds, percent) {
+      const campoCodigo = document.getElementById("resultCodigo");
+      if (!window.CONTA) {
+        campoCodigo.textContent = "não registrado (sem conexão com o registro)";
+        return;
+      }
+      campoCodigo.textContent = "registrando...";
+      const registro = await CONTA.registrarTentativa({
+        atividade: "simulado-scs-c02",
+        titulo: document.title,
+        acertos: score,
+        total: shuffledQuestions.length,
+        duracao_seg: totalSeconds,
+        detalhes: { aproveitamento: percent, nome_digitado: studentName }
+      });
+      campoCodigo.textContent = registro ? registro.codigo : "não registrado: entre com o e-mail da faculdade e refaça";
+    }
+
+    // com o login, o nome da conta já entra na tela inicial
+    if (window.CONTA) {
+      CONTA.aoMudar(() => {
+        if (CONTA.daFaculdade() && !studentNameInput.value.trim()) studentNameInput.value = CONTA.nome();
       });
     }
 
