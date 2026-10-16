@@ -497,3 +497,93 @@
   border-color: #082c75;
   font-weight: 700;
 }
+
+/* tutorial passo a passo: "Faça assim", "Teste" e "Agora é com você" */
+.faca-assim {
+  margin-top: 1rem;
+  padding: .9rem 1.1rem;
+  border-radius: var(--raio-p);
+  border: 1px solid var(--borda-forte);
+  background: color-mix(in srgb, var(--texto) 3%, transparent);
+}
+
+.faca-assim > strong {
+  display: block;
+  margin-bottom: .4rem;
+  font-family: var(--f-titulo);
+  color: var(--texto);
+}
+
+.faca-assim ol,
+.faca-assim ul {
+  margin: 0;
+  padding-left: 1.3rem;
+  color: var(--texto-2);
+}
+
+.faca-assim li + li {
+  margin-top: .35rem;
+}
+
+.faca-assim code,
+.faca-assim kbd {
+  font-family: var(--f-mono);
+  font-size: .9em;
+  color: var(--ouro-forte);
+}
+
+.faca-assim.desafio {
+  border-color: color-mix(in srgb, var(--menta) 45%, transparent);
+}
+
+.conceito > .faca-assim {
+  margin-top: 0;
+}
+
+/* bloco de código do tutorial, com o nome do arquivo e o botão de copiar */
+.arquivo-codigo {
+  margin-top: 1rem;
+  border-radius: var(--raio-p);
+  border: 1px solid var(--borda-forte);
+  overflow: hidden;
+}
+
+.arquivo-codigo .arquivo-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .8rem;
+  background: color-mix(in srgb, var(--texto) 6%, transparent);
+  font-family: var(--f-mono);
+  font-size: .85rem;
+  color: var(--texto-2);
+}
+
+.arquivo-codigo .arquivo-cab button {
+  padding: .25rem .7rem;
+  border-radius: 999px;
+  border: 1px solid var(--borda-forte);
+  background: transparent;
+  color: var(--ouro-forte);
+  font: inherit;
+  cursor: pointer;
+}
+
+.arquivo-codigo pre.codigo {
+  margin: 0;
+  border-radius: 0;
+}
+
+/* no celular, tabela e código largos rolam dentro do bloco, sem alargar a página */
+.conceito > .texto,
+.conceito > .faca-assim,
+.arquivo-codigo {
+  min-width: 0;
+}
+
+/* código dentro do texto quebra a linha no celular, em vez de alargar a página */
+.conceito .texto code,
+.faca-assim code {
+  overflow-wrap: anywhere;
+}
