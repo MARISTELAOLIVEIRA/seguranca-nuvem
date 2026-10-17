@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Segurança em Nuvem · Profa. Maristela · Senac DF</title>
+  <desc id="descricao">Banner: o título em laranja sobre azul-marinho, ao lado de uma janela de editor com uma política de menor privilégio em JSON e um terminal com um comando da AWS CLI.</desc>
+
+  <defs>
+    <!-- Brilhos do fundo: laranja à esquerda, azul-céu à direita -->
+    <radialGradient id="brilhoLaranja" cx="6%" cy="18%" r="65%">
+      <stop offset="0" stop-color="#FF9900" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#FF9900" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="brilhoCeu" cx="96%" cy="110%" r="60%">
+      <stop offset="0" stop-color="#4FB3FF" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#4FB3FF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Trilhas de placa de circuito, bem apagadas -->
+    <pattern id="placa" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M0 30 H22 L30 22 V0 M60 40 H42 L36 46 V60" fill="none" stroke="#FF9900" stroke-opacity=".06" stroke-width="2"/>
+      <circle cx="30" cy="22" r="3" fill="#FF9900" fill-opacity=".09"/>
+      <circle cx="36" cy="46" r="3" fill="#FF9900" fill-opacity=".09"/>
+    </pattern>
+    <filter id="neon" x="-20%" y="-50%" width="140%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="borrado"/>
+      <feMerge><feMergeNode in="borrado"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fundo azul-marinho -->
+  <rect width="1200" height="360" rx="18" fill="#141C27"/>
+  <rect width="1200" height="360" rx="18" fill="url(#placa)"/>
+  <rect width="1200" height="360" rx="18" fill="url(#brilhoLaranja)"/>
+  <rect width="1200" height="360" rx="18" fill="url(#brilhoCeu)"/>
+
+  <!-- Nuvem com cadeado -->
+  <g transform="translate(64 62)">
+    <path d="M12 40 a12 12 0 0 1 2-23.8 a15 15 0 0 1 28.5-4 a11 11 0 0 1 9.5 27.8 z" fill="#FF9900"/>
+    <rect x="22" y="22" width="14" height="11" rx="2" fill="#141C27"/>
+    <path d="M25 22 v-4 a4 4 0 0 1 8 0 v4" fill="none" stroke="#141C27" stroke-width="2.5"/>
+  </g>
+
+  <!-- Título -->
+  <g font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <text x="134" y="92" font-size="20" fill="#9DB0C6" letter-spacing="3">SI · 4º SEMESTRE · SENAC DF</text>
+    <text x="62" y="162" font-size="58" font-weight="800" fill="#F3F6FA">Segurança em</text>
+    <text x="62" y="234" font-size="78" font-weight="800" fill="#FF9900" filter="url(#neon)">Nuvem</text>
+    <text x="64" y="280" font-size="22" fill="#D5DEE9">A nuvem é de alguém.</text>
+    <text x="64" y="310" font-size="22" fill="#D5DEE9">A configuração é sua.</text>
+  </g>
+
+  <!-- Janela do editor -->
+  <g transform="translate(640 46)">
+    <rect width="500" height="268" rx="12" fill="#1B2533" stroke="#33445A" stroke-width="2"/>
+    <rect width="500" height="38" rx="12" fill="#232F3E"/>
+    <rect y="26" width="500" height="12" fill="#232F3E"/>
+    <circle cx="22" cy="19" r="7" fill="#FF5F57"/>
+    <circle cx="44" cy="19" r="7" fill="#FEBC2E"/>
+    <circle cx="66" cy="19" r="7" fill="#28C840"/>
+    <text x="250" y="25" text-anchor="middle" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#9DB0C6">politica-filhotes.json</text>
+
+    <g font-family="Consolas, 'Courier New', monospace" font-size="18">
+      <text x="20" y="68" fill="#5B6C82">1</text>
+      <text x="48" y="68" fill="#D4D4D4">{</text>
+      <text x="20" y="92" fill="#5B6C82">2</text>
+      <text x="48" y="92"><tspan fill="#9CDCFE">  "Effect"</tspan><tspan fill="#D4D4D4">: </tspan><tspan fill="#CE9178">"Allow"</tspan><tspan fill="#D4D4D4">,</tspan></text>
+      <text x="20" y="116" fill="#5B6C82">3</text>
+      <text x="48" y="116"><tspan fill="#9CDCFE">  "Action"</tspan><tspan fill="#D4D4D4">: </tspan><tspan fill="#CE9178">"s3:GetObject"</tspan><tspan fill="#D4D4D4">,</tspan></text>
+      <text x="20" y="140" fill="#5B6C82">4</text>
+      <text x="48" y="140"><tspan fill="#9CDCFE">  "Resource"</tspan><tspan fill="#D4D4D4">: </tspan><tspan fill="#CE9178">"arn:aws:s3:::turma/*"</tspan></text>
+      <text x="20" y="164" fill="#5B6C82">5</text>
+      <text x="48" y="164"><tspan fill="#D4D4D4">}  </tspan><tspan fill="#6A9955">// só leitura: menor privilégio</tspan></text>
+    </g>
+
+    <!-- Terminal -->
+    <rect x="14" y="180" width="472" height="76" rx="8" fill="#0D131C"/>
+    <g font-family="Consolas, 'Courier New', monospace" font-size="16">
+      <text x="30" y="208"><tspan fill="#FF9900">$ </tspan><tspan fill="#D4D4D4">aws iam get-user --user-name filhotes</tspan></text>
+      <text x="30" y="236"><tspan fill="#39FF9E">MFA ligado</tspan><tspan fill="#9DB0C6"> · </tspan><tspan fill="#39FF9E">chave fora do código</tspan></text>
+      <rect x="362" y="222" width="10" height="18" fill="#FF9900"/>
+    </g>
+  </g>
+</svg>
