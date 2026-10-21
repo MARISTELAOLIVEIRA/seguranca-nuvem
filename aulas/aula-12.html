@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 12: Registro em log e monitoramento · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 12 de Segurança em Nuvem: trilha de auditoria no CloudTrail, alarme com notificação no CloudWatch e uma regra de conformidade para buckets.">
+  <title>Aula 12: Registro em log e monitoramento no Azure · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 12 de Segurança em Nuvem, no Azure: o log de atividades, um alerta do Azure Monitor que avisa por e-mail e uma regra de conformidade para as contas de armazenamento.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -76,10 +76,10 @@
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Aula 12</span>
           <span class="etiqueta">Laboratório de práticas</span>
-          <span class="etiqueta">Unidade 4</span>
+          <span class="etiqueta">Unidade 4 · Azure</span>
         </div>
         <h1>A nuvem com câmera e alarme</h1>
-        <p class="subtitulo">Quem fez o quê na conta, o alarme que avisa por e-mail e a regra que confere sozinha.</p>
+        <p class="subtitulo">Quem fez o quê na assinatura, o alerta que avisa por e-mail e a regra que confere sozinha, no Azure.</p>
       </div>
     </section>
 
@@ -89,11 +89,11 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Registrar as atividades da conta, criar alarmes com notificação e regras de conformidade.</p>
+            <p>Registrar as atividades da assinatura, criar alertas com notificação e regras de conformidade no Azure.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Estudar o módulo de monitoramento do Cloud Security Foundations.</p>
+            <p>Revisar a aula 11 e entrar no <a href="https://learn.microsoft.com/pt-br/">Microsoft Learn</a> com a conta Microsoft.</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
@@ -111,7 +111,7 @@
           <div class="cab">
             <span class="olho">P1 · o problema</span>
             <h2>Quem avisou foi alguém de fora</h2>
-            <p>A Toyota ficou quase dez anos com dados expostos sem perceber (aula 11). O Capital One soube do próprio vazamento por um pesquisador de fora (aula 1). Proteger não basta: é preciso <strong>ver</strong> o que acontece na conta, ser <strong>avisado</strong> quando algo foge do normal e <strong>conferir</strong> as configurações sem depender da memória de ninguém.</p>
+            <p>A Toyota ficou quase dez anos com dados expostos sem perceber (aula 11). O Capital One soube do próprio vazamento por um pesquisador de fora (aula 1). Proteger não basta: é preciso <strong>ver</strong> o que acontece na assinatura, ser <strong>avisado</strong> quando algo foge do normal e <strong>conferir</strong> as configurações sem depender da memória de ninguém. Hoje, no Azure.</p>
           </div>
         </section>
 
@@ -125,28 +125,28 @@
           <div class="conceito">
             <div class="texto">
               <span class="olho">C1</span>
-              <h3>Por que registrar: a trilha de auditoria</h3>
-              <p>Um <strong>log</strong> de auditoria responde a quatro perguntas sobre cada ação: <strong>quem</strong>, <strong>o quê</strong>, <strong>quando</strong> e <strong>de onde</strong>. Serve para detectar, para investigar depois de um incidente e para provar o que aconteceu. Na AWS, é o <strong>CloudTrail</strong>; no Azure, o <strong>Log de Atividades</strong> do Azure Monitor.</p>
+              <h3>Por que registrar: o log de atividades</h3>
+              <p>Um <strong>log</strong> de auditoria responde a quatro perguntas sobre cada ação: <strong>quem</strong>, <strong>o quê</strong>, <strong>quando</strong> e <strong>de onde</strong>. Serve para detectar, para investigar depois de um incidente e para provar o que aconteceu. No Azure, o <strong>log de atividades</strong> registra o que se faz nos recursos, e os <strong>logs de entrada</strong> do Microsoft Entra ID registram quem entrou, de onde e se deu certo. Na AWS, é o CloudTrail.</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># um registro do CloudTrail, resumido</span></span><span class="linha"><span class="num">2</span>quem ........ voclabs/aluno (o papel do laboratório)</span><span class="linha"><span class="num">3</span>o quê ....... PutBucketPolicy</span><span class="linha"><span class="num">4</span>quando ...... 2026-10-21T12:42:07Z (UTC)</span><span class="linha"><span class="num">5</span>de onde ..... 177.71.x.x</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># um registro do log de atividades, resumido</span></span><span class="linha"><span class="num">2</span>quem ........ aluno@... (o usuário da área restrita)</span><span class="linha"><span class="num">3</span>o quê ....... Microsoft.Storage/storageAccounts/write</span><span class="linha"><span class="num">4</span>quando ...... 2026-10-28T12:42:07Z (UTC)</span><span class="linha"><span class="num">5</span>de onde ..... 177.71.x.x</span></code></pre>
           </div>
 
           <div class="conceito">
             <div class="texto">
               <span class="olho">C2</span>
-              <h3>Métricas, alarmes e notificações</h3>
-              <p>Uma <strong>métrica</strong> é um número que muda com o tempo (uso de CPU, tentativas de login erradas). O <strong>alarme</strong> compara a métrica com um limite e muda de estado: <strong>OK</strong> ou <strong>In alarm</strong>. A <strong>notificação</strong> (o SNS) leva o aviso para quem precisa saber, por e-mail ou mensagem.</p>
+              <h3>Alertas e grupos de ações</h3>
+              <p>O <strong>Azure Monitor</strong> junta os logs e as <strong>métricas</strong> (números que mudam com o tempo, como o uso de CPU). Um <strong>alerta</strong> olha o log ou a métrica e dispara quando a condição acontece. O <strong>grupo de ações</strong> diz quem recebe o aviso e como: e-mail, SMS, Teams ou um programa que reage sozinho.</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># o alarme da aula</span></span><span class="linha"><span class="num">2</span>métrica ..... TentativasErradas (por minuto)</span><span class="linha"><span class="num">3</span>limite ...... maior que 10</span><span class="linha"><span class="num">4</span>estado ...... OK  -&gt;  In alarm</span><span class="linha"><span class="num">5</span>aviso ....... e-mail, pelo tópico alerta-seguranca</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># o alerta da aula</span></span><span class="linha"><span class="num">2</span>olha ........ o log de atividades do grupo de recursos</span><span class="linha"><span class="num">3</span>condição .... alguém mudou uma conta de armazenamento</span><span class="linha"><span class="num">4</span>avisa ....... o grupo de ações alerta-seguranca</span><span class="linha"><span class="num">5</span>como ........ e-mail</span></code></pre>
           </div>
 
           <div class="conceito">
             <div class="texto">
               <span class="olho">C3</span>
               <h3>Conformidade: regras que conferem sozinhas</h3>
-              <p>Uma <strong>regra de conformidade</strong> descreve como as coisas <strong>devem</strong> estar ("nenhum bucket público", "todo disco criptografado") e confere o ambiente o tempo todo. Na AWS, é o <strong>AWS Config</strong>; no Azure, o <strong>Azure Policy</strong>. Ela não depende de alguém lembrar de olhar.</p>
+              <p>Uma <strong>regra de conformidade</strong> descreve como as coisas <strong>devem</strong> estar ("nenhuma conta de armazenamento pública", "todo disco criptografado") e confere o ambiente o tempo todo. No Azure, é o <strong>Azure Policy</strong>, que pode só avisar ou até <strong>impedir</strong> a criação errada; o <strong>Defender for Cloud</strong> junta tudo numa pontuação de segurança. Na AWS, é o AWS Config.</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># a regra da aula</span></span><span class="linha"><span class="num">2</span>regra ....... todo bucket com bloqueio de acesso público</span><span class="linha"><span class="num">3</span>confere ..... todos os buckets da conta</span><span class="linha"><span class="num">4</span>resultado ... OK  ou  ALERTA</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># a regra da aula</span></span><span class="linha"><span class="num">2</span>regra ....... só HTTPS, TLS 1.2 e sem acesso público</span><span class="linha"><span class="num">3</span>confere ..... todas as contas de armazenamento do grupo</span><span class="linha"><span class="num">4</span>resultado ... OK  ou  ALERTA</span></code></pre>
           </div>
         </section>
 
@@ -154,120 +154,110 @@
         <section class="parte" id="na-tela">
           <div class="cab">
             <span class="olho">T1 · tutorial</span>
-            <h2>Mão na massa: o monitoramento em 4 passos</h2>
-            <p>É a atividade da aula, no Learner Lab da AWS Academy, botão por botão. Faça um passo de cada vez e confira o <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
+            <h2>Mão na massa: o monitoramento no Azure em 4 passos</h2>
+            <p>É a atividade da aula, na área restrita do Microsoft Learn, comando por comando. Faça um passo de cada vez e confira o <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="antes">
             <div class="texto">
               <span class="olho">Antes de começar</span>
-              <h3>Abra o Learner Lab</h3>
+              <h3>A área restrita, de novo</h3>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>Na AWS Academy, abra o <strong>Learner Lab</strong>, clique em <strong>Start Lab</strong> e espere a bolinha ao lado de <strong>AWS</strong> ficar verde.</li>
-                  <li>Clique em <strong>AWS</strong> para abrir o console. Confira a região <strong>N. Virginia (us-east-1)</strong>: é nela que ficaram os recursos da aula 11.</li>
-                  <li>Deixe a página do Learner Lab aberta: o <strong>terminal</strong> dela (a área preta, ao lado das instruções) já vem com o AWS CLI pronto para usar.</li>
+                  <li>Entre no Microsoft Learn (com a conta pessoal, se a do Senac não ativar a área restrita) e abra o módulo <a href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/">Descrever os principais componentes de arquitetura do Azure</a>, na <strong>unidade 4</strong> (<strong>Exercício: Explorar a área restrita do Learn</strong>).</li>
+                  <li>Clique em <strong>Ativar a área restrita</strong>. No Cloud Shell, se abrir em PowerShell, digite <code>bash</code>.</li>
+                  <li>A área restrita da aula 11 já se apagou sozinha. Rode o bloco abaixo para ter de novo uma conta de armazenamento.</li>
                 </ol>
               </div>
-              <p class="dica">Os passos usam o bucket <code>seguranca-SEUNOME-2026</code> e o segredo <code>lab/banco-fichas</code> da aula 11. Não fez a aula 11? Faça antes o passo 1 dela (o bucket): leva 5 minutos.</p>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># a área restrita é nova a cada aula: guarda o grupo de recursos e cria a conta de armazenamento de novo</span></span><span class="linha"><span class="num">2</span>GRUPO=$(az group list --query &quot;[0].name&quot; -o tsv)</span><span class="linha"><span class="num">3</span>NOME=fichas$RANDOM$RANDOM</span><span class="linha"><span class="num">4</span>echo &quot;Grupo: $GRUPO   Conta: $NOME&quot;</span><span class="linha"><span class="num">5</span>az storage account create --name $NOME --resource-group $GRUPO --location eastus \</span><span class="linha"><span class="num">6</span>  --sku Standard_LRS --https-only true --min-tls-version TLS1_2 --allow-blob-public-access false -o none</span><span class="linha"><span class="num">7</span>echo &quot;Pronto: conta $NOME criada&quot;</span></code></pre></div>
+              <p class="dica">Não recarregue a página no meio do laboratório: as variáveis <code>$GRUPO</code> e <code>$NOME</code> somem. Se sumirem, rode de novo o bloco acima.</p>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-1">
             <div class="texto">
               <span class="olho">Passo 1 · itens 1 e 2 da atividade</span>
-              <h3>A trilha de auditoria: quem fez o quê, quando e de onde</h3>
-              <p>O <strong>CloudTrail</strong> registra cada ação feita na conta: pelo console, pelo terminal ou por um programa. O <strong>Event history</strong> guarda os últimos 90 dias e já vem ligado. É a câmera de segurança da nuvem.</p>
+              <h3>O log de atividades: quem fez o quê, quando e de onde</h3>
+              <p>O <strong>log de atividades</strong> do Azure Monitor registra cada ação de gerenciamento feita na assinatura: criar, mudar, apagar, dar permissão. Pelo portal, pelo terminal ou por um programa. Ele já vem ligado e guarda 90 dias. É a câmera de segurança da nuvem (o CloudTrail, na AWS).</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>Na busca do console, abra o <strong>CloudTrail</strong> e clique em <strong>Event history</strong>, no menu da esquerda.</li>
-                  <li>Em <strong>Lookup attributes</strong>, escolha <strong>Event name</strong> e digite <code>CreateBucket</code>. Aparece a criação do seu bucket da aula 11.</li>
-                  <li>Clique no nome do evento. Ache, no registro: <strong>quem</strong> (<code>userIdentity</code>: no Learner Lab, aparece o papel <code>voclabs</code>, que é você), <strong>o quê</strong> (<code>eventName</code>), <strong>quando</strong> (<code>eventTime</code>, no horário UTC: três horas a mais que Brasília) e <strong>de onde</strong> (<code>sourceIPAddress</code>).</li>
-                  <li>Troque o filtro para <code>PutBucketPolicy</code> (a política do HTTPS) e para <code>GetSecretValue</code> (a leitura do segredo). Até a leitura da senha ficou registrada.</li>
+                  <li>Rode o primeiro bloco abaixo. Aparece a criação da sua conta de armazenamento, de agora há pouco.</li>
+                  <li>Ache, numa linha: <strong>quem</strong> (<code>quem</code>: o seu usuário da área restrita), <strong>o quê</strong> (<code>oque</code>: a operação, como <code>Microsoft.Storage/storageAccounts/write</code>), <strong>quando</strong> (<code>quando</code>, no horário UTC: três horas a mais que Brasília) e <strong>de onde</strong> (<code>de_onde</code>: o endereço IP).</li>
+                  <li>Rode o segundo bloco: o mesmo log, só com as alterações nas contas de armazenamento. Filtrar é o primeiro passo de qualquer investigação.</li>
                 </ol>
               </div>
-              <div class="faca-assim">
-                <strong>Teste no terminal do Learner Lab:</strong>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># o log de atividades da última hora no seu grupo de recursos: quem, o quê, quando e de onde</span></span><span class="linha"><span class="num">2</span>az monitor activity-log list --resource-group $GRUPO --offset 1h \</span><span class="linha"><span class="num">3</span>  --query &quot;[].{quando:eventTimestamp, quem:caller, oque:operationName.value, de_onde:httpRequest.clientIpAddress, status:status.value}&quot; \</span><span class="linha"><span class="num">4</span>  -o table</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># só as alterações nas contas de armazenamento</span></span><span class="linha"><span class="num">2</span>az monitor activity-log list --resource-group $GRUPO --offset 1h \</span><span class="linha"><span class="num">3</span>  --query &quot;[?operationName.value==&#x27;Microsoft.Storage/storageAccounts/write&#x27;].{quando:eventTimestamp, quem:caller, status:status.value}&quot; \</span><span class="linha"><span class="num">4</span>  -o table</span></code></pre></div>
+              <p class="dica cuidado"><strong>A sua ação ainda não apareceu?</strong> O log de atividades pode levar alguns minutos para mostrar uma ação nova. Espere um pouco e rode de novo.</p>
+              <div class="faca-assim desafio">
+                <strong>Agora é com você:</strong>
                 <ol>
-                  <li>Rode o comando abaixo: é a mesma consulta, pelo terminal. É assim que uma ferramenta de segurança lê a trilha automaticamente.</li>
+                  <li>Por que o <code>status</code> aparece duas vezes para a mesma ação (<code>Started</code> e <code>Succeeded</code>)?</li>
+                  <li>Abra o <a href="https://portal.azure.com">portal do Azure</a> com a mesma conta (no canto, troque o diretório para <strong>Microsoft Learn Sandbox</strong>), abra o seu grupo de recursos e clique em <strong>Log de atividades</strong>. É o mesmo log, com botões.</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>terminal</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># os últimos eventos de criação de bucket na conta, com quem, quando e de onde</span></span><span class="linha"><span class="num">2</span>aws cloudtrail lookup-events \</span><span class="linha"><span class="num">3</span>  --lookup-attributes AttributeKey=EventName,AttributeValue=CreateBucket \</span><span class="linha"><span class="num">4</span>  --max-results 5 \</span><span class="linha"><span class="num">5</span>  --query &quot;Events[].[EventTime,Username,EventName]&quot; \</span><span class="linha"><span class="num">6</span>  --output table</span></code></pre></div>
-              <p class="dica cuidado"><strong>O evento não apareceu?</strong> O CloudTrail pode levar até 15 minutos para mostrar uma ação nova. E confira a região: o Event history mostra só a região escolhida no topo do console.</p>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-2">
             <div class="texto">
               <span class="olho">Passo 2 · item 3 da atividade</span>
-              <h3>Um alarme que manda e-mail</h3>
-              <p>Log que ninguém olha não protege. O <strong>CloudWatch</strong> acompanha números (as <strong>métricas</strong>) e dispara um <strong>alarme</strong> quando um número passa do limite. O <strong>SNS</strong> entrega o aviso por e-mail. Hoje, a métrica é o número de tentativas de login erradas, que o nosso "sistema" vai mandar pelo terminal.</p>
+              <h3>Um alerta que manda e-mail</h3>
+              <p>Log que ninguém olha não protege. O <strong>Azure Monitor</strong> cria <strong>alertas</strong>: quando acontece algo no log (ou quando um número passa do limite), ele avisa um <strong>grupo de ações</strong>, as pessoas que recebem o e-mail. Hoje: avisar quando alguém mexer numa conta de armazenamento.</p>
               <div class="faca-assim">
-                <strong>Primeiro, a métrica existir:</strong>
+                <strong>Faça assim:</strong>
                 <ol>
-                  <li>No terminal do Learner Lab, mande o primeiro valor (o comando abaixo). A métrica só aparece no console depois de receber um valor.</li>
+                  <li>Copie o bloco abaixo, troque <code>SEU_EMAIL_AQUI</code> pelo seu e-mail e rode.</li>
+                  <li>Abra o seu e-mail: chegou uma mensagem da Microsoft Azure dizendo que você foi adicionado ao grupo de ações <code>alerta-seguranca</code>.</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>terminal</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># manda para o CloudWatch o número de tentativas de login erradas (aqui, 1: tudo calmo)</span></span><span class="linha"><span class="num">2</span>aws cloudwatch put-metric-data --namespace Lab/Seguranca --metric-name TentativasErradas --value 1</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># 1. o grupo de ações: quem recebe o aviso (troque pelo seu e-mail)</span></span><span class="linha"><span class="num">2</span>az monitor action-group create --name alerta-seguranca --resource-group $GRUPO \</span><span class="linha"><span class="num">3</span>  --short-name alertaseg --action email voce SEU_EMAIL_AQUI</span><span class="linha"><span class="num">4</span></span><span class="linha"><span class="num">5</span><span class="com"># 2. o alerta: alguém mudou uma conta de armazenamento neste grupo de recursos? avisa</span></span><span class="linha"><span class="num">6</span>ASSINATURA=$(az account show --query id -o tsv)</span><span class="linha"><span class="num">7</span>az monitor activity-log alert create --name conta-armazenamento-alterada --resource-group $GRUPO \</span><span class="linha"><span class="num">8</span>  --scope /subscriptions/$ASSINATURA/resourceGroups/$GRUPO \</span><span class="linha"><span class="num">9</span>  --condition category=Administrative and operationName=Microsoft.Storage/storageAccounts/write \</span><span class="linha"><span class="num">10</span>  --action-group alerta-seguranca</span></code></pre></div>
               <div class="faca-assim">
-                <strong>Faça assim, no console:</strong>
+                <strong>Teste: a mudança suspeita</strong>
                 <ol>
-                  <li>Abra o <strong>CloudWatch</strong> e clique em <strong>Alarms › All alarms › Create alarm</strong>.</li>
-                  <li>Clique em <strong>Select metric</strong>, abra <strong>Custom namespaces › Lab/Seguranca › Metrics with no dimensions</strong>, marque <code>TentativasErradas</code> e clique em <strong>Select metric</strong>.</li>
-                  <li>Em <strong>Statistic</strong>, escolha <strong>Maximum</strong> e, em <strong>Period</strong>, <strong>1 minute</strong>. Em <strong>Conditions</strong>: <strong>Greater</strong>, threshold <code>10</code>. Clique em <strong>Next</strong>.</li>
-                  <li>Em <strong>Notification</strong>, deixe <strong>In alarm</strong>, escolha <strong>Create new topic</strong>, dê o nome <code>alerta-seguranca</code>, coloque o seu e-mail e clique em <strong>Create topic</strong>. Clique em <strong>Next</strong>.</li>
-                  <li>Dê o nome <code>forca-bruta-login</code> ao alarme, clique em <strong>Next</strong> e em <strong>Create alarm</strong>.</li>
-                  <li>Abra o seu e-mail: chegou uma mensagem da AWS Notifications. Clique em <strong>Confirm subscription</strong>. Sem confirmar, o aviso não chega.</li>
+                  <li>Rode o bloco abaixo: ele "afrouxa" a conta de armazenamento, como faria um invasor ou alguém sem cuidado.</li>
+                  <li>Espere o e-mail do alerta <code>conta-armazenamento-alterada</code>. Ele pode levar de 5 a 15 minutos: enquanto isso, siga para o passo 3.</li>
+                  <li>No passo 1, rode de novo o filtro das contas de armazenamento: a mudança está no log.</li>
                 </ol>
               </div>
-              <div class="faca-assim">
-                <strong>Teste: o ataque de força bruta</strong>
-                <ol>
-                  <li>No terminal, rode a simulação abaixo (leva um minuto e meio).</li>
-                  <li>Na lista de alarmes do CloudWatch, o <code>forca-bruta-login</code> passa de <strong>OK</strong> (ou <strong>Insufficient data</strong>) para <strong>In alarm</strong> em alguns minutos.</li>
-                  <li>Confira o e-mail: chegou o alerta. É a aula 10 (o limite de tentativas de login) vigiada pela nuvem.</li>
-                </ol>
-              </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>terminal</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># simula um ataque de força bruta: 20 tentativas erradas, três vezes, com 30 segundos entre elas</span></span><span class="linha"><span class="num">2</span>for vez in 1 2 3; do</span><span class="linha"><span class="num">3</span>  aws cloudwatch put-metric-data --namespace Lab/Seguranca --metric-name TentativasErradas --value 20</span><span class="linha"><span class="num">4</span>  sleep 30</span><span class="linha"><span class="num">5</span>done</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># alguém &quot;afrouxou&quot; a conta de armazenamento: TLS 1.0, antigo e inseguro</span></span><span class="linha"><span class="num">2</span>az storage account update --name $NOME --resource-group $GRUPO --min-tls-version TLS1_0 -o none</span><span class="linha"><span class="num">3</span>echo &quot;Mudança feita. Agora espere o e-mail (pode levar alguns minutos).&quot;</span></code></pre></div>
+              <p class="dica cuidado"><strong>A área restrita recusou o alerta?</strong> Se aparecer <code>AuthorizationFailed</code> ou <code>RequestDisallowedByPolicy</code>, ela não liberou os alertas hoje. Acompanhe pela projeção da professora, ou faça com o Azure for Students.</p>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-3">
             <div class="texto">
               <span class="olho">Passo 3 · itens 4 e 5 da atividade</span>
-              <h3>A regra de conformidade: nenhum bucket aberto</h3>
-              <p>Uma <strong>regra de conformidade</strong> confere as configurações sozinha e avisa o que está fora do padrão. É o que teria achado a configuração errada da Toyota em minutos, e não em dez anos. A regra de hoje: <strong>todo bucket precisa do bloqueio de acesso público completo</strong>.</p>
-              <p>Vamos escrever a regra como um script, que confere todos os buckets da conta com o AWS CLI. É a mesma lógica das ferramentas de conformidade da nuvem, só que feita por nós e lida linha por linha.</p>
+              <h3>A regra de conformidade: nenhuma conta aberta</h3>
+              <p>Uma <strong>regra de conformidade</strong> confere as configurações sozinha e avisa o que está fora do padrão. É o que teria achado a configuração errada da Toyota em minutos, e não em dez anos. A regra de hoje: <strong>toda conta de armazenamento só com HTTPS, TLS 1.2 e sem acesso público</strong>.</p>
+              <p>Na empresa, essa regra é ligada no <strong>Azure Policy</strong> (a política pronta "Storage account public access should be disallowed", por exemplo), e o <strong>Defender for Cloud</strong> mostra quem está fora. A área restrita não deixa criar políticas, então vamos escrever a regra como um script, que confere todas as contas com o Azure CLI: a mesma lógica, lida linha por linha.</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>No terminal do Learner Lab, crie o arquivo: <code>nano conformidade.sh</code>.</li>
-                  <li>Copie o script abaixo, cole no nano (botão direito ou <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>), salve com <kbd>Ctrl</kbd> + <kbd>O</kbd> e <kbd>Enter</kbd> e saia com <kbd>Ctrl</kbd> + <kbd>X</kbd>.</li>
-                  <li>Rode: <code>bash conformidade.sh</code>. O seu bucket da aula 11 aparece como <strong>OK</strong>.</li>
+                  <li>No Cloud Shell, crie o arquivo: <code>code conformidade.sh</code> (abre um editor) ou <code>nano conformidade.sh</code>.</li>
+                  <li>Copie o script abaixo, cole e salve (no editor <code>code</code>: <kbd>Ctrl</kbd> + <kbd>S</kbd> e <kbd>Ctrl</kbd> + <kbd>Q</kbd>; no nano: <kbd>Ctrl</kbd> + <kbd>O</kbd>, <kbd>Enter</kbd> e <kbd>Ctrl</kbd> + <kbd>X</kbd>).</li>
+                  <li>Rode: <code>bash conformidade.sh</code>. A sua conta aparece como <strong>ALERTA</strong>, por causa do TLS 1.0 do passo 2. A regra pegou o "invasor".</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>conformidade.sh</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com">#!/bin/bash</span></span><span class="linha"><span class="num">2</span><span class="com"># conformidade.sh: a regra &quot;todo bucket precisa do bloqueio de acesso público completo&quot;</span></span><span class="linha"><span class="num">3</span><span class="com"># confere todos os buckets da conta e avisa os que estão fora da regra</span></span><span class="linha"><span class="num">4</span></span><span class="linha"><span class="num">5</span>problemas=0</span><span class="linha"><span class="num">6</span>for bucket in $(aws s3api list-buckets --query &quot;Buckets[].Name&quot; --output text); do</span><span class="linha"><span class="num">7</span>  bloqueio=$(aws s3api get-public-access-block --bucket &quot;$bucket&quot; \</span><span class="linha"><span class="num">8</span>    --query &quot;PublicAccessBlockConfiguration.[BlockPublicAcls,IgnorePublicAcls,BlockPublicPolicy,RestrictPublicBuckets]&quot; \</span><span class="linha"><span class="num">9</span>    --output text 2&gt;/dev/null)</span><span class="linha"><span class="num">10</span></span><span class="linha"><span class="num">11</span>  <span class="com"># sem bloqueio configurado, ou com alguma das quatro opções desligada (False): fora da regra</span></span><span class="linha"><span class="num">12</span>  if [ -z &quot;$bloqueio&quot; ] || echo &quot;$bloqueio&quot; | grep -q False; then</span><span class="linha"><span class="num">13</span>    echo &quot;ALERTA  $bucket: sem o bloqueio de acesso público completo&quot;</span><span class="linha"><span class="num">14</span>    problemas=$((problemas + 1))</span><span class="linha"><span class="num">15</span>  else</span><span class="linha"><span class="num">16</span>    echo &quot;OK      $bucket&quot;</span><span class="linha"><span class="num">17</span>  fi</span><span class="linha"><span class="num">18</span>done</span><span class="linha"><span class="num">19</span></span><span class="linha"><span class="num">20</span>echo &quot;Buckets fora da regra: $problemas&quot;</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>conformidade.sh</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com">#!/bin/bash</span></span><span class="linha"><span class="num">2</span><span class="com"># conformidade.sh: a regra &quot;toda conta de armazenamento só com HTTPS, TLS 1.2 e sem acesso público&quot;</span></span><span class="linha"><span class="num">3</span><span class="com"># confere todas as contas do grupo de recursos e avisa as que estão fora da regra</span></span><span class="linha"><span class="num">4</span>GRUPO=$(az group list --query &quot;[0].name&quot; -o tsv)</span><span class="linha"><span class="num">5</span>problemas=0</span><span class="linha"><span class="num">6</span></span><span class="linha"><span class="num">7</span>for conta in $(az storage account list --resource-group $GRUPO --query &quot;[].name&quot; -o tsv); do</span><span class="linha"><span class="num">8</span>  regra=$(az storage account show --name $conta --resource-group $GRUPO \</span><span class="linha"><span class="num">9</span>    --query &quot;[enableHttpsTrafficOnly, minimumTlsVersion, allowBlobPublicAccess]&quot; -o tsv | tr &#x27;\t\n&#x27; &#x27;  &#x27;)</span><span class="linha"><span class="num">10</span></span><span class="linha"><span class="num">11</span>  <span class="com"># o certo é: True (só HTTPS), TLS1_2 e False (sem acesso público)</span></span><span class="linha"><span class="num">12</span>  if echo &quot;$regra&quot; | grep -q &quot;True TLS1_2 False&quot;; then</span><span class="linha"><span class="num">13</span>    echo &quot;OK      $conta&quot;</span><span class="linha"><span class="num">14</span>  else</span><span class="linha"><span class="num">15</span>    echo &quot;ALERTA  $conta: $regra&quot;</span><span class="linha"><span class="num">16</span>    problemas=$((problemas + 1))</span><span class="linha"><span class="num">17</span>  fi</span><span class="linha"><span class="num">18</span>done</span><span class="linha"><span class="num">19</span></span><span class="linha"><span class="num">20</span>echo &quot;Contas fora da regra: $problemas&quot;</span></code></pre></div>
               <div class="faca-assim">
                 <strong>Teste: provocar a regra de propósito (item 5)</strong>
                 <ol>
-                  <li>No S3, crie um bucket de teste: <code>teste-conformidade-SEUNOME</code>.</li>
-                  <li>Abra o bucket, vá em <strong>Permissions › Block public access (bucket settings) › Edit</strong>, desmarque <strong>Block all public access</strong>, clique em <strong>Save changes</strong> e digite <code>confirm</code>. (Nada fica público ainda: só o bloqueio foi desligado.)</li>
-                  <li>Rode de novo <code>bash conformidade.sh</code>: aparece o <strong>ALERTA</strong> do bucket de teste.</li>
-                  <li>Volte em <strong>Edit</strong>, marque de novo <strong>Block all public access</strong> e rode o script: tudo <strong>OK</strong>. Depois, apague o bucket de teste (<strong>Empty</strong> e <strong>Delete</strong>).</li>
+                  <li>Rode o bloco abaixo: ele cria uma conta de teste já errada, com acesso público permitido, e roda a regra. Aparecem dois <strong>ALERTA</strong>.</li>
+                  <li>Rode o último bloco: ele corrige as duas contas e roda a regra de novo. Tudo <strong>OK</strong>.</li>
                 </ol>
               </div>
-              <p class="dica"><strong>E o AWS Config?</strong> Na conta da empresa, essa regra é ligada com um clique no <strong>AWS Config</strong> (a regra pronta <code>s3-bucket-level-public-access-prohibited</code>), e no Azure, com o <strong>Azure Policy</strong>. O Learner Lab costuma não liberar o AWS Config; se na sua turma ele abrir, ligue a regra pronta e compare com o script.</p>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># uma conta de teste criada errada, de propósito: com acesso público permitido</span></span><span class="linha"><span class="num">2</span>TESTE=teste$RANDOM$RANDOM</span><span class="linha"><span class="num">3</span>az storage account create --name $TESTE --resource-group $GRUPO --location eastus \</span><span class="linha"><span class="num">4</span>  --sku Standard_LRS --allow-blob-public-access true -o none</span><span class="linha"><span class="num">5</span>bash conformidade.sh</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># corrige as duas contas e confere de novo: tudo OK</span></span><span class="linha"><span class="num">2</span>az storage account update --name $NOME --resource-group $GRUPO --min-tls-version TLS1_2 -o none</span><span class="linha"><span class="num">3</span>az storage account update --name $TESTE --resource-group $GRUPO --min-tls-version TLS1_2 --allow-blob-public-access false -o none</span><span class="linha"><span class="num">4</span>bash conformidade.sh</span></code></pre></div>
               <div class="faca-assim desafio">
-                <strong>Agora é com você (desafio: juntar o passo 2 com o passo 3):</strong>
+                <strong>Agora é com você (desafio):</strong>
                 <ol>
-                  <li>Acrescente no fim do <code>conformidade.sh</code> a linha abaixo: ela manda o número de buckets fora da regra para o CloudWatch.</li>
-                  <li>Crie um segundo alarme, para a métrica <code>BucketsForaDaRegra</code> maior que <code>0</code>, usando o mesmo tópico <code>alerta-seguranca</code>.</li>
-                  <li>Provoque a regra de novo. Agora o aviso chega por e-mail, sem ninguém precisar olhar o terminal.</li>
+                  <li>Acrescente à regra a exclusão reversível da aula 11: a conta também precisa ter a lixeira ligada. Dica: <code>az storage account blob-service-properties show --account-name $conta --resource-group $GRUPO --query deleteRetentionPolicy.enabled -o tsv</code>.</li>
+                  <li>Pense: de quanto em quanto tempo essa regra deveria rodar sozinha, e quem deveria receber o resultado?</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>final do conformidade.sh</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># no fim do conformidade.sh: manda o número de buckets fora da regra para o CloudWatch</span></span><span class="linha"><span class="num">2</span>aws cloudwatch put-metric-data --namespace Lab/Seguranca --metric-name BucketsForaDaRegra --value &quot;$problemas&quot;</span></code></pre></div>
             </div>
           </div>
 
@@ -278,13 +268,13 @@
               <div class="faca-assim">
                 <strong>Entregue no Moodle:</strong>
                 <ol>
-                  <li>Print do <strong>Event history</strong> com um evento aberto, e as quatro respostas: quem, o quê, quando e de onde.</li>
-                  <li>Print do alarme <code>forca-bruta-login</code> em <strong>In alarm</strong> e do e-mail que chegou.</li>
+                  <li>Print do log de atividades com a criação da conta de armazenamento, e as quatro respostas: quem, o quê, quando e de onde.</li>
+                  <li>Print do e-mail do alerta <code>conta-armazenamento-alterada</code> (ou do alerta criado, se o e-mail não chegou a tempo).</li>
                   <li>A saída do <code>conformidade.sh</code> com o <strong>ALERTA</strong> e depois com tudo <strong>OK</strong>.</li>
-                  <li>Uma frase respondendo ao estudo de caso: que log teria mostrado o acesso indevido, e quem deveria olhar os alarmes, e a que horas?</li>
+                  <li>Uma frase respondendo ao estudo de caso: que log teria mostrado o acesso indevido, e quem deveria olhar os alertas, e a que horas?</li>
                 </ol>
               </div>
-              <p class="dica">Ao sair, clique em <strong>End Lab</strong>. O alarme e o tópico podem ficar: eles não gastam o crédito do laboratório.</p>
+              <p class="dica">Não precisa apagar nada: a área restrita some sozinha, com o alerta e as contas dentro.</p>
             </div>
           </div>
         </section>
@@ -301,7 +291,7 @@
             <ol>
               <li>Que log teria mostrado o acesso indevido?</li>
               <li>Que regra de conformidade teria achado a configuração da Toyota?</li>
-              <li>Quem deveria olhar os alarmes, e a que horas?</li>
+              <li>Quem deveria olhar os alertas, e a que horas?</li>
             </ol>
             <p class="fonte">Fonte: Capital One e Infosecurity Magazine.</p>
           </div>
@@ -311,19 +301,19 @@
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Monitoramento no laboratório</h2>
-            <p>No Learner Lab. O passo a passo de cada item está no <a href="#na-tela">tutorial</a>, logo acima. O que você marcar fica salvo neste navegador e, se você entrar com o e-mail da faculdade (botão <strong>Entrar</strong>, no topo), na sua conta.</p>
+            <h2>Monitoramento no Azure</h2>
+            <p>Na área restrita do Learn. O passo a passo de cada item está no <a href="#na-tela">tutorial</a>, logo acima. O que você marcar fica salvo neste navegador e, se você entrar com o e-mail da faculdade (botão <strong>Entrar</strong>, no topo), na sua conta.</p>
           </div>
           <div class="cartao">
-            <div class="progresso-atividade" data-progresso="passos-aula-12">
+            <div class="progresso-atividade" data-progresso="passos-aula-12-azure">
               <span class="contagem">0 de 6</span>
               <span class="barra-progresso"><span></span></span>
             </div>
-            <ol class="checklist" id="passos-aula-12">
-              <li><label><input type="checkbox"><span>Conferi a trilha de auditoria e achei as minhas próprias ações. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
+            <ol class="checklist" id="passos-aula-12-azure">
+              <li><label><input type="checkbox"><span>Conferi o log de atividades e achei as minhas próprias ações. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
               <li><label><input type="checkbox"><span>Identifiquei num registro: quem, o quê, quando e de onde. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
-              <li><label><input type="checkbox"><span>Criei um alarme com notificação. <a href="#passo-2">Veja o passo 2.</a></span></label></li>
-              <li><label><input type="checkbox"><span>Ativei uma regra de conformidade (bucket público, por exemplo). <a href="#passo-3">Veja o passo 3.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Criei um alerta com notificação por e-mail. <a href="#passo-2">Veja o passo 2.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Escrevi uma regra de conformidade para as contas de armazenamento. <a href="#passo-3">Veja o passo 3.</a></span></label></li>
               <li><label><input type="checkbox"><span>Provoquei a regra de propósito e vi o alerta. <a href="#passo-3">Veja o passo 3.</a></span></label></li>
               <li><label><input type="checkbox"><span>Entreguei o roteiro de laboratório. <a href="#passo-4">Veja o passo 4.</a></span></label></li>
             </ol>
@@ -340,17 +330,17 @@
             <div class="cartao">
               <span class="letra">E</span>
               <h3>Eletrônica</h3>
-              <p>Um alarme do CloudWatch é como um sensor de temperatura com Arduino: lê um valor, compara com o limite e liga a sirene. Só que o sensor mede a nuvem.</p>
+              <p>Um alerta do Azure Monitor é como um sensor de temperatura com Arduino: lê um valor, compara com o limite e liga a sirene. Só que o sensor mede a nuvem.</p>
             </div>
             <div class="cartao">
               <span class="letra">M</span>
               <h3>Matemática</h3>
-              <p>Escolher o limite do alarme é estatística: alto demais, o ataque passa; baixo demais, o alarme toca à toa e todo mundo para de olhar.</p>
+              <p>Escolher o limite do alerta é estatística: alto demais, o ataque passa; baixo demais, o alerta toca à toa e todo mundo para de olhar.</p>
             </div>
             <div class="cartao">
               <span class="letra">T</span>
               <h3>Tecnologia</h3>
-              <p>Os centros de operação de segurança (os SOCs) funcionam 24 horas por dia olhando exatamente isto: logs, alarmes e regras de conformidade.</p>
+              <p>Os centros de operação de segurança (os SOCs) funcionam 24 horas por dia olhando exatamente isto: logs, alertas e regras de conformidade.</p>
             </div>
           </div>
         </section>
@@ -360,7 +350,7 @@
           <div class="cab">
             <span class="olho">D1 · desafio extra</span>
             <h2>Terminou antes? Tem mais.</h2>
-            <p>Faça o desafio do passo 3: o <code>conformidade.sh</code> mandando o número de buckets fora da regra para o CloudWatch, com um alarme que avisa por e-mail. Depois, pense: que outra regra a clínica Bem Cuidar deveria ter? (Dica: segredos que ninguém lê há meses, ou discos sem criptografia.)</p>
+            <p>Faça o desafio do passo 3 (a regra também conferir a exclusão reversível). Depois, procure no Microsoft Learn o módulo do SC-900 sobre o Microsoft Defender for Cloud e responda: que recomendação dele faria o mesmo que o seu <code>conformidade.sh</code>?</p>
           </div>
         </section>
 
@@ -371,23 +361,23 @@
             <h2>Para estudar e praticar</h2>
           </div>
           <div class="repos">
-            <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/awscloudtrail/latest/userguide/cloudtrail-user-guide.html">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Docs</span>
-              <h4>AWS CloudTrail</h4>
-              <p>Como a trilha de auditoria registra cada ação da conta.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#ff9900"><i></i>Documentação</span><span class="etiqueta">consulta</span></span>
-            </a>
-            <a class="repo luz" href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/azure/azure-monitor/essentials/activity-log">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
-              <h4>SC-900: segurança, conformidade e identidade</h4>
-              <p>O Azure Monitor e o Azure Policy, de graça e em português.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#0078d4"><i></i>Azure</span><span class="etiqueta">como é no Azure</span></span>
+              <h4>Log de atividades do Azure</h4>
+              <p>O que ele registra, por quanto tempo e como consultar.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
             </a>
-            <a class="repo luz" href="https://www.awsacademy.com/">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Academy</span>
-              <h4>Cloud Security Foundations</h4>
-              <p>O módulo de monitoramento da trilha a distância da disciplina.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#ff9900"><i></i>Plataforma</span><span class="etiqueta">trilha</span></span>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/azure/governance/policy/overview">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>Azure Policy</h4>
+              <p>As regras de conformidade que conferem (e impedem) sozinhas.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
+            </a>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/training/courses/sc-900t00#course-syllabus">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>Curso SC-900T00</h4>
+              <p>A trilha de segurança do 2º bimestre, com o Defender for Cloud e o Sentinel.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">trilha</span></span>
             </a>
           </div>
         </section>
@@ -399,7 +389,7 @@
             <div>
               <span class="olho">E1 · entrega</span>
               <h3>Roteiro de laboratório no Moodle</h3>
-              <p>Na próxima aula: detecção de ameaças e o lançamento do projeto final.</p>
+              <p>Na próxima aula: detecção de ameaças no Azure e o lançamento do projeto final.</p>
             </div>
           </div>
         </section>
@@ -408,7 +398,7 @@
           <!-- EDITE AQUI: use <a href="aula-NN.html"> quando a página da aula vizinha for liberada; <span> enquanto não for -->
           <a class="anterior" href="aula-11.html">
             <span class="olho">← aula anterior</span>
-            <strong>Aula 11: Armazenamento, segredos e LGPD</strong>
+            <strong>Aula 11: Do AWS ao Azure, com os dados bem guardados</strong>
           </a>
           <a class="proxima" href="aula-13.html">
             <span class="olho">próxima aula →</span>
