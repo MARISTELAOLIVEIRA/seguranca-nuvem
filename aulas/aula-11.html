@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 11: Armazenamento, segredos e LGPD · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 11 de Segurança em Nuvem: bucket sem acesso público, versionamento, política só com HTTPS, gerenciador de segredos e LGPD.">
+  <title>Aula 11: O Azure e os dados bem guardados · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 11 de Segurança em Nuvem, já no Azure: os fundamentos do Azure pelo que a turma sabe da AWS, conta de armazenamento fechada, exclusão reversível, segredos no Key Vault e LGPD.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -34,6 +34,7 @@
         <a href="#conceitos">Conceitos</a>
         <a href="#na-tela">Tutorial</a>
         <a href="#caso">Caso</a>
+        <a href="#tradutor">Tradutor</a>
         <a href="#atividade">Atividade</a>
         <a href="#materiais">Materiais</a>
         <a href="#entrega">Entrega</a>
@@ -75,10 +76,10 @@
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Aula 11</span>
           <span class="etiqueta">Laboratório de práticas</span>
-          <span class="etiqueta">Unidade 3</span>
+          <span class="etiqueta">Unidade 3 · Azure</span>
         </div>
-        <h1>A porta também precisa estar fechada</h1>
-        <p class="subtitulo">Armazenamento que não vaza, senhas fora do código, backup e o que a LGPD cobra.</p>
+        <h1>Do AWS ao Azure, com os dados bem guardados</h1>
+        <p class="subtitulo">O Azure em ritmo rápido e, nele, o armazenamento que não vaza, a senha no cofre e a LGPD.</p>
       </div>
     </section>
 
@@ -88,15 +89,15 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Evitar a exposição pública de dados, guardar segredos fora do código e relacionar a proteção de dados à LGPD.</p>
+            <p>Levar para o Azure o que a turma sabe da AWS e proteger os dados da aplicação: armazenamento fechado, cópia que volta, segredos fora do código e LGPD.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Ler sobre a LGPD aplicada à nuvem.</p>
+            <p>Ler sobre LGPD aplicada à nuvem e entrar no Microsoft Learn com a conta Microsoft.</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
-            <p>Lista de exercícios (Moodle).</p>
+            <p>Lista de exercícios no Moodle.</p>
           </div>
         </div>
       </div>
@@ -109,45 +110,65 @@
         <section class="parte" id="problema">
           <div class="cab">
             <span class="olho">P1 · o problema</span>
-            <h2>Dez anos com a porta aberta</h2>
-            <p>Na aula 10, os dados ganharam criptografia e chave. Mas de que adianta o cofre se a porta fica aberta? Hoje, os três cuidados que mais evitam vazamento na nuvem: o armazenamento que não fica público, a senha que não fica no código e a cópia que permite voltar atrás. E o que a LGPD cobra de quem guarda dados de pessoas.</p>
+            <h2>Outra nuvem, a mesma porta aberta</h2>
+            <p>A clínica Bem Cuidar (fictícia) vai para o <strong>Azure</strong>, a nuvem da Microsoft, a mesma do Teams e do Office que ela já usa. No 1º bimestre, a turma aprendeu a proteger a nuvem na AWS. No 2º, o Azure. Os pilares são os mesmos; mudam os nomes e os botões. Hoje: o Azure em ritmo rápido e, nele, os três cuidados que mais evitam vazamento: o armazenamento que não fica público, a senha que não fica no código e a cópia que permite voltar atrás. E o que a LGPD cobra de quem guarda dados de pessoas.</p>
           </div>
         </section>
 
         <!-- ===================== CONCEITOS ===================== -->
         <section class="parte" id="conceitos">
           <div class="cab">
-            <span class="olho">C1–C3 · conceitos</span>
-            <h2>Guardar bem o que já está protegido</h2>
+            <span class="olho">C1–C5 · conceitos</span>
+            <h2>O Azure em ritmo rápido, e os dados bem guardados</h2>
           </div>
 
           <div class="conceito">
             <div class="texto">
               <span class="olho">C1</span>
-              <h3>Armazenamento que não vaza</h3>
-              <p>Três camadas no bucket: o <strong>bloqueio de acesso público</strong> (ninguém de fora, mesmo que alguém configure errado), a <strong>política de bucket</strong> (quem pode o quê, e como) e o <strong>versionamento</strong> (apagou ou estragou? volta a versão anterior).</p>
+              <h3>A escada do Azure</h3>
+              <p>Tudo no Azure mora numa escada. O <strong>diretório</strong> do <strong>Microsoft Entra ID</strong> (o antigo Azure AD) guarda as pessoas. A <strong>assinatura</strong> é a conta que paga, como a conta da AWS. O <strong>grupo de recursos</strong> junta o que é de um mesmo projeto, para dar permissão e apagar tudo junto. O <strong>recurso</strong> é a peça: a VM, o banco, a conta de armazenamento.</p>
+              <p>Cada recurso fica numa <strong>região</strong> (a do Brasil é a <strong>Brazil South</strong>, em São Paulo), com <strong>zonas de disponibilidade</strong>, como na AWS.</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># bucket bem configurado</span></span><span class="linha"><span class="num">2</span>Bloqueio de acesso público ....... ligado</span><span class="linha"><span class="num">3</span>Política de bucket ............... só com HTTPS</span><span class="linha"><span class="num">4</span>Versionamento .................... ligado</span><span class="linha"><span class="num">5</span>Criptografia ..................... ligada (aula 10)</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># a escada, de cima para baixo</span></span><span class="linha"><span class="num">2</span>diretório ........... bemcuidar (Microsoft Entra ID)</span><span class="linha"><span class="num">3</span>  assinatura ........ Producao-BemCuidar</span><span class="linha"><span class="num">4</span>    grupo de recursos  rg-fichas</span><span class="linha"><span class="num">5</span>      recurso ......... a conta de armazenamento das fichas</span></code></pre>
           </div>
 
           <div class="conceito">
             <div class="texto">
               <span class="olho">C2</span>
-              <h3>Segredos fora do código</h3>
-              <p>Senha, chave de API e token não moram no código. Moram num <strong>gerenciador de segredos</strong> (o AWS Secrets Manager ou o Azure Key Vault), criptografados, com acesso controlado e registro de quem leu. O programa pede o segredo pelo nome, na hora de usar.</p>
-              <p class="dica cuidado"><strong>Errado:</strong> <code>senha = "Bem@2026"</code> no código. <strong>Certo:</strong> o código pede <code>lab/banco-fichas</code> ao gerenciador.</p>
+              <h3>Quem pode o quê: Entra ID e RBAC</h3>
+              <p>As pessoas entram pelo <strong>Microsoft Entra ID</strong>, com MFA, como no IAM das aulas 4 e 5. A permissão é dada por <strong>funções</strong> (o RBAC): <strong>Leitor</strong> só olha, <strong>Colaborador</strong> cria e muda, <strong>Proprietário</strong> faz tudo e ainda dá permissão a outros. A função vale num degrau da escada: na assinatura inteira ou só num grupo de recursos.</p>
+              <p class="dica">O menor privilégio continua valendo: a função mais fraca, no degrau mais baixo que resolva.</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># errado: a senha vai junto para o GitHub</span></span><span class="linha"><span class="num">2</span>senha = &quot;Bem@2026&quot;</span><span class="linha"><span class="num">3</span></span><span class="linha"><span class="num">4</span><span class="com"># certo: o programa pede ao gerenciador de segredos</span></span><span class="linha"><span class="num">5</span>segredo = ler_segredo(&quot;lab/banco-fichas&quot;)</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># quem pode o quê, e onde</span></span><span class="linha"><span class="num">2</span>quem ........ recepcao@bemcuidar.com.br</span><span class="linha"><span class="num">3</span>função ...... Leitor de dados de blob de armazenamento</span><span class="linha"><span class="num">4</span>onde ........ só na conta de armazenamento das fichas</span></code></pre>
           </div>
 
           <div class="conceito">
             <div class="texto">
               <span class="olho">C3</span>
-              <h3>Backup e LGPD</h3>
-              <p><strong>Backup</strong> com regra: o que copiar, de quanto em quanto tempo, por quanto tempo guardar (a <strong>retenção</strong>) e onde. Uma cópia fora da conta principal protege até de quem invadir a conta.</p>
-              <p>A <strong>LGPD</strong> (Lei 13.709/2018) cobra medidas de segurança (art. 46) e a comunicação de incidentes à ANPD e aos titulares (art. 48). Dado de saúde é <strong>sensível</strong> e pede cuidado redobrado. Como é no Azure: o <strong>Microsoft Purview</strong> classifica e protege dados.</p>
+              <h3>Armazenamento que não vaza</h3>
+              <p>Na conta de armazenamento: <strong>só HTTPS</strong> e <strong>TLS 1.2</strong> (o dado protegido no caminho, aula 10), <strong>acesso público proibido</strong> (ninguém de fora, mesmo que alguém configure errado) e <strong>exclusão reversível</strong> com <strong>versionamento</strong> (apagou ou estragou? volta). A criptografia em repouso já vem ligada, com chaves da Microsoft ou do cliente (no Key Vault).</p>
             </div>
-            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># regra de backup da clínica (exemplo)</span></span><span class="linha"><span class="num">2</span>O quê ........... fichas dos pacientes</span><span class="linha"><span class="num">3</span>Frequência ...... todo dia, às 2h</span><span class="linha"><span class="num">4</span>Retenção ........ 30 dias</span><span class="linha"><span class="num">5</span>Onde ............ outra região e outra conta</span></code></pre>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># conta de armazenamento bem configurada</span></span><span class="linha"><span class="num">2</span>Só HTTPS, TLS 1.2 .............. ligado</span><span class="linha"><span class="num">3</span>Acesso público aos blobs ....... proibido</span><span class="linha"><span class="num">4</span>Exclusão reversível ............ 7 dias</span><span class="linha"><span class="num">5</span>Criptografia em repouso ........ ligada (já vem assim)</span></code></pre>
+          </div>
+
+          <div class="conceito">
+            <div class="texto">
+              <span class="olho">C4</span>
+              <h3>Segredos fora do código: o Key Vault</h3>
+              <p>Senha, chave de API e certificado moram no <strong>Azure Key Vault</strong>, criptografados, com acesso controlado e registro de quem leu. O programa pede o segredo pelo nome, na hora de usar. E nem precisa de senha para entrar no cofre: a <strong>identidade gerenciada</strong> dá ao próprio sistema (a VM, o site) uma identidade no Entra ID, com permissão só para ler aquele segredo.</p>
+              <p class="dica cuidado"><strong>Errado:</strong> <code>senha = "Bem@2026"</code> no código. <strong>Certo:</strong> o código pede <code>banco-fichas</code> ao Key Vault.</p>
+            </div>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># errado: a senha vai junto para o GitHub</span></span><span class="linha"><span class="num">2</span>senha = &quot;Bem@2026&quot;</span><span class="linha"><span class="num">3</span></span><span class="linha"><span class="num">4</span><span class="com"># certo: o programa pede ao Key Vault, com a identidade gerenciada</span></span><span class="linha"><span class="num">5</span>senha = cofre.get_secret(&quot;banco-fichas&quot;).value</span></code></pre>
+          </div>
+
+          <div class="conceito">
+            <div class="texto">
+              <span class="olho">C5</span>
+              <h3>Backup e LGPD</h3>
+              <p><strong>Backup</strong> com regra: o que copiar, de quanto em quanto tempo, por quanto tempo guardar (a <strong>retenção</strong>) e onde. No Azure, o <strong>Azure Backup</strong> faz as cópias, e a <strong>redundância</strong> da conta de armazenamento (LRS, ZRS, GRS) guarda cópias na mesma região ou numa região distante.</p>
+              <p>A <strong>LGPD</strong> (Lei 13.709/2018) cobra medidas de segurança (art. 46) e a comunicação de incidentes à ANPD e aos titulares (art. 48). Dado de saúde é <strong>sensível</strong>. No Azure, o <strong>Microsoft Purview</strong> ajuda a achar e classificar dados pessoais.</p>
+            </div>
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># regra de backup da clínica (exemplo)</span></span><span class="linha"><span class="num">2</span>O quê ........... fichas dos pacientes</span><span class="linha"><span class="num">3</span>Frequência ...... todo dia, às 2h</span><span class="linha"><span class="num">4</span>Retenção ........ 30 dias</span><span class="linha"><span class="num">5</span>Onde ............ outra região (GRS) e outro cofre de backup</span></code></pre>
           </div>
         </section>
 
@@ -155,50 +176,45 @@
         <section class="parte" id="na-tela">
           <div class="cab">
             <span class="olho">T1 · tutorial</span>
-            <h2>Mão na massa: o laboratório em 5 passos</h2>
-            <p>É a atividade da aula, botão por botão no console da AWS. Faça um passo de cada vez e confira o resultado do <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
+            <h2>Mão na massa: o laboratório no Azure em 5 passos</h2>
+            <p>É a atividade da aula, na área restrita do Microsoft Learn: só precisa da conta Microsoft, sem assinatura e sem cartão. Faça um passo de cada vez e confira o <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="antes">
             <div class="texto">
               <span class="olho">Antes de começar</span>
-              <h3>Abra o laboratório da AWS Academy</h3>
+              <h3>Uma conta Microsoft e a área restrita do Learn</h3>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>Entre na AWS Academy, abra a turma e o laboratório indicado pela professora.</li>
-                  <li>Clique em <strong>Start Lab</strong> e espere a bolinha ao lado de <strong>AWS</strong> ficar <strong>verde</strong> (pode levar alguns minutos).</li>
-                  <li>Clique em <strong>AWS</strong>: o console abre em outra aba. Confira, no canto de cima à direita, que a região é <strong>N. Virginia (us-east-1)</strong>.</li>
-                  <li>Crie no computador um arquivo de texto chamado <code>fichas.txt</code>, com uma linha qualquer (por exemplo, <code>versão 1</code>). Ele faz o papel do arquivo de dados do cliente.</li>
+                  <li>Abra o <a href="https://learn.microsoft.com/pt-br/">Microsoft Learn</a> e clique em <strong>Entrar</strong> com a sua conta Microsoft (a do Senac ou uma pessoal).</li>
+                  <li>Abra o exercício <a href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/3-exercise-explore-learn-sandbox">Explorar a área restrita do Learn</a> (é do AZ-900) e clique em <strong>Ativar a área restrita</strong>. Aceite as permissões.</li>
+                  <li>Em um minuto, o <strong>Cloud Shell</strong>, o terminal do Azure no navegador, aparece do lado direito da página, com o Azure CLI (<code>az</code>) pronto. Abriu em PowerShell? Digite <code>bash</code> e <kbd>Enter</kbd>.</li>
                 </ol>
               </div>
-              <p class="dica"><strong>O cliente fictício da aula:</strong> a clínica <strong>Bem Cuidar</strong> guarda fichas de pacientes na nuvem. Ficha de saúde é <strong>dado pessoal sensível</strong> pela LGPD: a classificação "restrito" da aula 10.</p>
-              <p class="dica cuidado"><strong>O nome do bucket é único no mundo inteiro.</strong> Em todos os passos, troque <code>SEUNOME</code> pelo seu nome, sem acento e sem espaço: <code>seguranca-ana-2026</code>, por exemplo.</p>
+              <p class="dica">A área restrita é um Azure de verdade, grátis, sem cartão, que se apaga sozinho depois de algumas horas. Não recarregue a página no meio do laboratório: as variáveis do terminal (<code>$NOME</code>, <code>$GRUPO</code>) somem. Se sumirem, rode de novo a primeira parte do passo 2.</p>
+              <p class="dica"><strong>Quer o seu próprio Azure, para o projeto final?</strong> O <a href="https://azure.microsoft.com/pt-br/free/students">Azure for Students</a> dá crédito grátis por 12 meses, sem cartão, com o e-mail de estudante.</p>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-1">
             <div class="texto">
               <span class="olho">Passo 1 · item 1 da atividade</span>
-              <h3>Um bucket que já nasce fechado</h3>
-              <p>Desde 2023, todo bucket novo no S3 nasce com o <strong>bloqueio de acesso público</strong> ligado. É exatamente o que faltou no caso da Toyota: uma configuração que deixava os dados abertos para qualquer um.</p>
+              <h3>A escada do Azure, no terminal</h3>
+              <p>Primeiro, ver onde você está: o <strong>diretório</strong> (Microsoft Entra ID), a <strong>assinatura</strong> e o <strong>grupo de recursos</strong> (conceito C1).</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>Na busca do console, digite <strong>S3</strong> e abra o serviço. Clique em <strong>Create bucket</strong>.</li>
-                  <li>Em <strong>Bucket name</strong>, digite <code>seguranca-SEUNOME-2026</code> (com o seu nome).</li>
-                  <li>Em <strong>Object Ownership</strong>, deixe <strong>ACLs disabled</strong>.</li>
-                  <li>Em <strong>Block Public Access settings for this bucket</strong>, confira que <strong>Block all public access</strong> está marcado. <strong>Não desmarque.</strong></li>
-                  <li>Deixe o resto como está e clique em <strong>Create bucket</strong>, no fim da página.</li>
-                  <li>Abra o bucket, clique em <strong>Upload › Add files</strong>, escolha o <code>fichas.txt</code> e clique em <strong>Upload</strong>.</li>
+                  <li>Rode os comandos abaixo, um de cada vez.</li>
+                  <li>Ache a assinatura: <strong>Concierge Subscription</strong>, a da área restrita. Ache o grupo de recursos que ela criou para você (o nome começa com <code>learn-</code>).</li>
                 </ol>
               </div>
-              <div class="faca-assim">
-                <strong>Teste:</strong>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># quem sou eu no Azure: a assinatura, o diretório (Microsoft Entra ID) e o usuário</span></span><span class="linha"><span class="num">2</span>az account show --query &quot;{assinatura:name, diretorio:tenantId, usuario:user.name}&quot; -o table</span><span class="linha"><span class="num">3</span></span><span class="linha"><span class="num">4</span><span class="com"># o grupo de recursos que a área restrita criou para você</span></span><span class="linha"><span class="num">5</span>az group list -o table</span></code></pre></div>
+              <div class="faca-assim desafio">
+                <strong>Agora é com você:</strong>
                 <ol>
-                  <li>Clique no <code>fichas.txt</code> dentro do bucket e copie o <strong>Object URL</strong>.</li>
-                  <li>Cole o endereço numa janela anônima do navegador. Aparece <code>AccessDenied</code>: ninguém de fora lê o arquivo. É o resultado que a Toyota não tinha.</li>
-                  <li>Agora clique em <strong>Open</strong> (no alto da página do arquivo): ele abre, porque quem pede é você, com permissão.</li>
+                  <li>Rode <code>az account list-locations --query "[?metadata.geographyGroup=='South America'].{nome:name, cidade:metadata.physicalLocation}" -o table</code>. Qual é a região do Azure no Brasil, e em que cidade ela fica?</li>
+                  <li>Anote a sua escada: o diretório, a assinatura e o grupo de recursos. No passo 2 entra o último degrau: o recurso.</li>
                 </ol>
               </div>
             </div>
@@ -207,85 +223,75 @@
           <div class="conceito" style="grid-template-columns:1fr" id="passo-2">
             <div class="texto">
               <span class="olho">Passo 2 · item 2 da atividade</span>
-              <h3>Versionamento: apagar sem perder</h3>
-              <p>Com o <strong>versionamento</strong> ligado, o S3 guarda cada versão do arquivo. Apagar só coloca uma marca de exclusão por cima, e dá para desfazer. É a primeira linha de defesa contra erro humano e contra ransomware que apaga ou sobrescreve arquivos.</p>
+              <h3>Uma conta de armazenamento que já nasce fechada</h3>
+              <p>A <strong>conta de armazenamento</strong> é o S3 do Azure, e o <strong>contêiner</strong> é o bucket. Ela vai nascer com as três proteções do conceito C3.</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>No bucket, abra a aba <strong>Properties</strong>. Em <strong>Bucket Versioning</strong>, clique em <strong>Edit</strong>, escolha <strong>Enable</strong> e clique em <strong>Save changes</strong>.</li>
-                  <li>No computador, mude o <code>fichas.txt</code> para <code>versão 2</code> e envie de novo (<strong>Upload</strong>), com o mesmo nome.</li>
-                  <li>Na aba <strong>Objects</strong>, ligue a chave <strong>Show versions</strong>: aparecem as duas versões do arquivo.</li>
-                  <li>Desligue <strong>Show versions</strong>, marque o <code>fichas.txt</code> e clique em <strong>Delete</strong>. Digite <code>delete</code> para confirmar. O arquivo some da lista.</li>
+                  <li>Copie e rode o primeiro bloco. Leva uns 30 segundos. Na tabela final, confira: <code>https</code> <strong>True</strong>, <code>tls</code> <strong>TLS1_2</strong> e <code>publico</code> <strong>False</strong>.</li>
+                  <li>Rode o segundo bloco: ele cria o contêiner <code>fichas</code>, envia uma ficha fictícia e tenta abrir pela internet.</li>
+                  <li>Leia a resposta do <code>curl</code>: em vez da ficha, vem um erro em XML (<code>PublicAccessNotPermitted</code> ou <code>ResourceNotFound</code>). Quem não tem a chave não lê.</li>
                 </ol>
               </div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># guarda o grupo de recursos e inventa um nome único para a conta de armazenamento</span></span><span class="linha"><span class="num">2</span>GRUPO=$(az group list --query &quot;[0].name&quot; -o tsv)</span><span class="linha"><span class="num">3</span>NOME=fichas$RANDOM$RANDOM</span><span class="linha"><span class="num">4</span>echo &quot;Grupo: $GRUPO   Conta: $NOME&quot;</span><span class="linha"><span class="num">5</span></span><span class="linha"><span class="num">6</span><span class="com"># a conta de armazenamento (o &quot;bucket&quot; do Azure) já nasce fechada:</span></span><span class="linha"><span class="num">7</span><span class="com"># só HTTPS, TLS 1.2 no mínimo e acesso público proibido</span></span><span class="linha"><span class="num">8</span>az storage account create --name $NOME --resource-group $GRUPO --location eastus \</span><span class="linha"><span class="num">9</span>  --sku Standard_LRS --https-only true --min-tls-version TLS1_2 --allow-blob-public-access false</span><span class="linha"><span class="num">10</span></span><span class="linha"><span class="num">11</span><span class="com"># confere as três proteções</span></span><span class="linha"><span class="num">12</span>az storage account show --name $NOME --resource-group $GRUPO \</span><span class="linha"><span class="num">13</span>  --query &quot;{https:enableHttpsTrafficOnly, tls:minimumTlsVersion, publico:allowBlobPublicAccess}&quot; -o table</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># um contêiner (a &quot;pasta&quot;) e uma ficha fictícia da clínica Bem Cuidar</span></span><span class="linha"><span class="num">2</span>az storage container create --name fichas --account-name $NOME --auth-mode key</span><span class="linha"><span class="num">3</span>echo &quot;paciente;exame;resultado&quot; &gt; ficha-001.csv</span><span class="linha"><span class="num">4</span>echo &quot;Paciente Fictício;Glicemia;normal&quot; &gt;&gt; ficha-001.csv</span><span class="linha"><span class="num">5</span>az storage blob upload --account-name $NOME --container-name fichas \</span><span class="linha"><span class="num">6</span>  --name ficha-001.csv --file ficha-001.csv --auth-mode key</span><span class="linha"><span class="num">7</span></span><span class="linha"><span class="num">8</span><span class="com"># tenta abrir a ficha pela internet, como um estranho faria</span></span><span class="linha"><span class="num">9</span>curl -s https://$NOME.blob.core.windows.net/fichas/ficha-001.csv</span></code></pre></div>
               <div class="faca-assim">
-                <strong>Teste: recuperar o arquivo apagado</strong>
+                <strong>Teste (de propósito):</strong>
                 <ol>
-                  <li>Ligue de novo <strong>Show versions</strong>. O arquivo está lá, com uma versão marcada como <strong>Delete marker</strong> por cima.</li>
-                  <li>Marque <strong>só o Delete marker</strong> e clique em <strong>Delete</strong>. Digite <code>permanently delete</code> para confirmar.</li>
-                  <li>Desligue <strong>Show versions</strong>: o <code>fichas.txt</code> voltou, com o conteúdo <code>versão 2</code>.</li>
+                  <li>Rode o bloco abaixo: ele tenta criar um contêiner aberto ao público. O Azure recusa, porque a conta proíbe acesso público. Foi o que faltou na Toyota (estudo de caso).</li>
                 </ol>
               </div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># tenta criar um contêiner aberto ao público (vai dar erro: é o que queremos)</span></span><span class="linha"><span class="num">2</span>az storage container create --name aberta --account-name $NOME --auth-mode key --public-access blob</span></code></pre></div>
+              <p class="dica cuidado"><strong>Deu erro de nome?</strong> O nome da conta é único no mundo inteiro, só com letras minúsculas e números, de 3 a 24 caracteres. Rode de novo a linha do <code>NOME=</code> e o <code>az storage account create</code>.</p>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-3">
             <div class="texto">
               <span class="olho">Passo 3 · item 3 da atividade</span>
-              <h3>Uma política que nega quem chega sem HTTPS</h3>
-              <p>A política de bucket da aula 10 (conceito C3), agora de verdade. Ela diz: <strong>negue</strong> (<code>Deny</code>) qualquer ação, de qualquer um, quando a conexão <strong>não</strong> for segura (<code>aws:SecureTransport</code> igual a <code>false</code>). É a criptografia em trânsito obrigatória.</p>
+              <h3>A exclusão reversível: apagar sem perder</h3>
+              <p>Na AWS, a turma usou o versionamento. No Azure, além do versionamento, tem a <strong>exclusão reversível</strong> (soft delete): o arquivo apagado fica guardado por alguns dias e pode voltar.</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>No bucket, abra a aba <strong>Permissions</strong>. Em <strong>Bucket policy</strong>, clique em <strong>Edit</strong>.</li>
-                  <li>Copie a política abaixo, cole no editor e troque <code>SEUNOME</code> pelo seu nome, <strong>nas duas linhas</strong> do <code>Resource</code>.</li>
-                  <li>Clique em <strong>Save changes</strong>. Se aparecer erro, o mais comum é o nome do bucket diferente do que está na política.</li>
+                  <li>Rode o bloco abaixo, com calma, e leia a saída de cada comando.</li>
+                  <li>Na tabela, a <code>ficha-001.csv</code> aparece com <code>apagado</code> <strong>True</strong>: está na lixeira.</li>
+                  <li>Depois do <code>undelete</code>, a última linha mostra a ficha de volta.</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>política do bucket (JSON)</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>{</span><span class="linha"><span class="num">2</span>  &quot;Version&quot;: &quot;2012-10-17&quot;,</span><span class="linha"><span class="num">3</span>  &quot;Statement&quot;: [</span><span class="linha"><span class="num">4</span>    {</span><span class="linha"><span class="num">5</span>      &quot;Sid&quot;: &quot;SomenteComHTTPS&quot;,</span><span class="linha"><span class="num">6</span>      &quot;Effect&quot;: &quot;Deny&quot;,</span><span class="linha"><span class="num">7</span>      &quot;Principal&quot;: &quot;*&quot;,</span><span class="linha"><span class="num">8</span>      &quot;Action&quot;: &quot;s3:*&quot;,</span><span class="linha"><span class="num">9</span>      &quot;Resource&quot;: [</span><span class="linha"><span class="num">10</span>        &quot;arn:aws:s3:::seguranca-SEUNOME-2026&quot;,</span><span class="linha"><span class="num">11</span>        &quot;arn:aws:s3:::seguranca-SEUNOME-2026/*&quot;</span><span class="linha"><span class="num">12</span>      ],</span><span class="linha"><span class="num">13</span>      &quot;Condition&quot;: {</span><span class="linha"><span class="num">14</span>        &quot;Bool&quot;: { &quot;aws:SecureTransport&quot;: &quot;false&quot; }</span><span class="linha"><span class="num">15</span>      }</span><span class="linha"><span class="num">16</span>    }</span><span class="linha"><span class="num">17</span>  ]</span><span class="linha"><span class="num">18</span>}</span></code></pre></div>
-              <p class="dica"><strong>Por que as duas linhas no <code>Resource</code>?</strong> A primeira é o bucket (para listar o que tem dentro). A segunda, com <code>/*</code>, são os arquivos dentro dele.</p>
-              <div class="faca-assim">
-                <strong>Teste no terminal (o do laboratório ou o CloudShell, o ícone <code>&gt;_</code> no topo do console):</strong>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># liga a exclusão reversível: o que for apagado fica 7 dias na &quot;lixeira&quot;</span></span><span class="linha"><span class="num">2</span>az storage account blob-service-properties update --account-name $NOME --resource-group $GRUPO \</span><span class="linha"><span class="num">3</span>  --enable-delete-retention true --delete-retention-days 7</span><span class="linha"><span class="num">4</span></span><span class="linha"><span class="num">5</span><span class="com"># apaga a ficha (sem querer...)</span></span><span class="linha"><span class="num">6</span>az storage blob delete --account-name $NOME --container-name fichas --name ficha-001.csv --auth-mode key</span><span class="linha"><span class="num">7</span></span><span class="linha"><span class="num">8</span><span class="com"># lista também o que foi apagado: a ficha aparece com apagado = True</span></span><span class="linha"><span class="num">9</span>az storage blob list --account-name $NOME --container-name fichas --include d --auth-mode key \</span><span class="linha"><span class="num">10</span>  --query &quot;[].{nome:name, apagado:deleted}&quot; -o table</span><span class="linha"><span class="num">11</span></span><span class="linha"><span class="num">12</span><span class="com"># recupera</span></span><span class="linha"><span class="num">13</span>az storage blob undelete --account-name $NOME --container-name fichas --name ficha-001.csv --auth-mode key</span><span class="linha"><span class="num">14</span>az storage blob list --account-name $NOME --container-name fichas --auth-mode key --query &quot;[].name&quot; -o tsv</span></code></pre></div>
+              <div class="faca-assim desafio">
+                <strong>Agora é com você:</strong>
                 <ol>
-                  <li>Rode os comandos abaixo, um de cada vez, trocando <code>SEUNOME</code>.</li>
-                  <li>Com <code>https://</code>, o <code>curl</code> mostra o conteúdo do arquivo. Com <code>http://</code>, mostra <code>AccessDenied</code>. A política está funcionando.</li>
+                  <li>Por quantos dias a clínica deveria guardar o que foi apagado? Pense no custo e na LGPD (guardar dado pessoal mais tempo que o necessário também é problema).</li>
+                  <li>Ligue também o versionamento: acrescente <code>--enable-versioning true</code> ao comando <code>blob-service-properties update</code>. Envie a ficha de novo, mudada, e liste as versões com <code>--include v</code>.</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>terminal</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># 1. gera um link temporário (5 minutos) para o arquivo: ele já vem com https</span></span><span class="linha"><span class="num">2</span>aws s3 presign s3://seguranca-SEUNOME-2026/fichas.txt --expires-in 300</span><span class="linha"><span class="num">3</span></span><span class="linha"><span class="num">4</span><span class="com"># 2. copie o link que apareceu e teste com https: o conteúdo do arquivo aparece</span></span><span class="linha"><span class="num">5</span>curl &quot;COLE-O-LINK-AQUI&quot;</span><span class="linha"><span class="num">6</span></span><span class="linha"><span class="num">7</span><span class="com"># 3. agora troque o https:// do começo por http:// e teste de novo:</span></span><span class="linha"><span class="num">8</span><span class="com">#    aparece AccessDenied, porque a política nega quem chega sem HTTPS</span></span><span class="linha"><span class="num">9</span>curl &quot;COLE-O-LINK-COM-HTTP-AQUI&quot;</span></code></pre></div>
             </div>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="passo-4">
             <div class="texto">
               <span class="olho">Passo 4 · item 4 da atividade</span>
-              <h3>A senha fora do código: o gerenciador de segredos</h3>
-              <p>Senha escrita no código vai junto para o GitHub, para o backup e para o computador de todo mundo que baixar o projeto (o secret scanning da aula 5 existe por isso). O certo é guardar a senha num <strong>gerenciador de segredos</strong>, criptografado e com acesso controlado, e o programa pedir na hora de usar.</p>
+              <h3>A senha fora do código: o Key Vault</h3>
+              <p>O <strong>Azure Key Vault</strong> é o cofre de segredos do Azure (na AWS, o equivalente é o Secrets Manager): guarda senhas, chaves e certificados, criptografados, e registra quem leu.</p>
               <div class="faca-assim">
                 <strong>Faça assim:</strong>
                 <ol>
-                  <li>Na busca do console, abra o <strong>Secrets Manager</strong> e clique em <strong>Store a new secret</strong>.</li>
-                  <li>Escolha <strong>Other type of secret</strong>. Em <strong>Key/value pairs</strong>, crie duas linhas: <code>usuario</code> com o valor <code>app_fichas</code> e <code>senha</code> com uma senha inventada (não use uma senha sua de verdade).</li>
-                  <li>Em <strong>Encryption key</strong>, deixe <code>aws/secretsmanager</code>: o segredo é criptografado pelo KMS da aula 10. Clique em <strong>Next</strong>.</li>
-                  <li>Em <strong>Secret name</strong>, digite <code>lab/banco-fichas</code> e clique em <strong>Next</strong>. Na tela de rotação, deixe como está e clique em <strong>Next</strong> e em <strong>Store</strong>.</li>
-                  <li>Abra o segredo e clique em <strong>Retrieve secret value</strong>: a senha aparece só para quem tem permissão.</li>
+                  <li>Rode o bloco abaixo. A criação do cofre leva cerca de um minuto.</li>
+                  <li>A última linha mostra a senha lida do cofre. Num sistema de verdade, quem lê é o programa, e não uma pessoa.</li>
                 </ol>
               </div>
-              <div class="faca-assim">
-                <strong>Teste no terminal:</strong>
-                <ol>
-                  <li>Leia o segredo pelo nome, com o comando abaixo. É assim que um programa pega a senha sem ela estar escrita no código.</li>
-                </ol>
-              </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>terminal</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># lê o segredo pelo nome: o programa nunca precisa ter a senha escrita no código</span></span><span class="linha"><span class="num">2</span>aws secretsmanager get-secret-value --secret-id lab/banco-fichas --query SecretString --output text</span></code></pre></div>
-              <p class="dica cuidado"><strong>O laboratório recusou o Secrets Manager (erro de permissão)?</strong> Alguns ambientes da AWS Academy liberam só parte dos serviços. Avise a professora e faça a versão com o <strong>Systems Manager › Parameter Store</strong>: <strong>Create parameter</strong>, nome <code>/lab/banco-fichas/senha</code>, tipo <strong>SecureString</strong>.</p>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>Cloud Shell</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># um cofre de segredos (o Key Vault) com nome único</span></span><span class="linha"><span class="num">2</span>COFRE=cofre$RANDOM$RANDOM</span><span class="linha"><span class="num">3</span>az keyvault create --name $COFRE --resource-group $GRUPO --location eastus \</span><span class="linha"><span class="num">4</span>  --enable-rbac-authorization false</span><span class="linha"><span class="num">5</span></span><span class="linha"><span class="num">6</span><span class="com"># guarda a senha do banco de fichas no cofre (e não no código)</span></span><span class="linha"><span class="num">7</span>az keyvault secret set --vault-name $COFRE --name banco-fichas --value &quot;Bem@2026&quot;</span><span class="linha"><span class="num">8</span></span><span class="linha"><span class="num">9</span><span class="com"># o programa pede o segredo pelo nome, na hora de usar</span></span><span class="linha"><span class="num">10</span>az keyvault secret show --vault-name $COFRE --name banco-fichas --query value -o tsv</span></code></pre></div>
+              <p class="dica cuidado"><strong>A área restrita recusou o cofre?</strong> Se aparecer <code>RequestDisallowedByPolicy</code> ou <code>Forbidden</code>, a área restrita não liberou o Key Vault hoje. Acompanhe este passo pela projeção da professora, ou faça depois com o Azure for Students.</p>
               <div class="faca-assim desafio">
-                <strong>Agora é com você:</strong>
+                <strong>Agora é com você (desafio):</strong>
                 <ol>
-                  <li>Veja como um programa em Python lê o segredo (o código abaixo usa a biblioteca <code>boto3</code>, que já vem no CloudShell). Rode com <code>python3</code> no terminal e confira que o usuário aparece.</li>
-                  <li>No repositório da disciplina, crie um <code>.gitignore</code> com a linha <code>.env</code>: arquivo de senha local nunca vai para o GitHub.</li>
+                  <li>Leia o programa abaixo: é assim que um sistema em Python pede a senha ao cofre, sem senha nenhuma escrita no código. Quem dá a permissão é a <strong>identidade gerenciada</strong> (conceito C4).</li>
+                  <li>No repositório do projeto, crie um <code>.gitignore</code> com a linha <code>.env</code>: arquivo de senha local nunca vai para o GitHub.</li>
                 </ol>
               </div>
-              <div class="arquivo-codigo"><div class="arquivo-cab"><span>ler_segredo.py</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>import json</span><span class="linha"><span class="num">2</span>import boto3</span><span class="linha"><span class="num">3</span></span><span class="linha"><span class="num">4</span><span class="com"># o programa pede a senha ao gerenciador de segredos na hora de usar</span></span><span class="linha"><span class="num">5</span>cliente = boto3.client(&quot;secretsmanager&quot;, region_name=&quot;us-east-1&quot;)</span><span class="linha"><span class="num">6</span>resposta = cliente.get_secret_value(SecretId=&quot;lab/banco-fichas&quot;)</span><span class="linha"><span class="num">7</span>segredo = json.loads(resposta[&quot;SecretString&quot;])</span><span class="linha"><span class="num">8</span></span><span class="linha"><span class="num">9</span>print(&quot;Usuário do banco:&quot;, segredo[&quot;usuario&quot;])</span><span class="linha"><span class="num">10</span><span class="com"># a senha fica em segredo[&quot;senha&quot;]: nunca escreva a senha no código nem no GitHub</span></span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>ler_segredo.py</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># ler_segredo.py: como um programa em Python pede a senha ao Key Vault</span></span><span class="linha"><span class="num">2</span><span class="com"># (no computador: pip install azure-identity azure-keyvault-secrets)</span></span><span class="linha"><span class="num">3</span>from azure.identity import DefaultAzureCredential</span><span class="linha"><span class="num">4</span>from azure.keyvault.secrets import SecretClient</span><span class="linha"><span class="num">5</span></span><span class="linha"><span class="num">6</span>cofre = SecretClient(vault_url=&quot;https://NOME-DO-SEU-COFRE.vault.azure.net&quot;,</span><span class="linha"><span class="num">7</span>                     credential=DefaultAzureCredential())   # sem senha no código</span><span class="linha"><span class="num">8</span>senha = cofre.get_secret(&quot;banco-fichas&quot;).value</span><span class="linha"><span class="num">9</span>print(&quot;Consegui a senha, com&quot;, len(senha), &quot;caracteres&quot;)   # nunca imprima a senha</span></code></pre></div>
             </div>
           </div>
 
@@ -293,21 +299,21 @@
             <div class="texto">
               <span class="olho">Passo 5 · itens 5 e 6 da atividade</span>
               <h3>A LGPD no caso da Toyota</h3>
-              <p>Os controles técnicos dos passos 1 a 4 cumprem uma obrigação da lei. Em grupo, imaginem que o caso da Toyota tivesse acontecido no Brasil, com a clínica Bem Cuidar, e respondam no Loop:</p>
+              <p>Os controles técnicos dos passos 2 a 4 cumprem uma obrigação da lei. Em grupo, imaginem que o caso da Toyota tivesse acontecido no Brasil, com a clínica Bem Cuidar, no Azure, e respondam no Loop:</p>
               <div class="faca-assim">
                 <strong>Roteiro da discussão:</strong>
                 <ol>
                   <li><strong>Que dados vazaram e de que tipo?</strong> Na clínica, ficha de saúde é dado pessoal sensível (art. 5º, II). Na Toyota, a localização dos carros também identifica pessoas.</li>
                   <li><strong>Que obrigação foi descumprida?</strong> O art. 46 manda adotar medidas de segurança técnicas e administrativas para proteger os dados de acessos não autorizados. Qual controle do laboratório de hoje teria evitado o vazamento?</li>
                   <li><strong>O que a empresa deve fazer depois?</strong> O art. 48 manda comunicar à ANPD e aos titulares o incidente que possa causar risco ou dano relevante. Pelo regulamento da ANPD (Resolução CD/ANPD nº 15, de 2024), o prazo é de 3 dias úteis.</li>
-                  <li><strong>Por que ninguém percebeu por quase dez anos?</strong> Anotem a resposta: ela é o assunto da aula 12, registro em log e monitoramento.</li>
+                  <li><strong>Por que ninguém percebeu por quase dez anos?</strong> Anotem a resposta: ela é o assunto da aula 12, registro em log e monitoramento no Azure.</li>
                 </ol>
               </div>
               <div class="faca-assim">
                 <strong>Para terminar:</strong>
                 <ol>
                   <li>Responda a lista de exercícios no Moodle (item 6 da atividade).</li>
-                  <li>No laboratório, clique em <strong>End Lab</strong> ao sair: os recursos ficam guardados para a próxima aula, e o crédito do laboratório não é gasto à toa.</li>
+                  <li>Não precisa apagar nada: a área restrita do Learn some sozinha, com tudo dentro.</li>
                 </ol>
               </div>
             </div>
@@ -324,7 +330,7 @@
             <p>Em maio de 2023, a Toyota admitiu que dados de veículos de cerca de 2,15 milhões de clientes no Japão, incluindo localização, ficaram acessíveis na internet de novembro de 2013 a abril de 2023. A causa foi uma configuração de nuvem errada, que deixava o acesso sem senha. Ninguém percebeu por quase uma década.</p>
             <h3>Para discutir em grupo</h3>
             <ol>
-              <li>Que controle desta aula teria evitado o problema?</li>
+              <li>Que controle desta aula teria evitado o problema, no Azure?</li>
               <li>Por que ninguém percebeu por tanto tempo? (Guarde a resposta para a aula 12.)</li>
               <li>Se fosse no Brasil, o que a LGPD exigiria da empresa?</li>
             </ol>
@@ -332,23 +338,82 @@
           </div>
         </section>
 
+        <!-- ===================== DESAFIO GAMIFICADO ===================== -->
+        <section class="parte" id="tradutor">
+          <div class="cab">
+            <span class="olho">G1 · desafio gamificado</span>
+            <h2>Tradutor AWS → Azure</h2>
+            <p>Em dupla: para cada serviço da AWS que a turma usou no 1º bimestre, digam o nome no Azure <strong>antes</strong> de abrir a carta. Cada acerto vale 10 XP; acertar as 12 dá a insígnia <strong>Bilíngue da nuvem</strong>. A professora fecha com um Kahoot!.</p>
+          </div>
+          <div class="steam">
+            <details class="cartao">
+              <summary><strong>Conta da AWS</strong> · e no Azure?</summary>
+              <p>Assinatura (subscription), dentro de um diretório do Entra ID</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>IAM (usuários, grupos, políticas)</strong> · e no Azure?</summary>
+              <p>Microsoft Entra ID + Azure RBAC (funções)</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>VPC e sub-redes</strong> · e no Azure?</summary>
+              <p>Rede virtual (VNet) e sub-redes</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>Security group</strong> · e no Azure?</summary>
+              <p>Grupo de segurança de rede (NSG)</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>EC2</strong> · e no Azure?</summary>
+              <p>Máquina virtual (VM)</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>S3 (bucket)</strong> · e no Azure?</summary>
+              <p>Conta de armazenamento e contêiner (Blob Storage)</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>KMS e Secrets Manager</strong> · e no Azure?</summary>
+              <p>Azure Key Vault</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>AWS Backup</strong> · e no Azure?</summary>
+              <p>Azure Backup</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>CloudTrail</strong> · e no Azure?</summary>
+              <p>Log de atividades (Azure Monitor)</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>CloudWatch</strong> · e no Azure?</summary>
+              <p>Azure Monitor</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>AWS Config</strong> · e no Azure?</summary>
+              <p>Azure Policy</p>
+            </details>
+            <details class="cartao">
+              <summary><strong>GuardDuty e Security Hub</strong> · e no Azure?</summary>
+              <p>Microsoft Defender for Cloud</p>
+            </details>
+          </div>
+        </section>
+
         <!-- ===================== ATIVIDADE ===================== -->
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Armazenamento seguro</h2>
-            <p>No laboratório e no Moodle. O passo a passo de cada item está no <a href="#na-tela">tutorial</a>, logo acima. O que você marcar fica salvo neste navegador.</p>
+            <h2>Dados bem guardados no Azure</h2>
+            <p>Na área restrita do Learn. O passo a passo de cada item está no <a href="#na-tela">tutorial</a>, logo acima. O que você marcar fica salvo neste navegador.</p>
           </div>
           <div class="cartao">
-            <div class="progresso-atividade" data-progresso="passos-aula-11">
+            <div class="progresso-atividade" data-progresso="passos-aula-11-azure">
               <span class="contagem">0 de 6</span>
               <span class="barra-progresso"><span></span></span>
             </div>
-            <ol class="checklist" id="passos-aula-11">
-              <li><label><input type="checkbox"><span>Criei um bucket e conferi o bloqueio de acesso público. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
-              <li><label><input type="checkbox"><span>Ativei o versionamento e testei recuperar um arquivo apagado. <a href="#passo-2">Veja o passo 2.</a></span></label></li>
-              <li><label><input type="checkbox"><span>Escrevi uma política de bucket que nega acesso sem HTTPS. <a href="#passo-3">Veja o passo 3.</a></span></label></li>
-              <li><label><input type="checkbox"><span>Guardei uma senha no gerenciador de segredos e li pelo terminal. <a href="#passo-4">Veja o passo 4.</a></span></label></li>
+            <ol class="checklist" id="passos-aula-11-azure">
+              <li><label><input type="checkbox"><span>Ativei a área restrita e achei a minha escada: diretório, assinatura e grupo de recursos. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Criei uma conta de armazenamento fechada e testei que a ficha não abre pela internet. <a href="#passo-2">Veja o passo 2.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Liguei a exclusão reversível e recuperei um arquivo apagado. <a href="#passo-3">Veja o passo 3.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Guardei uma senha no Key Vault e li pelo Cloud Shell. <a href="#passo-4">Veja o passo 4.</a></span></label></li>
               <li><label><input type="checkbox"><span>Discuti com o grupo as obrigações da LGPD no caso da Toyota. <a href="#passo-5">Veja o passo 5.</a></span></label></li>
               <li><label><input type="checkbox"><span>Entreguei a lista de exercícios no Moodle. <a href="#passo-5">Veja o passo 5.</a></span></label></li>
             </ol>
@@ -359,18 +424,18 @@
         <section class="parte" id="steam">
           <div class="cab">
             <span class="olho">S1 · conexão STEAM</span>
-            <h2>Cópias, versões e leis</h2>
+            <h2>Cópias, cofres e leis</h2>
           </div>
           <div class="steam">
             <div class="cartao">
               <span class="letra">E</span>
               <h3>Engenharia</h3>
-              <p>A regra 3-2-1 do backup: 3 cópias, em 2 tipos de armazenamento, 1 fora do lugar principal. É a mesma ideia da redundância das pontes e dos aviões.</p>
+              <p>A regra 3-2-1 do backup: 3 cópias, em 2 tipos de armazenamento, 1 fora do lugar principal. A redundância GRS do Azure é o "1 fora": uma cópia a centenas de quilômetros.</p>
             </div>
             <div class="cartao">
               <span class="letra">T</span>
               <h3>Tecnologia</h3>
-              <p>O versionamento do S3 funciona como o histórico do Git: cada mudança vira uma versão, e dá para voltar atrás.</p>
+              <p>A exclusão reversível é a lixeira do computador, só que na nuvem e com prazo. O versionamento é o histórico do Git: cada mudança vira uma versão.</p>
             </div>
             <div class="cartao">
               <span class="letra">A</span>
@@ -385,7 +450,7 @@
           <div class="cab">
             <span class="olho">D1 · desafio extra</span>
             <h2>Terminou antes? Tem mais.</h2>
-            <p>Crie uma regra de ciclo de vida no bucket (aba <strong>Management › Create lifecycle rule</strong>) que apaga as versões antigas depois de 30 dias. É a retenção do backup na prática: guardar o suficiente, sem guardar para sempre.</p>
+            <p>Faça o módulo do Microsoft Learn <a href="https://learn.microsoft.com/pt-br/training/modules/describe-security-concepts-methodologies/">Descrever conceitos e metodologias de segurança</a>, o primeiro da trilha do SC-900, e compare: o que ele fala de responsabilidade compartilhada é igual ao que a turma viu na AWS, na aula 3?</p>
           </div>
         </section>
 
@@ -396,23 +461,29 @@
             <h2>Para estudar e praticar</h2>
           </div>
           <div class="repos">
-            <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/AmazonS3/latest/userguide/access-control-block-public-access.html">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Docs</span>
-              <h4>Bloqueio de acesso público do S3</h4>
-              <p>Como o bloqueio funciona e por que deixar ligado.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#ff9900"><i></i>Documentação</span><span class="etiqueta">consulta</span></span>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>SC-900: segurança, conformidade e identidade</h4>
+              <p>A trilha grátis, em português, que acompanha o 2º bimestre.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">trilha</span></span>
+            </a>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/azure/storage/common/storage-network-security">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>Segurança da conta de armazenamento</h4>
+              <p>Rede, acesso público e TLS na conta de armazenamento.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
+            </a>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/azure/key-vault/general/overview">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>Azure Key Vault</h4>
+              <p>Segredos, chaves e certificados guardados fora do código.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
             </a>
             <a class="repo luz" href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>planalto.gov.br</span>
               <h4>Lei Geral de Proteção de Dados</h4>
               <p>O texto da lei: os artigos 5º, 46 e 48 são os da aula.</p>
               <span class="repo-pe"><span class="ling" style="--cor:#2e7d5b"><i></i>Lei</span><span class="etiqueta">leitura</span></span>
-            </a>
-            <a class="repo luz" href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
-              <h4>SC-900: segurança, conformidade e identidade</h4>
-              <p>O jeito do Azure em cada pilar, de graça e em português.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#0078d4"><i></i>Azure</span><span class="etiqueta">como é no Azure</span></span>
             </a>
           </div>
         </section>
@@ -424,7 +495,7 @@
             <div>
               <span class="olho">E1 · entrega</span>
               <h3>Lista de exercícios no Moodle</h3>
-              <p>Na próxima aula: registro em log e monitoramento, para ninguém ficar dez anos sem perceber.</p>
+              <p>Na próxima aula: registro em log e monitoramento no Azure, para ninguém ficar dez anos sem perceber.</p>
             </div>
           </div>
         </section>
