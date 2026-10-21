@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 13: Detecção de ameaças e projeto final · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 13 de Segurança em Nuvem: serviços de detecção de ameaças, análise de logs com IA e lançamento do projeto final.">
+  <title>Aula 13: Do AWS ao Azure e detecção de ameaças · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 13 de Segurança em Nuvem: os fundamentos do Azure pelo que a turma já sabe da AWS, a detecção de ameaças com o Defender for Cloud, o Sentinel e consultas KQL, e o lançamento do projeto final.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@100..125,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="../assets/css/estilo.css">
   <link rel="stylesheet" href="../assets/css/disciplina.css?v=4">
-  <link rel="stylesheet" href="../assets/css/aula.css?v=2">
+  <link rel="stylesheet" href="../assets/css/aula.css?v=3">
   <link rel="stylesheet" href="../assets/css/neon.css?v=2">
   <link rel="stylesheet" href="../assets/css/conta.css?v=4">
 </head>
@@ -33,7 +33,9 @@
       <nav class="nav" id="menu" aria-label="Partes da aula">
         <a href="../#aulas">← Todas as aulas</a>
         <a href="#conceitos">Conceitos</a>
+        <a href="#na-tela">Tutorial</a>
         <a href="#caso">Caso</a>
+        <a href="#uti">UTI</a>
         <a href="#atividade">Atividade</a>
         <a href="#materiais">Materiais</a>
         <a href="#entrega">Entrega</a>
@@ -74,11 +76,11 @@
         <div class="aula-etiquetas">
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Aula 13</span>
-          <span class="etiqueta">Projeto</span>
-          <span class="etiqueta">Unidade 4</span>
+          <span class="etiqueta">Laboratório de práticas</span>
+          <span class="etiqueta">Unidade 4 · Azure</span>
         </div>
-        <h1>Desconfiar com método</h1>
-        <p class="subtitulo">Detecção de ameaças, análise de logs e o lançamento do projeto final.</p>
+        <h1>O Azure de olho, e o plantão começa</h1>
+        <p class="subtitulo">A caça a ataques com KQL, o painel do Defender for Cloud, a UTI da Nuvem e o lançamento do projeto final.</p>
       </div>
     </section>
 
@@ -88,15 +90,15 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Conhecer a detecção de ameaças, analisar logs e começar o projeto final.</p>
+            <p>Detectar ameaças nos logs com o Defender for Cloud, o Sentinel e a KQL, jogar a UTI da Nuvem e lançar o projeto final no Learner Lab da AWS.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Revisar registro em log.</p>
+            <p>Revisar a aula 12 e conferir o acesso à AWS Academy (o Learner Lab é o do projeto).</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
-            <p>Participação na definição do projeto.</p>
+            <p>Participação na atividade e na definição do projeto.</p>
           </div>
         </div>
       </div>
@@ -105,31 +107,161 @@
     <div class="bloco">
       <div class="envolve aula-corpo">
 
+        <!-- ===================== O PROBLEMA ===================== -->
+        <section class="parte" id="problema">
+          <div class="cab">
+            <span class="olho">P1 · o problema</span>
+            <h2>Uma agulha num palheiro de logs</h2>
+            <p>Na aula 12, a nuvem ganhou câmera (o log) e alarme (o alerta). Mas numa empresa são milhões de linhas de log por dia, e alguém precisa achar o ataque no meio delas. Hoje, a pergunta que importa: <strong>como o Azure avisa que está sendo atacado?</strong> E a turma começa o projeto final.</p>
+          </div>
+        </section>
+
         <!-- ===================== CONCEITOS ===================== -->
         <section class="parte" id="conceitos">
           <div class="cab">
             <span class="olho">C1–C2 · conceitos</span>
-            <h2>Do registro ao alerta</h2>
+            <h2>Do log ao incidente</h2>
           </div>
 
-          <div class="conceito" style="grid-template-columns:1fr">
+          <div class="conceito">
             <div class="texto">
               <span class="olho">C1</span>
-              <h3>Detecção de ameaças</h3>
-              <p>Serviços de detecção (como o Amazon GuardDuty) cruzam logs, tráfego e listas de endereços maliciosos e avisam sozinhos: login de um país estranho, máquina falando com servidor de mineração de criptomoeda, chave usada fora do padrão.</p>
-              <p>Os achados vão para um <strong>painel de segurança</strong>, com prioridade.</p>
-              <p class="dica"><strong>Dica:</strong> no Azure, os nomes são Microsoft Defender for Cloud e Microsoft Sentinel (SIEM).</p>
+              <h3>Detecção de ameaças: o Defender for Cloud e o Sentinel</h3>
+              <p>O <strong>Microsoft Defender for Cloud</strong> faz duas coisas: confere as configurações e dá a <strong>pontuação de segurança</strong>, com as recomendações (a parte grátis), e detecta ataques nas máquinas, bancos e armazenamento, com <strong>alertas</strong> (os planos pagos).</p>
+              <p>O <strong>Microsoft Sentinel</strong> é o <strong>SIEM</strong> da Microsoft: junta os logs de tudo (Azure, Entra ID, Microsoft 365, firewall), cruza com regras e abre <strong>incidentes</strong>. E é também <strong>SOAR</strong>: responde sozinho com um <strong>playbook</strong>, o assunto da próxima aula.</p>
             </div>
-            
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span><span class="com"># do log ao incidente</span></span><span class="linha"><span class="num">2</span>logs ........ Entra ID, Log de atividades, VMs, firewall</span><span class="linha"><span class="num">3</span>regra ....... mais de 50 falhas de login em 10 minutos</span><span class="linha"><span class="num">4</span>incidente ... aberto no Sentinel, com prioridade</span><span class="linha"><span class="num">5</span>resposta .... playbook: bloquear a conta e avisar a equipe</span></code></pre>
           </div>
 
-          <div class="conceito" style="grid-template-columns:1fr">
+          <div class="conceito">
             <div class="texto">
               <span class="olho">C2</span>
-              <h3>Lendo logs com ajuda da IA</h3>
-              <p>A IA ajuda a resumir e achar padrões num log grande. A regra continua: só dados fictícios ou anonimizados, e toda conclusão é conferida.</p>
+              <h3>Lendo logs com KQL, e com a ajuda da IA</h3>
+              <p>A <strong>KQL</strong> é a linguagem de consulta dos logs no Azure. Começa pelo nome da tabela, e cada <code>|</code> passa o resultado para o próximo filtro: <code>where</code> filtra, <code>summarize</code> conta, <code>top</code> pega os maiores, <code>render</code> desenha o gráfico.</p>
+              <p>A IA ajuda a resumir um log grande e a escrever a consulta. A regra continua: só dados fictícios ou anonimizados, e toda conclusão é conferida no próprio log.</p>
             </div>
-            
+            <pre class="codigo"><code><span class="linha"><span class="num">1</span>SecurityEvent                         // a tabela</span><span class="linha"><span class="num">2</span>| where EventID == 4625               // só logins que falharam</span><span class="linha"><span class="num">3</span>| summarize Tentativas = count() by Account</span><span class="linha"><span class="num">4</span>| top 10 by Tentativas                // as 10 contas mais atacadas</span></code></pre>
+          </div>
+        </section>
+
+        <!-- ===================== TUTORIAL ===================== -->
+        <section class="parte" id="na-tela">
+          <div class="cab">
+            <span class="olho">T1 · tutorial</span>
+            <h2>Mão na massa: detecção, simulador e projeto em 5 passos</h2>
+            <p>É a atividade da aula, botão por botão. O passo 1 funciona só com a conta Microsoft, sem assinatura e sem cartão. Faça um passo de cada vez e confira o <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
+          </div>
+
+          <div class="conceito" style="grid-template-columns:1fr" id="passo-1">
+            <div class="texto">
+              <span class="olho">Passo 1 · item 1 da atividade</span>
+              <h3>Caçando ataques com KQL</h3>
+              <p>O <strong>Microsoft Sentinel</strong> e o <strong>Defender for Cloud</strong> guardam os logs num <strong>workspace do Log Analytics</strong> e conversam numa linguagem própria de consulta: a <strong>KQL</strong> (Kusto Query Language). Cada linha começa com um <code>|</code> e passa o resultado para a próxima, como uma esteira. A Microsoft deixa aberto um ambiente de demonstração com dados de verdade.</p>
+              <div class="faca-assim">
+                <strong>Faça assim:</strong>
+                <ol>
+                  <li>Abra o ambiente de demonstração do Log Analytics: <a href="https://aka.ms/LADemo">aka.ms/LADemo</a>. Ele pede para entrar com a conta Microsoft.</li>
+                  <li>Feche a janela de consultas de exemplo, se ela abrir. Na área de consulta, apague o que tiver, cole a primeira consulta abaixo e clique em <strong>Executar</strong> (ou <kbd>Shift</kbd> + <kbd>Enter</kbd>).</li>
+                  <li>Leia o resultado: cada linha é uma conta e um computador, com o número de logins que <strong>falharam</strong> (o evento 4625 do Windows). Centenas de falhas na mesma conta, em pouco tempo, é força bruta: alguém tentando adivinhar a senha.</li>
+                  <li>Rode a segunda consulta: o gráfico mostra a hora do ataque.</li>
+                </ol>
+              </div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>consulta KQL</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>// logins que falharam (evento 4625 do Windows) nas últimas 24 horas,</span><span class="linha"><span class="num">2</span>// contados por conta e por computador: as 10 contas mais atacadas</span><span class="linha"><span class="num">3</span>SecurityEvent</span><span class="linha"><span class="num">4</span>| where TimeGenerated &gt; ago(1d)</span><span class="linha"><span class="num">5</span>| where EventID == 4625</span><span class="linha"><span class="num">6</span>| summarize Tentativas = count() by Account, Computer</span><span class="linha"><span class="num">7</span>| top 10 by Tentativas</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>consulta KQL</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>// as mesmas falhas, hora a hora, num gráfico: o pico é o ataque</span><span class="linha"><span class="num">2</span>SecurityEvent</span><span class="linha"><span class="num">3</span>| where TimeGenerated &gt; ago(1d)</span><span class="linha"><span class="num">4</span>| where EventID == 4625</span><span class="linha"><span class="num">5</span>| summarize Tentativas = count() by bin(TimeGenerated, 1h)</span><span class="linha"><span class="num">6</span>| render timechart</span></code></pre></div>
+              <div class="faca-assim">
+                <strong>Teste (erros de propósito):</strong>
+                <ol>
+                  <li>Troque <code>EventID</code> por <code>EventId</code> (com o d minúsculo) e execute: a KQL diferencia maiúsculas de minúsculas, e o erro diz que a coluna não existe.</li>
+                  <li>Veio tudo vazio? O ambiente de demonstração muda com o tempo: troque <code>ago(1d)</code> por <code>ago(7d)</code>.</li>
+                </ol>
+              </div>
+              <div class="faca-assim desafio">
+                <strong>Agora é com você:</strong>
+                <ol>
+                  <li>Troque o <code>4625</code> por <code>4624</code> (login com sucesso). Alguma das contas mais atacadas também conseguiu entrar? Isso é o pior sinal: a senha foi adivinhada.</li>
+                  <li>Conte as falhas por endereço de origem: <code>summarize Tentativas = count() by IpAddress</code>. De onde vem o ataque?</li>
+                </ol>
+              </div>
+              <p class="dica"><strong>Na empresa,</strong> uma consulta dessas vira uma <strong>regra de análise</strong> no Sentinel: ela roda sozinha a cada 5 minutos e abre um <strong>incidente</strong> quando passa do limite. É o alerta da aula 12, agora para ataques.</p>
+            </div>
+          </div>
+
+          <div class="conceito" style="grid-template-columns:1fr" id="passo-2">
+            <div class="texto">
+              <span class="olho">Passo 2 · item 2 da atividade</span>
+              <h3>O painel de segurança: o Defender for Cloud</h3>
+              <p>O <strong>Microsoft Defender for Cloud</strong> confere as configurações da assinatura o tempo todo (a parte grátis faz isso) e dá uma <strong>pontuação de segurança</strong> (secure score), com a lista do que corrigir primeiro. Na AWS, o mesmo papel é do Security Hub e do GuardDuty, que a turma viu no 1º bimestre.</p>
+              <div class="faca-assim">
+                <strong>Faça assim (com o Azure for Students, ou acompanhando a projeção da professora):</strong>
+                <ol>
+                  <li>No <a href="https://portal.azure.com">portal do Azure</a>, digite <strong>Defender for Cloud</strong> na busca do topo e abra.</li>
+                  <li>Na <strong>Visão geral</strong>, veja a <strong>Pontuação de segurança</strong>: quanto mais perto de 100%, mais protegida a assinatura.</li>
+                  <li>Clique em <strong>Recomendações</strong>. Abra uma delas (por exemplo, sobre MFA ou sobre contas de armazenamento) e leia: o risco, os recursos afetados e os passos para corrigir.</li>
+                  <li>Ache uma recomendação que tenha a ver com as aulas 11 e 12, como o TLS mínimo ou o acesso público das contas de armazenamento: é a regra do seu <code>conformidade.sh</code>, pronta.</li>
+                </ol>
+              </div>
+              <p class="dica cuidado"><strong>Assinatura novinha?</strong> O Defender for Cloud leva algumas horas (até um dia) para calcular a primeira pontuação. Se aparecer vazio, olhe de novo na próxima aula. Os <strong>alertas</strong> de ataque (a parte que detecta) vêm nos planos pagos do Defender; aqui ficamos na parte grátis.</p>
+            </div>
+          </div>
+
+          <div class="conceito" style="grid-template-columns:1fr" id="passo-3">
+            <div class="texto">
+              <span class="olho">Passo 3 · item 3 da atividade</span>
+              <h3>A IA lendo o log, e você conferindo</h3>
+              <p>A IA ajuda a ler um log grande e a achar o padrão. Mas só com dados <strong>fictícios ou anonimizados</strong> (log de verdade tem nome, e-mail e endereço de gente de verdade), e toda conclusão dela é conferida no próprio log.</p>
+              <div class="faca-assim">
+                <strong>Faça assim:</strong>
+                <ol>
+                  <li>Abra o <a href="https://copilot.microsoft.com">Copilot</a> com a conta do Senac.</li>
+                  <li>Cole o pedido e, embaixo, o log fictício da Vale Verde (os dois blocos abaixo).</li>
+                  <li>Para cada sinal de alerta que a IA apontar, ache a linha no log. Ela acertou a linha? Inventou algo que não está lá?</li>
+                </ol>
+              </div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>pedido para a IA</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>Analise este log fictício de entradas no Azure de uma empresa.</span><span class="linha"><span class="num">2</span>Liste os sinais de alerta, em ordem de gravidade, e diga em que linha está cada um.</span><span class="linha"><span class="num">3</span>Depois, sugira a primeira ação de resposta. Não invente nada que não esteja no log.</span></code></pre></div>
+              <div class="arquivo-codigo"><div class="arquivo-cab"><span>log fictício (Vale Verde)</span><button type="button">⧉ Copiar</button></div><pre class="codigo"><code><span class="linha"><span class="num">1</span>horario;usuario;pais;cidade;acao;resultado</span><span class="linha"><span class="num">2</span>03:02;joao@valeverde.com.br;Brasil;Brasília;Entrar no portal;Falha (senha errada)</span><span class="linha"><span class="num">3</span>03:04;joao@valeverde.com.br;Brasil;Brasília;Entrar no portal;Falha (senha errada)</span><span class="linha"><span class="num">4</span>03:09;joao@valeverde.com.br;Brasil;Brasília;Entrar no portal;Sucesso</span><span class="linha"><span class="num">5</span>03:11;joao@valeverde.com.br;Países Baixos;Amsterdã;Entrar no portal;Sucesso</span><span class="linha"><span class="num">6</span>03:12;joao@valeverde.com.br;Países Baixos;Amsterdã;Criar segredo no aplicativo app-financeiro;Sucesso</span><span class="linha"><span class="num">7</span>03:13;joao@valeverde.com.br;Países Baixos;Amsterdã;Listar contas de armazenamento;Sucesso</span><span class="linha"><span class="num">8</span>08:30;maria@valeverde.com.br;Brasil;Brasília;Entrar no portal;Sucesso</span></code></pre></div>
+              <div class="faca-assim">
+                <strong>Teste:</strong>
+                <ol>
+                  <li>Pergunte à IA: "o que aconteceu às 05:00?". Não há nada às 05:00 no log. Ela admite, ou inventa uma resposta? Por isso a conferência é sua.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <div class="conceito" style="grid-template-columns:1fr" id="passo-4">
+            <div class="texto">
+              <span class="olho">Passo 4 · item 4 da atividade</span>
+              <h3>A UTI da Nuvem, em equipe</h3>
+              <p>Hora de juntar tudo: a <strong>UTI da Nuvem</strong> é o simulador da disciplina. A nuvem da Clínica Bem Cuidar deu entrada na UTI, e a equipe é o plantão de segurança, do orçamento ao código vermelho.</p>
+              <div class="faca-assim">
+                <strong>Faça assim:</strong>
+                <ol>
+                  <li>Em equipe (a mesma do projeto), abram a <a href="../simulador/">UTI da Nuvem</a> num computador só.</li>
+                  <li>Uma pessoa entra com o e-mail da faculdade (botão <strong>Entrar</strong>, no topo): assim a pontuação vai para o ranking da turma.</li>
+                  <li>Joguem as 5 fases conversando antes de cada decisão. A triagem (fase 4) é a aula de hoje: ataque, alarme falso ou investigar?</li>
+                  <li>No relatório de alta, escolham as 3 decisões mais difíceis e anotem no Loop por que escolheram cada uma.</li>
+                </ol>
+              </div>
+              <p class="dica">Jogou de novo e foi melhor? Vale a melhor pontuação de cada pessoa no ranking.</p>
+            </div>
+          </div>
+
+          <div class="conceito" style="grid-template-columns:1fr" id="passo-5">
+            <div class="texto">
+              <span class="olho">Passo 5 · itens 5 e 6 da atividade</span>
+              <h3>O lançamento do projeto final, no Learner Lab da AWS</h3>
+              <p>O projeto final é a <strong>arquitetura de segurança na nuvem</strong> para o cenário de um cliente, montada de verdade no <strong>Learner Lab da AWS Academy</strong>, camada por camada: identidade, rede, dados, monitoramento e resposta. O Learner Lab guarda o que o grupo criou de uma aula para a outra. E, para cada controle, o grupo mostra como seria no Azure: os dois bimestres juntos.</p>
+              <div class="faca-assim">
+                <strong>Faça assim:</strong>
+                <ol>
+                  <li>Leiam a <a href="../projeto/">página do projeto final</a>: os cenários, o que construir, o que entregar, a rubrica (7,0 pontos) e o cronograma.</li>
+                  <li>Formem grupos de 3 ou 4 pessoas e escolham o cenário.</li>
+                  <li>Cada pessoa confere se o <strong>Learner Lab</strong> abre na AWS Academy (<strong>Start Lab</strong>, bolinha verde). Quem não tiver acesso, avisa a professora hoje.</li>
+                  <li>Criem o workspace do grupo no <strong>Loop</strong> e o repositório no <strong>GitHub</strong>, com um <code>README.md</code> com o cenário e o nome de cada um.</li>
+                  <li>Abram uma <strong>issue</strong> para cada camada (identidade, rede, dados, monitoramento e resposta) e dividam quem cuida de qual.</li>
+                </ol>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -140,15 +272,25 @@
             <h2>O log da madrugada</h2>
           </div>
           <div class="cartao caso">
-            <p>A Distribuidora Vale Verde (fictícia) recebeu o registro abaixo. Em três minutos, o mesmo usuário fez login de dois países, criou uma chave de acesso nova e listou todos os buckets.</p>
-            <p><code>03:10 ConsoleLogin joao (Brasil)</code><br><code>03:11 ConsoleLogin joao (outro continente)</code><br><code>03:12 CreateAccessKey joao</code><br><code>03:13 ListBuckets joao</code></p>
+            <p>A Distribuidora Vale Verde recebeu o registro de entradas do Microsoft Entra ID abaixo. Em dez minutos, o mesmo usuário errou a senha, acertou, entrou de dois países, criou um segredo num aplicativo e listou as contas de armazenamento.</p>
+            <p><code>03:02 Falha (senha errada) joao · Brasília</code><br><code>03:09 Sucesso joao · Brasília</code><br><code>03:11 Sucesso joao · Amsterdã</code><br><code>03:12 Criar segredo no app-financeiro</code><br><code>03:13 Listar contas de armazenamento</code></p>
             <h3>Para discutir em grupo</h3>
             <ol>
-              <li>Que sinais de alerta você vê?</li>
-              <li>Isso pode ter uma explicação inocente?</li>
-              <li>Qual seria a primeira ação, antes de investigar mais?</li>
+              <li>Que sinais de alerta você vê? (Pense na "viagem impossível": Brasília e Amsterdã em dois minutos.)</li>
+              <li>Isso pode ter uma explicação inocente? (VPN, por exemplo.)</li>
+              <li>Qual seria a primeira ação, antes de investigar mais? E qual função do RBAC o João deveria ter?</li>
             </ol>
             <p class="fonte">Caso fictício, criado para a aula.</p>
+          </div>
+        </section>
+
+        <!-- ===================== DESAFIO GAMIFICADO ===================== -->
+        <section class="parte" id="uti">
+          <div class="cab">
+            <span class="olho">G1 · desafio gamificado</span>
+            <h2>🚑 UTI da Nuvem</h2>
+            <p>O simulador da disciplina: monitor de UTI, cinco fases, combos, insígnias e o <strong>ranking da turma</strong>. A equipe com a maior pontuação ganha a insígnia de plantão do mês. Veja o <a href="#passo-4">passo 4</a>.</p>
+            <p><a class="botao" href="../simulador/">Abrir a UTI da Nuvem →</a></p>
           </div>
         </section>
 
@@ -156,22 +298,21 @@
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Detecção e lançamento do projeto</h2>
-            <p>Primeiro a análise, depois os grupos. O que você marcar fica salvo neste navegador e, se você entrar com o e-mail da faculdade (botão <strong>Entrar</strong>, no topo), na sua conta.</p>
+            <h2>Detecção, simulador e projeto</h2>
+            <p>O passo a passo de cada item está no <a href="#na-tela">tutorial</a>, logo acima. O que você marcar fica salvo neste navegador e, se você entrar com o e-mail da faculdade (botão <strong>Entrar</strong>, no topo), na sua conta.</p>
           </div>
-
           <div class="cartao">
-            <div class="progresso-atividade" data-progresso="passos-aula-13">
+            <div class="progresso-atividade" data-progresso="passos-aula-13-azure">
               <span class="contagem">0 de 6</span>
               <span class="barra-progresso"><span></span></span>
             </div>
-            <ol class="checklist" id="passos-aula-13">
-              <li><label><input type="checkbox"><span>Explorei o painel de achados de segurança no laboratório.</span></label></li>
-              <li><label><input type="checkbox"><span>Analisei o log de exemplo com apoio da IA, usando só dados fictícios.</span></label></li>
-              <li><label><input type="checkbox"><span>Conferi as conclusões da IA no próprio log.</span></label></li>
-              <li><label><input type="checkbox"><span>Projeto final: formei o grupo.</span></label></li>
-              <li><label><input type="checkbox"><span>Escolhemos o cenário do cliente: migração de um sistema local, nova aplicação web ou ambiente com dados pessoais sensíveis.</span></label></li>
-              <li><label><input type="checkbox"><span>Criamos o workspace do grupo no Loop e o repositório no GitHub para a documentação.</span></label></li>
+            <ol class="checklist" id="passos-aula-13-azure">
+              <li><label><input type="checkbox"><span>Rodei a consulta KQL que acha os logins que falharam e o gráfico do ataque. <a href="#passo-1">Veja o passo 1.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Explorei a pontuação de segurança e as recomendações do Defender for Cloud. <a href="#passo-2">Veja o passo 2.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Analisei o log fictício com a IA e conferi cada conclusão no próprio log. <a href="#passo-3">Veja o passo 3.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Joguei a UTI da Nuvem com a equipe e anotei as 3 decisões mais difíceis. <a href="#passo-4">Veja o passo 4.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Projeto final: formamos o grupo, escolhemos o cenário e conferimos o Learner Lab. <a href="#passo-5">Veja o passo 5.</a></span></label></li>
+              <li><label><input type="checkbox"><span>Criamos o Loop e o repositório no GitHub, com uma issue por camada. <a href="#passo-5">Veja o passo 5.</a></span></label></li>
             </ol>
           </div>
         </section>
@@ -186,13 +327,27 @@
             <div class="cartao">
               <span class="letra">M</span>
               <h3>Matemática</h3>
-              <p>Viagem impossível é física: ninguém troca de continente em um minuto. A detecção calcula distância e tempo entre dois logins.</p>
+              <p>Viagem impossível é física: de Brasília a Amsterdã são mais de 8 mil quilômetros. Em dois minutos, seria preciso voar a mais de 240 mil km/h. A detecção calcula distância dividida por tempo.</p>
+            </div>
+            <div class="cartao">
+              <span class="letra">T</span>
+              <h3>Tecnologia</h3>
+              <p>O gráfico da KQL é uma série temporal, a mesma ideia de um sensor de temperatura no Wokwi: o pico fora do normal é o evento que interessa.</p>
             </div>
             <div class="cartao">
               <span class="letra">A</span>
               <h3>Artes</h3>
               <p>Um bom painel de segurança é design: o alerta grave salta aos olhos, o resto espera.</p>
             </div>
+          </div>
+        </section>
+
+        <!-- ===================== DESAFIO EXTRA ===================== -->
+        <section class="parte" id="desafio">
+          <div class="cab">
+            <span class="olho">D1 · desafio extra</span>
+            <h2>Terminou antes? Tem mais.</h2>
+            <p>No <a href="https://learn.microsoft.com/pt-br/training/courses/sc-900t00#course-syllabus">curso SC-900T00</a>, faça o módulo do Microsoft Sentinel (na trilha das soluções de segurança da Microsoft) e escreva, no README do projeto, uma regra de detecção que o seu cenário precisaria.</p>
           </div>
         </section>
 
@@ -203,23 +358,29 @@
             <h2>Para estudar e praticar</h2>
           </div>
           <div class="repos">
-            <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/guardduty/latest/ug/what-is-guardduty.html">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Docs</span>
-              <h4>Amazon GuardDuty</h4>
-              <p>Detecção de ameaças na AWS.</p>
-              <span class="repo-pe"><span class="ling" style="--cor:#9fd0b7"><i></i>Documentação</span><span class="etiqueta">consulta</span></span>
-            </a>
             <a class="repo luz" href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
               <h4>SC-900: segurança, conformidade e identidade</h4>
-              <p>O jeito do Azure em cada pilar, de graça e em português.</p>
-              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">como é no Azure</span></span>
+              <p>A trilha grátis, em português, que acompanha o 2º bimestre.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">trilha</span></span>
             </a>
-            <a class="repo luz" href="https://docs.github.com/pt/issues/tracking-your-work-with-issues/about-issues">
-              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>GitHub Docs</span>
-              <h4>Sobre as issues</h4>
-              <p>Para organizar o projeto do grupo.</p>
-              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/github.svg" alt="" width="20" height="20"></span>GitHub</span><span class="etiqueta">projeto</span></span>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/azure/defender-for-cloud/defender-for-cloud-introduction">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>Microsoft Defender for Cloud</h4>
+              <p>A pontuação de segurança, as recomendações e os alertas.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
+            </a>
+            <a class="repo luz" href="https://learn.microsoft.com/pt-br/kusto/query/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Microsoft Learn</span>
+              <h4>KQL: a linguagem de consulta</h4>
+              <p>Os comandos where, summarize, top e render, com exemplos.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">consulta</span></span>
+            </a>
+            <a class="repo luz" href="https://maristelaoliveira.github.io/Preparatorio-AZ900/">
+              <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>Preparatório AZ-900</span>
+              <h4>Os fundamentos do Azure, com calma</h4>
+              <p>O preparatório da Stela, com os três domínios e o mini-simulado.</p>
+              <span class="repo-pe"><span class="ling"><span class="tec" style="--t:1.45rem"><img src="../assets/img/tec/azure.svg" alt="" width="20" height="20"></span>Azure</span><span class="etiqueta">revisão</span></span>
             </a>
           </div>
         </section>
@@ -231,20 +392,20 @@
             <div>
               <span class="olho">E1 · entrega</span>
               <h3>Grupo, cenário e repositório</h3>
-              <p>Na próxima aula, o exercício de mesa: uma chave vazou. E agora?</p>
+              <p>Na próxima aula, a resposta a incidentes: o código vermelho da UTI da Nuvem vira exercício de mesa e o playbook do projeto.</p>
             </div>
           </div>
         </section>
 
         <nav class="nav-aulas" aria-label="Outras aulas">
           <!-- EDITE AQUI: use <a href="aula-NN.html"> quando a página da aula vizinha for liberada; <span> enquanto não for -->
-          <span class="anterior">
+          <a class="anterior" href="aula-12.html">
             <span class="olho">← aula anterior</span>
-            <strong>Aula 12: Registro em log e monitoramento</strong>
-          </span>
+            <strong>Aula 12: A nuvem com câmera e alarme</strong>
+          </a>
           <span class="proxima">
             <span class="olho">próxima aula →</span>
-            <strong>Aula 14: Resposta a incidentes</strong>
+            <strong>Aula 14: Resposta e gerenciamento de incidentes</strong>
           </span>
         </nav>
 
@@ -270,6 +431,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script src="../assets/js/conta.js?v=5" data-disciplina="seguranca-nuvem"></script>
   <script src="../assets/js/aulas.js?v=3"></script>
+  <script src="../assets/js/copiar-codigo.js?v=1"></script>
   <script src="../assets/js/matrix.js?v=2"></script>
 </body>
 </html>
