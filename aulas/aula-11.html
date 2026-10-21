@@ -179,7 +179,7 @@
             <span class="olho">T1 · tutorial</span>
             <h2>Mão na massa: o laboratório no Azure em 5 passos</h2>
             <p>É a atividade da aula, na área restrita do Microsoft Learn: só precisa da conta Microsoft, sem assinatura e sem cartão. Faça um passo de cada vez e confira o <strong>Teste</strong> antes de seguir. Os comandos têm o botão <strong>⧉ Copiar</strong>.</p>
-            <p class="acoes-learn" style="display:flex; flex-wrap:wrap; gap:.6rem"><a class="botao" href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/3-exercise-explore-learn-sandbox">Abrir a área restrita no Microsoft Learn →</a> <a class="botao contorno" href="#trilhas">Trilhas do AZ-900 e do SC-900</a></p>
+            <p class="acoes-learn" style="display:flex; flex-wrap:wrap; gap:.6rem"><a class="botao" href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/">Abrir a área restrita no Microsoft Learn →</a> <a class="botao contorno" href="#trilhas">Trilhas do AZ-900 e do SC-900</a></p>
           </div>
 
           <div class="conceito" style="grid-template-columns:1fr" id="antes">
@@ -190,10 +190,12 @@
                 <strong>Faça assim:</strong>
                 <ol>
                   <li>Abra o <a href="https://learn.microsoft.com/pt-br/">Microsoft Learn</a> e clique em <strong>Entrar</strong> com a sua conta Microsoft (a do Senac ou uma pessoal).</li>
-                  <li>Abra o exercício <a href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/3-exercise-explore-learn-sandbox">Explorar a área restrita do Learn</a> (é do AZ-900) e clique em <strong>Ativar a área restrita</strong>. Aceite as permissões.</li>
+                  <li>Abra o módulo do AZ-900 <a href="https://learn.microsoft.com/pt-br/training/modules/describe-core-architectural-components-of-azure/">Descrever os principais componentes de arquitetura do Azure</a> e vá até a <strong>unidade 4</strong>, <strong>Exercício: Explorar a área restrita do Learn</strong> (dá para pular as unidades 1 a 3 pelo índice do módulo).</li>
+                  <li>Clique em <strong>Ativar a área restrita</strong> e aceite as permissões.</li>
                   <li>Em um minuto, o <strong>Cloud Shell</strong>, o terminal do Azure no navegador, aparece do lado direito da página, com o Azure CLI (<code>az</code>) pronto. Abriu em PowerShell? Digite <code>bash</code> e <kbd>Enter</kbd>.</li>
                 </ol>
               </div>
+              <p class="dica cuidado"><strong>A área restrita não ativou?</strong> A conta do Senac (de escola ou empresa) às vezes é bloqueada para a área restrita: entre no Learn com uma <strong>conta Microsoft pessoal</strong> (Outlook ou Hotmail) e tente de novo. Se a área restrita estiver fora do ar, abra outra aba e ative pela unidade 7 do mesmo módulo (<strong>Exercício: Criar um recurso do Azure</strong>). Não deu de jeito nenhum? Faça com o <strong>Azure for Students</strong> (abaixo) ou acompanhe pela projeção da professora.</p>
               <p class="dica">A área restrita é um Azure de verdade, grátis, sem cartão, que se apaga sozinho depois de algumas horas. Não recarregue a página no meio do laboratório: as variáveis do terminal (<code>$NOME</code>, <code>$GRUPO</code>) somem. Se sumirem, rode de novo a primeira parte do passo 2.</p>
               <p class="dica"><strong>Quer o seu próprio Azure, para o projeto final?</strong> O <a href="https://azure.microsoft.com/pt-br/free/students">Azure for Students</a> dá crédito grátis por 12 meses, sem cartão, com o e-mail de estudante.</p>
             </div>
@@ -452,7 +454,7 @@
           <div class="cab">
             <span class="olho">D1 · desafio extra</span>
             <h2>Terminou antes? Tem mais.</h2>
-            <p>Faça o módulo do Microsoft Learn <a href="https://learn.microsoft.com/pt-br/training/modules/describe-security-concepts-methodologies/">Descrever conceitos e metodologias de segurança</a>, o primeiro da trilha do SC-900, e compare: o que ele fala de responsabilidade compartilhada é igual ao que a turma viu na AWS, na aula 3?</p>
+            <p>Faça o módulo do Microsoft Learn <a href="https://learn.microsoft.com/pt-br/training/modules/describe-security-concepts-methodologies/">Descrever conceitos de segurança e conformidade</a>, o primeiro da trilha do SC-900, e compare: o que ele fala de responsabilidade compartilhada é igual ao que a turma viu na AWS, na aula 3?</p>
           </div>
         </section>
 
@@ -478,12 +480,12 @@
               <span class="letra">SC</span>
               <h3>SC-900: segurança, conformidade e identidade</h3>
               <ol>
-                <li><a href="https://learn.microsoft.com/pt-br/training/paths/describe-concepts-of-security-compliance-identity/">Descrever os conceitos de segurança, conformidade e identidade</a></li>
-                <li><a href="https://learn.microsoft.com/pt-br/training/paths/describe-capabilities-of-microsoft-identity-access/">Descrever os recursos do Microsoft Entra</a></li>
-                <li><a href="https://learn.microsoft.com/pt-br/training/paths/describe-capabilities-of-microsoft-security-solutions/">Descrever os recursos das soluções de segurança da Microsoft</a></li>
-                <li><a href="https://learn.microsoft.com/pt-br/training/paths/describe-capabilities-of-microsoft-compliance-solutions/">Descrever os recursos das soluções de conformidade da Microsoft</a></li>
+                <li><a href="https://learn.microsoft.com/pt-br/training/paths/describe-concepts-of-security-compliance-identity/">Descrever os conceitos de segurança, conformidade e identidade</a> (comece por aqui)</li>
+                <li>Identidade e acesso: o Microsoft Entra</li>
+                <li>As soluções de segurança da Microsoft (Defender for Cloud e Sentinel)</li>
+                <li>As soluções de conformidade da Microsoft (Purview)</li>
               </ol>
-              <p><a href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">Página da certificação SC-900</a></p>
+              <p>As quatro trilhas, na ordem, estão na <a href="https://learn.microsoft.com/pt-br/credentials/certifications/security-compliance-and-identity-fundamentals/">página da certificação SC-900</a>, na parte de preparação para o exame.</p>
             </div>
           </div>
         </section>
