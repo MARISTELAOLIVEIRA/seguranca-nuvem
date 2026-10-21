@@ -1,5 +1,5 @@
 /* ===================================================================
-   conta.js: login dos alunos nos sites das disciplinas · versão 3 · 2026-10-14 (nome com maiúsculas, mostrado na tela; não regrava o cadastro; áreas data-exige-login)
+   conta.js: login dos alunos nos sites das disciplinas · versão 4 · 2026-10-21 (progresso dos checklists na conta: disc_progresso)
    (cópia comum às disciplinas; o dos preparatórios é outro, em js/conta.js de lá)
 
    O site continua aberto para todo mundo. Para REGISTRAR o resultado de um quiz
@@ -13,6 +13,11 @@
        atividade: "pyquiz", titulo: "PyQuiz", acertos: 8, total: 10, duracao_seg: 312, detalhes: {...}
      });
      // registro = { codigo: "A1B2C3D4", feito_em: "2026-10-14T..." } ou null (não entrou / deu erro)
+
+   Progresso dos checklists das aulas (versão 4; SQL em Placa-Mae/supabase/progresso-disciplinas.sql):
+     const salvo = await CONTA.carregarProgresso();          // { "aulas/aula-11.html|passos-aula-11": [0, 2], ... } ou null
+     CONTA.salvarProgresso("aulas/aula-11.html", "passos-aula-11", [0, 2], 6);
+   O aulas.js usa as duas sozinho: quem entra com o e-mail da faculdade guarda o checklist na conta.
 
    A disciplina vem do atributo data-disciplina do <script> (ou da primeira pasta do endereço).
    A chave abaixo é a PÚBLICA (publishable): a segurança está nas regras do banco (RLS).
@@ -193,6 +198,40 @@ window.CONTA = (function () {
     return error ? null : data;
   }
 
+  /* ---------- progresso dos checklists (disc_progresso) ---------- */
+
+  // todo o progresso do aluno nesta disciplina, por "pagina|lista"; null se não entrou ou deu erro
+  async function carregarProgresso() {
+    if (!nuvem || !usuario || !emailDaFaculdade(usuario.email)) return null;
+    const { data, error } = await nuvem
+      .from("disc_progresso")
+      .select("pagina, lista, marcadas")
+      .eq("aluno_id", usuario.id)
+      .eq("disciplina", DISCIPLINA);
+    if (error) return null;
+    const salvo = {};
+    data.forEach((linha) => {
+      salvo[linha.pagina + "|" + linha.lista] = linha.marcadas || [];
+    });
+    return salvo;
+  }
+
+  // grava os itens marcados de um checklist (só com o login da faculdade); devolve true se gravou
+  async function salvarProgresso(pagina, lista, marcadas, total) {
+    if (!nuvem || !usuario || !emailDaFaculdade(usuario.email)) return false;
+    if (!(await garantirCadastro())) return false;
+    const { error } = await nuvem.from("disc_progresso").upsert({
+      aluno_id: usuario.id,
+      disciplina: DISCIPLINA,
+      pagina: pagina,
+      lista: lista,
+      marcadas: marcadas,
+      total: total,
+      atualizado_em: new Date().toISOString(),
+    });
+    return !error;
+  }
+
   // registra o resultado; se o aluno ainda não entrou, abre a janela e espera o login
   function registrarTentativa(dados) {
     if (!nuvem) return Promise.resolve(null);
@@ -226,7 +265,7 @@ window.CONTA = (function () {
 
   function atualizarBotao() {
     botao.textContent = !usuario ? "Entrar" : nomeConta ? "Olá, " + primeiroNome() : "Olá!";
-    botao.title = usuario ? "Conectado como " + (nomeConta || usuario.email) : "Entrar com o e-mail da faculdade para registrar os resultados";
+    botao.title = usuario ? "Conectado como " + (nomeConta || usuario.email) : "Entrar com o e-mail da faculdade para salvar o progresso e registrar os resultados";
   }
 
   const janela = document.createElement("dialog");
@@ -277,7 +316,7 @@ window.CONTA = (function () {
     }
     janela.innerHTML = `
       <h2 id="conta-titulo">Entrar</h2>
-      <p class="conta-explica">${escapar(aviso || "O site funciona sem login. Entrando, os seus resultados nos quizzes e atividades ficam registrados para a professora.")}
+      <p class="conta-explica">${escapar(aviso || "O site funciona sem login. Entrando, o progresso das aulas fica salvo na sua conta (em qualquer computador) e os resultados dos quizzes e atividades ficam registrados para a professora.")}
         Use o e-mail da faculdade (<strong>${CONTA_DOMINIO}</strong>).</p>
       <div class="conta-abas" role="tablist">
         <button type="button" role="tab" aria-selected="true" data-aba="entrar">Já tenho conta</button>
@@ -292,8 +331,8 @@ window.CONTA = (function () {
           <button type="submit">Entrar</button>
           <button type="button" data-acao="fechar" class="sec">Cancelar</button>
         </div>
-        <p class="conta-lgpd">Guardamos só o seu nome, o e-mail e os resultados das atividades, para a professora
-          lançar as notas. Nada é compartilhado.</p>
+        <p class="conta-lgpd">Guardamos só o seu nome, o e-mail, os itens marcados nas aulas e os resultados das
+          atividades, para a professora acompanhar a turma e lançar as notas. Nada é compartilhado.</p>
       </form>`;
     let aba = "entrar";
     const form = janela.querySelector("form");
@@ -390,6 +429,8 @@ window.CONTA = (function () {
     aoMudar,
     abrir,
     registrarTentativa,
+    carregarProgresso,
+    salvarProgresso,
     disciplina: DISCIPLINA,
     usuario: () => usuario,
     nome: () => nomeConta,
