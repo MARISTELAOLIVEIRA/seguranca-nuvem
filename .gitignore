@@ -2,7 +2,5 @@
 .DS_Store
 .vscode/
 
-# notas pessoais e configurações locais do Claude Code
+# notas pessoais (ficam só no computador)
 leia.txt
-CLAUDE.md
-.claude/
