@@ -114,7 +114,7 @@ $ aws cloudtrail lookup-events --semestre 2026.2
 | 🧰 **Serviços da AWS nas aulas** | IAM, VPC, S3, WAF, KMS, Secrets Manager, CloudTrail, CloudWatch e AWS Config. |
 | ⌨️ **Terminal**, **AWS CLI** e **CloudShell** | Conferir pela linha de comando o que o console mostra. |
 | 🔷 **Microsoft Learn** (SC-900 e AZ-900) | O jeito do Azure em cada pilar, e o caminho para as certificações Microsoft Fundamentals. |
-| 🐙 **GitHub** com **secret scanning** | Guardar o trabalho e pegar chave esquecida no código antes dos robôs. |
+| <img src="https://maristelaoliveira.github.io/assets/img/octocat-stela.webp" width="22" height="22" alt="Octocat da Stela" align="absmiddle"> **GitHub** com **secret scanning** | Guardar o trabalho e pegar chave esquecida no código antes dos robôs. |
 | 💬 **Teams, Loop e Whiteboard** | Combinar, tirar dúvida e desenhar a arquitetura juntos. |
 | 🤖 **IA sem dados sensíveis** (Copilot) | Para ler políticas, analisar logs e documentar, sempre conferida no laboratório. |
 
