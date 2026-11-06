@@ -1,2 +1,0 @@
-"use strict";(globalThis.webpackChunk_genially_view_client=globalThis.webpackChunk_genially_view_client||[]).push([[628],{628(l,e,i){i.r(e),i.d(e,{default:()=>a});const a={}}}]);
-//# sourceMappingURL=https://s3-static-genially.genially.com/view/static/js/628.384071f3.chunk.js.map
