@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 16: Ajustes finais e ensaio da apresentação · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 16 de Segurança em Nuvem: ajustes finais no projeto e ensaio da apresentação do projeto final.">
+  <title>Aula 16: Stela Cloud, o plantão de incidentes · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 16 de Segurança em Nuvem: a atividade final do 2º bimestre no simulador Stela Cloud, um plantão de incidentes num portal de nuvem simulado.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -73,11 +73,11 @@
         <div class="aula-etiquetas">
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Aula 16</span>
-          <span class="etiqueta">Projeto</span>
+          <span class="etiqueta">Atividade final · vale 6</span>
           <span class="etiqueta">Unidade 5</span>
         </div>
-        <h1>Último ajuste antes do palco</h1>
-        <p class="subtitulo">Ajustes finais no projeto e ensaio da apresentação, com tempo marcado.</p>
+        <h1>Plantão no <span class="neon">Stela Cloud</span></h1>
+        <p class="subtitulo">Hoje você é o analista de segurança de plantão. A empresa está em chamas na nuvem, e só você pode apagar o incêndio.</p>
       </div>
     </section>
 
@@ -87,15 +87,15 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Fechar o projeto e ensaiar a apresentação do projeto final.</p>
+            <p>Resolver incidentes reais de segurança num portal de nuvem simulado, como num plantão de verdade.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Trazer o projeto e a lista de dúvidas do grupo.</p>
+            <p>Lembrar a senha da sua conta @edu.df.senac.br (tem "Esqueci a senha" no login) e revisar as aulas 11 a 14.</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
-            <p>Acompanhamento do projeto. A nota vem na apresentação do projeto final.</p>
+            <p>Vale 6 no 2º bimestre. Individual, com login. Vale a primeira tentativa.</p>
           </div>
         </div>
       </div>
@@ -111,10 +111,10 @@
             <h2>Como vai ser o encontro</h2>
           </div>
           <ol class="log">
-          <li class="commit"><div class="commit-linha"><h3>Ajustes orientados</h3><span class="hash">R1</span></div><p>A professora passa em cada grupo. Vocês saem com uma lista de ajustes por prioridade: primeiro o que não funciona, depois o que falta, por último o acabamento.</p></li>
-          <li class="commit"><div class="commit-linha"><h3>Mão na massa</h3><span class="hash">R2</span></div><p>Correções finais e conferência das entregas e da documentação no repositório.</p></li>
-          <li class="commit"><div class="commit-linha"><h3>Ensaio cronometrado</h3><span class="hash">R3</span></div><p>Problema, solução, demonstração e aprendizados, com tempo marcado. Inclua como a IA foi usada e o que foi feito sem ela.</p></li>
-          <li class="commit"><div class="commit-linha"><h3>Retorno entre grupos</h3><span class="hash">R4</span></div><p>Um grupo assiste ao ensaio do outro e aponta o que ficou claro e o que ficou confuso.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Briefing do plantão</h3><span class="hash">R1</span></div><p>A professora explica as regras e passa o código da sala no quadro. Ninguém começa antes do sinal.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Login e crachá</h3><span class="hash">R2</span></div><p>Entre em <strong>Atividades → Stela Cloud</strong>, faça login com o seu @edu e digite o código da sala. Você recebe o crachá de analista.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>O plantão: 50 minutos</h3><span class="hash">R3</span></div><p>Quatro incidentes sorteados para você. Investigue os logs, ache a causa e corrija a configuração no portal. Cuidado com as armadilhas: mexer no lugar errado tira pontos.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Relatório final</h3><span class="hash">R4</span></div><p>No fim, o sistema mostra o seu relatório e a sua patente. A nota vai direto para a professora.</p></li>
           </ol>
         </section>
 
@@ -122,16 +122,26 @@
         <section class="parte" id="caso">
           <div class="cab">
             <span class="olho">EC1 · estudo de caso</span>
-            <h2>O ensaio que salvou a apresentação</h2>
+            <h2>Os incidentes que podem cair para você</h2>
           </div>
           <div class="cartao caso">
-            <p>Um grupo ensaiou na véspera e descobriu que a demonstração levava o dobro do tempo combinado. Cortou dois slides, gravou um vídeo de plano B e, no dia, a internet caiu. Ninguém percebeu.</p>
-            <h3>Para discutir em grupo</h3>
+            <p>São 8 incidentes no total, e o sistema sorteia 4 para cada analista. Todos são problemas que acontecem de verdade em empresas na nuvem:</p>
+            <ul>
+              <li>🗄️ <strong>Stela Storage:</strong> dados que ficaram abertos para a internet.</li>
+              <li>🪪 <strong>Stela Identity:</strong> entraram na conta da diretoria de madrugada.</li>
+              <li>🛡️ <strong>Stela Network Guard:</strong> tentativas de senha no servidor a noite toda.</li>
+              <li>📈 <strong>Stela Monitor:</strong> apagaram uma máquina e ninguém foi avisado.</li>
+              <li>🔑 <strong>Stela Access Control:</strong> o estagiário virou dono da assinatura.</li>
+              <li>🔐 <strong>Stela Vault:</strong> a senha do banco foi parar no GitHub.</li>
+              <li>🖥️ <strong>Stela Compute:</strong> o servidor do portal virou alvo.</li>
+              <li>📉 <strong>Stela Defender:</strong> o secure score despencou.</li>
+            </ul>
+            <h3>Para pensar antes do plantão</h3>
             <ol>
-              <li>Quanto tempo a demonstração de vocês leva hoje?</li>
-              <li>Qual é o plano B se algo falhar na hora?</li>
+              <li>Em cada caso, qual princípio foi quebrado: menor privilégio, defesa em profundidade, segredo fora do código ou monitoramento?</li>
+              <li>Qual log você abriria primeiro para descobrir a causa?</li>
             </ol>
-            <p class="fonte">Caso fictício, criado para a aula.</p>
+            <p class="fonte">Empresa e incidentes fictícios, criados para a disciplina. O portal imita um portal de nuvem para treino; não é um serviço real.</p>
           </div>
         </section>
 
@@ -139,8 +149,8 @@
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Checklist do ensaio</h2>
-            <p>Para o grupo conferir antes de ir embora. O que você marcar fica salvo neste navegador.</p>
+            <h2>Checklist do plantão</h2>
+            <p>Para conferir antes e durante o plantão. O que você marcar fica salvo neste navegador.</p>
           </div>
 
           <div class="cartao">
@@ -149,13 +159,13 @@
               <span class="barra-progresso"><span></span></span>
             </div>
             <ol class="checklist" id="passos-aula-16">
-              <li><label><input type="checkbox"><span>Mostramos o projeto para a professora e anotamos os ajustes.</span></label></li>
-              <li><label><input type="checkbox"><span>Corrigimos o que não funcionava.</span></label></li>
-              <li><label><input type="checkbox"><span>A documentação está no repositório.</span></label></li>
-              <li><label><input type="checkbox"><span>Ensaiamos com o tempo marcado.</span></label></li>
-              <li><label><input type="checkbox"><span>Combinamos quem fala o quê.</span></label></li>
-              <li><label><input type="checkbox"><span>Temos um plano B (vídeo ou prints).</span></label></li>
-              <li><label><input type="checkbox"><span>Enviamos a versão final no Moodle.</span></label></li>
+              <li><label><input type="checkbox"><span>Sei a senha da minha conta @edu (ou já usei o "Esqueci a senha").</span></label></li>
+              <li><label><input type="checkbox"><span>Revisei as aulas 11 a 14: segredos, logs, monitoramento e resposta a incidentes.</span></label></li>
+              <li><label><input type="checkbox"><span>Entrei com o código da sala que a professora passou.</span></label></li>
+              <li><label><input type="checkbox"><span>Em cada incidente, li os logs antes de mexer em qualquer coisa.</span></label></li>
+              <li><label><input type="checkbox"><span>Corrigi a causa, não só o sintoma.</span></label></li>
+              <li><label><input type="checkbox"><span>Fiquei de olho no relógio dos 50 minutos.</span></label></li>
+              <li><label><input type="checkbox"><span>Vi o relatório final e a minha patente.</span></label></li>
             </ol>
           </div>
         </section>
@@ -182,8 +192,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <div>
               <span class="olho">E1 · entrega</span>
-              <h3>Versão final no Moodle</h3>
-              <p>Na próxima aula é a apresentação do projeto final. Venham com o ensaio fresco na memória.</p>
+              <h3>A entrega é o próprio plantão</h3>
+              <p>Não precisa mandar nada no Moodle: a nota vai sozinha para a professora quando o relatório aparece. Na próxima aula, a gente faz a devolutiva de cada incidente.</p>
             </div>
           </div>
         </section>
@@ -196,7 +206,7 @@
           </span>
           <a class="proxima" href="aula-17.html">
             <span class="olho">próxima aula →</span>
-            <strong>Aula 17: Apresentação do projeto final</strong>
+            <strong>Aula 17: Devolutiva do plantão no Stela Cloud</strong>
           </a>
         </nav>
 

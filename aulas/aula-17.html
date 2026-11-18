@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <!-- EDITE AQUI: número e tema da aula -->
-  <title>Aula 17: Apresentação do projeto final · Segurança em Nuvem · Stela</title>
-  <meta name="description" content="Aula 17 de Segurança em Nuvem: apresentação do projeto final e avaliação do 2º bimestre.">
+  <title>Aula 17: Devolutiva do plantão no Stela Cloud · Segurança em Nuvem · Stela</title>
+  <meta name="description" content="Aula 17 de Segurança em Nuvem: a devolutiva do plantão no Stela Cloud, incidente por incidente, e a preparação para a avaliação final de recuperação.">
 
   <link rel="icon" href="../assets/img/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
@@ -73,11 +73,11 @@
         <div class="aula-etiquetas">
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Aula 17</span>
-          <span class="etiqueta">Exposição prática</span>
+          <span class="etiqueta">Devolutiva</span>
           <span class="etiqueta">Unidade 5</span>
         </div>
-        <h1>Defenda a sua arquitetura</h1>
-        <p class="subtitulo">Os grupos apresentam a segurança proposta para o cliente, controle por controle.</p>
+        <h1>O raio-x do <span class="neon">plantão</span></h1>
+        <p class="subtitulo">Depois do incêndio, a reunião de lições aprendidas: o que aconteceu em cada incidente, onde a turma acertou e onde caiu nas armadilhas.</p>
       </div>
     </section>
 
@@ -87,15 +87,15 @@
         <div class="resumo">
           <div class="cartao">
             <span class="olho">Objetivo do dia</span>
-            <p>Apresentar e justificar a arquitetura de segurança proposta para o cenário do cliente.</p>
+            <p>Entender a causa e a correção de cada um dos 8 incidentes do Stela Cloud, mesmo os que não caíram para você.</p>
           </div>
           <div class="cartao">
             <span class="olho">Antes da aula</span>
-            <p>Finalizar o projeto e a documentação.</p>
+            <p>Lembrar dos incidentes que caíram no seu plantão e das dúvidas que ficaram.</p>
           </div>
           <div class="cartao">
             <span class="olho">Como conta ponto</span>
-            <p>Apresentação do projeto final (7,0 pontos).</p>
+            <p>Não vale nota: é a aula para aprender com os erros. Quem precisar da avaliação final de recuperação sai daqui preparado.</p>
           </div>
         </div>
       </div>
@@ -111,9 +111,9 @@
             <h2>Como vai ser o encontro</h2>
           </div>
           <ol class="log">
-          <li class="commit"><div class="commit-linha"><h3>Apresentações</h3><span class="hash">R1</span></div><p>A arquitetura e a justificativa de cada controle.</p></li>
-          <li class="commit"><div class="commit-linha"><h3>Debate</h3><span class="hash">R2</span></div><p>A turma pergunta: e se o cenário mudasse?</p></li>
-          <li class="commit"><div class="commit-linha"><h3>Avaliação</h3><span class="hash">R3</span></div><p>Atividade avaliativa prática do 2º bimestre (7,0 pontos).</p></li>
+          <li class="commit"><div class="commit-linha"><h3>O placar da turma</h3><span class="hash">R1</span></div><p>Quais incidentes a turma resolveu de primeira e quais foram mais difíceis (sem expor ninguém).</p></li>
+          <li class="commit"><div class="commit-linha"><h3>Incidente por incidente</h3><span class="hash">R2</span></div><p>A professora reabre cada caso no portal: o log que entregava a pista, a causa e a correção certa.</p></li>
+          <li class="commit"><div class="commit-linha"><h3>As armadilhas</h3><span class="hash">R3</span></div><p>Por que algumas "correções" pioravam a situação. Corrigir o sintoma não é corrigir a causa.</p></li>
           <li class="commit"><div class="commit-linha"><h3>Fechamento</h3><span class="hash">R4</span></div><p>Orientações para a avaliação final de recuperação, na próxima aula.</p></li>
           </ol>
         </section>
@@ -122,16 +122,17 @@
         <section class="parte" id="caso">
           <div class="cab">
             <span class="olho">EC1 · estudo de caso</span>
-            <h2>E se o cenário mudasse?</h2>
+            <h2>A reunião de lições aprendidas</h2>
           </div>
           <div class="cartao caso">
-            <p>Durante a apresentação, a turma sorteia uma mudança para o grupo responder na hora: o cliente dobrou de tamanho; um funcionário com acesso de administrador saiu brigado; a lei passou a exigir os dados no Brasil; o orçamento caiu pela metade.</p>
-            <h3>Para discutir em grupo</h3>
+            <p>Em toda resposta a incidente de verdade, o último passo é a reunião de lições aprendidas (lembra das fases da aula 14?). Ninguém procura culpado: a pergunta é "o que a gente muda para isso não acontecer de novo?". Hoje é a nossa.</p>
+            <h3>Para pensar em cada incidente</h3>
             <ol>
-              <li>Que controle da sua arquitetura muda primeiro?</li>
-              <li>Qual continua igual, e por quê?</li>
+              <li>Qual foi a pista no log que entregava a causa?</li>
+              <li>Qual princípio de segurança tinha sido quebrado?</li>
+              <li>Que controle teria evitado o incidente desde o começo?</li>
             </ol>
-            <p class="fonte">Caso fictício, criado para a aula.</p>
+            <p class="fonte">Incidentes fictícios do simulador Stela Cloud, criados para a disciplina.</p>
           </div>
         </section>
 
@@ -139,22 +140,21 @@
         <section class="parte" id="atividade">
           <div class="cab">
             <span class="olho">A1 · atividade</span>
-            <h2>Checklist da apresentação</h2>
-            <p>Para o grupo conferir antes. O que você marcar fica salvo neste navegador.</p>
+            <h2>Checklist da devolutiva</h2>
+            <p>Para conferir durante a aula. O que você marcar fica salvo neste navegador.</p>
           </div>
 
           <div class="cartao">
             <div class="progresso-atividade" data-progresso="passos-aula-17">
-              <span class="contagem">0 de 6</span>
+              <span class="contagem">0 de 5</span>
               <span class="barra-progresso"><span></span></span>
             </div>
             <ol class="checklist" id="passos-aula-17">
-              <li><label><input type="checkbox"><span>O diagrama cobre os cinco pilares.</span></label></li>
-              <li><label><input type="checkbox"><span>Cada controle tem justificativa no README.</span></label></li>
-              <li><label><input type="checkbox"><span>Sabemos explicar a escolha entre AWS, Azure ou multicloud.</span></label></li>
-              <li><label><input type="checkbox"><span>Ensaiamos a apresentação.</span></label></li>
-              <li><label><input type="checkbox"><span>Pensamos em respostas para "e se o cenário mudasse?".</span></label></li>
-              <li><label><input type="checkbox"><span>Entregamos o link do repositório no Moodle.</span></label></li>
+              <li><label><input type="checkbox"><span>Entendi a causa dos 4 incidentes que caíram para mim.</span></label></li>
+              <li><label><input type="checkbox"><span>Vi a correção dos outros 4, que não caíram.</span></label></li>
+              <li><label><input type="checkbox"><span>Sei por que as armadilhas pioravam o problema.</span></label></li>
+              <li><label><input type="checkbox"><span>Consigo ligar cada incidente a um princípio: menor privilégio, segredo fora do código, defesa em profundidade ou monitoramento.</span></label></li>
+              <li><label><input type="checkbox"><span>Anotei as minhas dúvidas para a avaliação final de recuperação.</span></label></li>
             </ol>
           </div>
         </section>
@@ -169,7 +169,7 @@
             <a class="repo luz" href="https://docs.aws.amazon.com/pt_br/wellarchitected/latest/security-pillar/welcome.html">
               <span class="repo-nome"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#ic-repo"/></svg>AWS Docs</span>
               <h4>Pilar de segurança do Well-Architected</h4>
-              <p>Para conferir a arquitetura antes de apresentar.</p>
+              <p>Para revisar os controles de cada incidente.</p>
               <span class="repo-pe"><span class="ling" style="--cor:#9fd0b7"><i></i>Documentação</span><span class="etiqueta">referência</span></span>
             </a>
           </div>
@@ -181,8 +181,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <div>
               <span class="olho">E1 · entrega</span>
-              <h3>Link do repositório no Moodle</h3>
-              <p>Parabéns: vocês arquitetaram a segurança de um cliente de ponta a ponta.</p>
+              <h3>Sem entrega hoje</h3>
+              <p>Parabéns, analistas: vocês sobreviveram a um plantão de incidentes na nuvem. Agora é guardar as lições aprendidas.</p>
             </div>
           </div>
         </section>
@@ -191,7 +191,7 @@
           <!-- EDITE AQUI: use <a href="aula-NN.html"> quando a página da aula vizinha for liberada; <span> enquanto não for -->
           <span class="anterior">
             <span class="olho">← aula anterior</span>
-            <strong>Aula 16: Ajustes finais e ensaio</strong>
+            <strong>Aula 16: Stela Cloud, o plantão de incidentes</strong>
           </span>
           <span class="proxima">
             <span class="olho">próxima aula →</span>
