@@ -61,3 +61,13 @@
 @media (max-width: 640px) {
   .co-painel { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* a trava (versão 2): só abre depois da Parte 1 */
+.co-trava { display: grid; gap: .6rem; justify-items: center; text-align: center; padding: 2rem 1.2rem; }
+.co-trava[hidden], .co-jogo[hidden] { display: none; }
+.co-trava h3 { margin: 0; }
+.co-trava p { margin: 0; max-width: 34rem; line-height: 1.55; }
+.co-cadeado { font-size: 3rem; animation: co-balanca 2.4s ease-in-out infinite; }
+@keyframes co-balanca { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-8deg); } }
+.pausado .co-cadeado { animation: none; }
+@media (prefers-reduced-motion: reduce) { .co-cadeado { animation: none; } }

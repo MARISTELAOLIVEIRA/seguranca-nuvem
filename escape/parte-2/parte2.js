@@ -1,7 +1,7 @@
 /* ==============================================================
-   Agente da Nuvem · Parte 2: a contra-ofensiva · versão 1 · 2026-11-18
+   Agente da Nuvem · Parte 2: a contra-ofensiva · versão 2 · 2026-11-18 (trava: só depois da Parte 1)
    Jogo de decisões sobre resposta a incidentes (aula 14): 5 fases, 3 medidores.
-   Treino sem nota, sem login. Tudo fica nesta página (nada vai para o banco).
+   Treino sem nota. Só abre para quem entregou a credencial certa na Parte 1 (login @edu); o jogo em si não grava nada.
    ============================================================== */
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
@@ -189,5 +189,39 @@
     if (e.target.closest("[data-de-novo]")) return briefing();
   });
 
-  briefing();
+  // ---------- a trava: a Parte 2 só abre para quem concluiu a Parte 1 ----------
+  // A entrega do escape room só é registrada com o código certo da credencial (que aparece no fim da missão).
+  async function conferirCredencial() {
+    const texto = $("[data-trava-texto]");
+    const acoes = $("[data-trava-acoes]");
+    const abrir = (sim) => { $("[data-trava]").hidden = sim; $("[data-jogo]").hidden = !sim; };
+    if (!window.CONTA || !CONTA.usuario || !CONTA.usuario()) {
+      abrir(false);
+      texto.innerHTML = "Entre com o e-mail da faculdade (<b>@edu.df.senac.br</b>), no botão <b>Entrar</b>, lá em cima.";
+      acoes.innerHTML = '<button type="button" class="botao" data-entrar>Entrar</button>';
+      return;
+    }
+    texto.textContent = "Conferindo a sua credencial...";
+    acoes.innerHTML = "";
+    const nuvem = CONTA.cliente && CONTA.cliente();
+    let ok = false;
+    if (nuvem) {
+      const { data, error } = await nuvem.from("disc_tentativas").select("id")
+        .eq("aluno_id", CONTA.usuario().id).eq("atividade", "agente-secreto").gte("acertos", 1).limit(1);
+      ok = !error && data && data.length > 0;
+    }
+    if (ok) {
+      if ($("[data-jogo]").hidden) { abrir(true); briefing(); }
+      return;
+    }
+    abrir(false);
+    texto.innerHTML = "Esta missão é só para quem já é <b>Agente da Nuvem</b>. Termine o escape room da Parte 1, abra a maleta e entregue o código da credencial. Depois volte aqui.";
+    acoes.innerHTML = '<a class="botao" href="../#jogo">Ir para a Parte 1 →</a> <button type="button" class="botao contorno" data-conferir>Já entreguei: conferir de novo</button>';
+  }
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-entrar]") && window.CONTA) CONTA.abrir();
+    if (e.target.closest("[data-conferir]")) conferirCredencial();
+  });
+  if (window.CONTA && CONTA.aoMudar) CONTA.aoMudar(conferirCredencial);
+  conferirCredencial();
 })();

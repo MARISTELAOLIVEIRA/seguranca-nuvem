@@ -16,7 +16,8 @@
   <link rel="stylesheet" href="../../assets/css/disciplina.css?v=4">
   <link rel="stylesheet" href="../../assets/css/aula.css?v=3">
   <link rel="stylesheet" href="../../assets/css/neon.css?v=2">
-  <link rel="stylesheet" href="parte2.css?v=1">
+  <link rel="stylesheet" href="../../assets/css/conta.css?v=4">
+  <link rel="stylesheet" href="parte2.css?v=2">
 </head>
 <body>
 
@@ -64,6 +65,7 @@
         <div class="aula-etiquetas">
           <span class="etiqueta senac">Fac Senac DF</span>
           <span class="etiqueta ouro">Treino · sem nota</span>
+          <span class="etiqueta">Precisa da Parte 1</span>
           <span class="etiqueta">Resposta a incidentes</span>
           <span class="etiqueta">15 a 20 min</span>
         </div>
@@ -80,6 +82,14 @@
             <h2>Cinco decisões, uma clínica</h2>
             <p>Cada decisão mexe nos três medidores. Não existe game over: escolha ruim tem consequência, e você aprende com ela.</p>
           </div>
+          <!-- a trava: só abre para quem entregou a credencial certa na Parte 1 (atividade agente-secreto) -->
+          <div class="co-trava cartao" data-trava aria-live="polite">
+            <p class="co-cadeado" aria-hidden="true">🔒</p>
+            <h3>Acesso restrito a Agentes da Nuvem</h3>
+            <p data-trava-texto>Conferindo a sua credencial...</p>
+            <p class="co-acoes" data-trava-acoes></p>
+          </div>
+          <div class="co-jogo" data-jogo hidden>
           <div class="co-painel" aria-label="Medidores da clínica">
             <div class="co-medidor" data-medidor="dados"><span>🗂️ Fichas protegidas</span><div class="co-barra"><i></i></div><b>100</b></div>
             <div class="co-medidor" data-medidor="clinica"><span>🏥 Clínica funcionando</span><div class="co-barra"><i></i></div><b>100</b></div>
@@ -87,6 +97,7 @@
           </div>
           <ol class="co-fases" aria-label="Fases da resposta a incidentes" data-fases></ol>
           <div class="co-cena cartao" data-cena aria-live="polite"></div>
+          </div>
         </section>
         <nav class="nav-aulas" aria-label="Voltar">
           <a class="anterior" href="../">
@@ -107,7 +118,9 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="../../assets/js/conta.js?v=7" data-disciplina="seguranca-nuvem"></script>
   <script src="../../assets/js/matrix.js?v=2"></script>
-  <script src="parte2.js?v=1"></script>
+  <script src="parte2.js?v=2"></script>
 </body>
 </html>
