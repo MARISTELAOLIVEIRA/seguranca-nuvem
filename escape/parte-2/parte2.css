@@ -1,0 +1,63 @@
+/* Agente da Nuvem · Parte 2: a contra-ofensiva · versão 1 · 2026-11-18 */
+
+/* os três medidores da clínica */
+.co-painel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; margin: 1rem 0; }
+.co-medidor { display: grid; gap: .35rem; padding: .8rem .9rem; border-radius: 14px; border: 1px solid var(--borda-forte); background: var(--superficie); font-size: .9rem; }
+.co-medidor b { font: 800 1.2rem var(--f-mono); color: #39d98a; }
+.co-barra { height: .7rem; border-radius: 999px; background: var(--borda-forte); overflow: hidden; }
+.co-barra i { display: block; height: 100%; width: 100%; border-radius: inherit; background: #39d98a; transition: width .8s ease, background .8s ease; }
+.co-medidor.medio b { color: #f2b544; }
+.co-medidor.medio .co-barra i { background: #f2b544; }
+.co-medidor.baixo b { color: #ff5c5c; }
+.co-medidor.baixo .co-barra i { background: #ff5c5c; }
+
+/* a linha das fases */
+.co-fases { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1rem; padding: 0; list-style: none; }
+.co-fases li { display: inline-flex; gap: .35rem; align-items: center; padding: .35rem .7rem; border-radius: 999px; border: 1px solid var(--borda-forte); font-size: .85rem; color: var(--texto-2); }
+.co-fases li.agora { border-color: var(--neon); color: var(--texto); box-shadow: 0 0 12px color-mix(in srgb, var(--neon) 40%, transparent); }
+.co-fases li.feita { color: var(--texto); background: color-mix(in srgb, #39d98a 14%, transparent); border-color: #39d98a; }
+
+/* a cena */
+.co-cena { display: grid; gap: .8rem; }
+.co-cena h3 { margin: .2rem 0 0; font-size: 1.15rem; }
+.co-hora { margin: 0; font: 600 .8rem var(--f-mono); color: var(--neon); letter-spacing: .04em; text-transform: uppercase; }
+.co-texto { margin: 0; line-height: 1.6; }
+.co-alerta { margin: 0; padding: .8rem 1rem; border-radius: 12px; border-left: 4px solid #ff5c5c; background: color-mix(in srgb, #ff5c5c 10%, var(--superficie)); line-height: 1.55; animation: co-pisca 1.4s ease-out 1; }
+.co-opcoes { display: grid; gap: .5rem; }
+.co-opcoes button { padding: .8rem 1rem; border-radius: 12px; border: 2px solid var(--borda-forte); background: var(--superficie); color: var(--texto); font: inherit; text-align: left; cursor: pointer; transition: border-color .2s, transform .15s; }
+.co-opcoes button:hover:not(:disabled) { border-color: var(--neon); transform: translateX(3px); }
+.co-opcoes button:focus-visible { outline: 3px solid var(--neon); outline-offset: 2px; }
+.co-opcoes button.certa { border-color: #39d98a; background: color-mix(in srgb, #39d98a 14%, transparent); }
+.co-opcoes button.errada { border-color: #ff5c5c; background: color-mix(in srgb, #ff5c5c 12%, transparent); }
+.co-opcoes button:disabled { cursor: default; }
+
+/* o retorno de cada decisão */
+.co-retorno { display: grid; gap: .5rem; padding: 1rem; border-radius: 14px; border: 1px solid var(--borda-forte); background: var(--superficie-2); animation: co-entra .4s ease-out; }
+.co-retorno p { margin: 0; line-height: 1.55; }
+.co-carimbo { display: inline-block; justify-self: start; padding: .2rem .7rem; border: 3px solid currentColor; border-radius: 8px; font: 900 .95rem var(--f-mono); transform: rotate(-3deg); animation: co-carimba .45s ease-out; }
+.co-retorno.bom .co-carimbo { color: #39d98a; }
+.co-retorno.ruim .co-carimbo { color: #ff5c5c; }
+.co-mudancas span { display: inline-block; margin-right: .5rem; font: 700 .85rem var(--f-mono); }
+.co-mudancas .sobe { color: #39d98a; }
+.co-mudancas .desce { color: #ff5c5c; }
+.co-retorno .botao { justify-self: start; }
+
+/* o relatório */
+.co-patente { margin: 0; font: 900 clamp(1.4rem, 4vw, 2rem) var(--f-titulo); color: var(--neon); animation: co-carimba .6s ease-out; }
+.co-resumo { margin: 0; padding-left: 1.2rem; line-height: 1.7; }
+.co-acoes { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0; }
+
+@keyframes co-pisca { 0%, 30% { box-shadow: 0 0 0 0 #ff5c5c; } 100% { box-shadow: 0 0 0 10px transparent; } }
+@keyframes co-entra { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes co-carimba { 0% { transform: scale(1.8) rotate(-12deg); opacity: 0; } 100% { transform: rotate(-3deg); opacity: 1; } }
+
+.pausado .co-alerta, .pausado .co-retorno, .pausado .co-carimbo, .pausado .co-patente { animation: none; }
+.pausado .co-barra i { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .co-alerta, .co-retorno, .co-carimbo, .co-patente { animation: none; }
+  .co-barra i { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .co-painel { grid-template-columns: minmax(0, 1fr); }
+}

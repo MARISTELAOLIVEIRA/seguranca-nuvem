@@ -98,7 +98,8 @@
     enviando = false;
     if (registro) {
       avisa("certo", "Compilou de primeira! 🕵️ Credencial entregue. Você agora é Agente da Nuvem.<br>" +
-        "Código de verificação: <b>" + registro.codigo + "</b> (guarde, é o seu comprovante).");
+        "Código de verificação: <b>" + registro.codigo + "</b> (guarde, é o seu comprovante).<br><br>" +
+        "Os invasores ainda estão na nuvem da clínica... <a class=\"botao\" href=\"parte-2/\">Ir para a Parte 2: a contra-ofensiva →</a>");
       festa();
     } else {
       avisa("errado", "Não deu para registrar agora (a internet caiu?). Espere um pouco e aperte Entregar de novo.");
