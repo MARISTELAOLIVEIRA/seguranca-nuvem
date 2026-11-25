@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Stela Cloud">
+  <!-- Stela Cloud: nuvem com trilhas de circuito e a estrela da Stela (desenho original) -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 45h30a10 10 0 0 0 1.6-19.9A14.5 14.5 0 0 0 20.8 21.5 11.8 11.8 0 0 0 17 45Z" stroke="#d6b25e" stroke-width="3"/>
+    <path d="M22 45v7M32 45v11M42 45v4h8" stroke="#9fd0b7" stroke-width="2.4"/>
+  </g>
+  <g fill="#9fd0b7"><circle cx="22" cy="54" r="2.6"/><circle cx="32" cy="58" r="2.6"/><circle cx="52" cy="49" r="2.6"/></g>
+  <polygon points="32.0,25.5 33.8,30.5 39.1,30.7 34.9,34.0 36.4,39.1 32.0,36.1 27.6,39.1 29.1,34.0 24.9,30.7 30.2,30.5" fill="#ecc874"/>
+</svg>

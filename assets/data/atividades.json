@@ -1,5 +1,18 @@
 [
  {
+  "id": "stela-cloud",
+  "pasta": "stela-cloud/",
+  "titulo": "Stela Cloud: plantão de incidentes",
+  "descricao": "Avaliação gamificada: num portal de nuvem simulado, corrija 4 incidentes de segurança sorteados (identidade, rede, armazenamento, cofre, máquinas, monitoramento) em 50 minutos, sem derrubar o cliente. Individual, em sala, com o login da faculdade e o código da sala.",
+  "link": "",
+  "bimestre": "2º",
+  "valor": "4,0 pontos",
+  "arquivo": "",
+  "arquivo_nome": "",
+  "imagem": false,
+  "alt": ""
+ },
+ {
   "id": "agente-secreto",
   "pasta": "escape/",
   "titulo": "Escape room: Agente da Nuvem",
